@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Meus gastos</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{--bg:#d9ece6;--surface:rgba(255,255,255,.42);--ink:#14211f;--muted:#4a5f5a;--line:rgba(20,33,31,.14);--glass:rgba(255,255,255,.75);--accent:#0f4c45;--accent-ink:#fff;--hot:#e4572e;
 color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -14,12 +15,17 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(42vmax 42vmax at 10% 6%,rgba(20,184,160,.55),transparent 62%),radial-gradient(38vmax 38vmax at 92% 18%,rgba(255,138,101,.5),transparent 62%),radial-gradient(46vmax 46vmax at 72% 96%,rgba(100,120,255,.42),transparent 62%)}
 main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:28px 18px 56px}
-.total,.bars,form,#lista,input[type=month]{background:var(--surface);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border:1px solid var(--glass);border-radius:22px;box-shadow:0 10px 36px rgba(10,30,28,.12),inset 0 1px 0 var(--glass)}
+.total,.bars,form,#lista,input[type=month],.auth-bar{background:var(--surface);-webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);border:1px solid var(--glass);border-radius:22px;box-shadow:0 10px 36px rgba(10,30,28,.12),inset 0 1px 0 var(--glass)}
 header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.header-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 h1{font-size:1.1rem;font-weight:600;margin:0}
 input,select,button{font:inherit;color:inherit}
 input[type=month]{border-radius:12px;padding:7px 12px}
-.total{margin:24px 0 14px;padding:22px 24px}
+.auth-btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:7px 14px;font-weight:600;font-size:.9rem}
+.auth-btn.secondary{background:var(--surface);color:var(--ink);border:1px solid var(--glass)}
+.auth-bar{margin-top:12px;padding:10px 16px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+.sync-badge{font-weight:600;color:var(--accent)}
+.total{margin:16px 0 14px;padding:22px 24px}
 .total small{color:var(--muted);font-size:.95rem}
 .total strong{display:block;font-size:clamp(3rem,13vw,6rem);font-weight:800;line-height:1;letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
 .bars{margin:0 0 14px;padding:18px 22px;display:grid;gap:12px}
@@ -82,8 +88,17 @@ li .v{font-weight:600;font-variant-numeric:tabular-nums}
 <main>
 <header>
   <h1>Meus gastos</h1>
-  <input type="month" id="mes" aria-label="Mês">
+  <div class="header-controls">
+    <button type="button" class="auth-btn" id="bGoogleLogin">Entrar com Google</button>
+    <button type="button" class="auth-btn secondary" id="bGoogleLogout" hidden>Sair</button>
+    <input type="month" id="mes" aria-label="Mês">
+  </div>
 </header>
+
+<div class="auth-bar" aria-live="polite">
+  <span id="contaStatus">Modo local ativo — entre com o Google para sincronizar no seu Drive.</span>
+  <span class="sync-badge" id="syncStatus">Cache local</span>
+</div>
 
 <section class="total" aria-live="polite">
   <small>Saldo do mês</small>
@@ -159,10 +174,168 @@ li .v{font-weight:600;font-variant-numeric:tabular-nums}
 
 <script>
 const KEY="meus-gastos-v1";
+const GOOGLE_CLIENT_ID="701476095582-oanbqq0re8bdo7ldjo3t0pcrnt4sv3vf.apps.googleusercontent.com";
+const DRIVE_SCOPE="https://www.googleapis.com/auth/drive.appdata";
+const DRIVE_FILE_NAME="meus-gastos-dados.json";
+
 let gastos=[];
 try{gastos=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(e){gastos=[]}
 const $=id=>document.getElementById(id);
 const brl=n=>n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+
+let tokenClient=null;
+let driveAccessToken=null;
+let driveFileId=null;
+let syncTimer=null;
+
+function atualizarSyncUI(estado,detalhe){
+  $("syncStatus").textContent=estado;
+  if(detalhe)$("contaStatus").textContent=detalhe;
+}
+
+function mesclarGastos(remotos,locais){
+  const mapa=new Map();
+  (Array.isArray(remotos)?remotos:[]).forEach(item=>{
+    if(item&&item.id!=null&&item.data&&item.valor>0)mapa.set(String(item.id),item);
+  });
+  (Array.isArray(locais)?locais:[]).forEach(item=>{
+    if(item&&item.id!=null&&item.data&&item.valor>0&&!mapa.has(String(item.id))){
+      mapa.set(String(item.id),item);
+    }
+  });
+  return Array.from(mapa.values());
+}
+
+async function driveFetch(url,opcoes={}){
+  if(!driveAccessToken)throw new Error("Sem token do Google Drive.");
+  const headers=Object.assign({},opcoes.headers||{},{Authorization:"Bearer "+driveAccessToken});
+  const resp=await fetch(url,Object.assign({},opcoes,{headers}));
+  if(!resp.ok){
+    const txt=await resp.text().catch(()=>"");
+    throw new Error(`Erro no Google Drive (${resp.status}): ${txt||resp.statusText}`);
+  }
+  return resp;
+}
+
+async function carregarDoDrive(){
+  atualizarSyncUI("Sincronizando...","Carregando dados do seu Google Drive...");
+  const q=encodeURIComponent(`name='${DRIVE_FILE_NAME}' and trashed=false`);
+  const listResp=await driveFetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,name,modifiedTime)`);
+  const listJson=await listResp.json();
+  const arquivo=listJson.files&&listJson.files[0];
+
+  if(arquivo){
+    driveFileId=arquivo.id;
+    const contentResp=await driveFetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveFileId)}?alt=media`);
+    const dadosRemotos=await contentResp.json();
+    gastos=mesclarGastos(dadosRemotos,gastos);
+    try{localStorage.setItem(KEY,JSON.stringify(gastos))}catch(e){}
+    render();
+    await enviarParaDrive(true);
+    atualizarSyncUI("Sincronizado","Conectado ao Google Drive ("+DRIVE_FILE_NAME+").");
+  }else{
+    driveFileId=null;
+    await enviarParaDrive(true);
+    atualizarSyncUI("Sincronizado","Novo arquivo criado no seu Google Drive.");
+  }
+}
+
+async function enviarParaDrive(silencioso=false){
+  if(!driveAccessToken)return;
+  if(!silencioso)atualizarSyncUI("Salvando no Drive...");
+  const payload=JSON.stringify(gastos);
+  if(!driveFileId){
+    const metadata={name:DRIVE_FILE_NAME,parents:["appDataFolder"],mimeType:"application/json"};
+    const form=new FormData();
+    form.append("metadata",new Blob([JSON.stringify(metadata)],{type:"application/json"}));
+    form.append("file",new Blob([payload],{type:"application/json"}));
+    const createResp=await driveFetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id",{
+      method:"POST",
+      body:form
+    });
+    const created=await createResp.json();
+    driveFileId=created.id;
+  }else{
+    await driveFetch(`https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(driveFileId)}?uploadType=media`,{
+      method:"PATCH",
+      headers:{"Content-Type":"application/json"},
+      body:payload
+    });
+  }
+  atualizarSyncUI("Sincronizado");
+}
+
+function agendarSyncDrive(){
+  if(!driveAccessToken)return;
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(()=>{
+    enviarParaDrive(false).catch(err=>{
+      atualizarSyncUI("Erro no Drive");
+      setStatus(err.message||"Falha ao sincronizar com o Google Drive.");
+    });
+  },250);
+}
+
+async function obterPerfilGoogle(){
+  if(!driveAccessToken)return;
+  try{
+    const resp=await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+      headers:{Authorization:"Bearer "+driveAccessToken}
+    });
+    if(!resp.ok)return;
+    const perfil=await resp.json();
+    const rotulo=perfil.email||perfil.name||"Conta Google";
+    $("contaStatus").textContent=`Conectado como ${rotulo}`;
+    $("bGoogleLogin").hidden=true;
+    $("bGoogleLogout").hidden=false;
+  }catch(e){}
+}
+
+function iniciarTokenClient(){
+  if(!window.google||!window.google.accounts||!window.google.accounts.oauth2)return false;
+  if(tokenClient)return true;
+  tokenClient=window.google.accounts.oauth2.initTokenClient({
+    client_id:GOOGLE_CLIENT_ID,
+    scope:DRIVE_SCOPE,
+    callback:async resp=>{
+      if(resp.error){
+        setStatus("Não foi possível concluir o login com o Google: "+resp.error);
+        return;
+      }
+      driveAccessToken=resp.access_token;
+      $("bGoogleLogin").hidden=true;
+      $("bGoogleLogout").hidden=false;
+      await obterPerfilGoogle();
+      try{
+        await carregarDoDrive();
+      }catch(err){
+        atualizarSyncUI("Erro no Drive");
+        setStatus(err.message||"Erro ao acessar o Google Drive.");
+      }
+    }
+  });
+  return true;
+}
+
+$("bGoogleLogin").addEventListener("click",()=>{
+  if(!iniciarTokenClient()){
+    setStatus("Carregando serviço de login do Google... tente novamente em 1 segundo.");
+    return;
+  }
+  tokenClient.requestAccessToken({prompt:driveAccessToken?"":"consent"});
+});
+
+$("bGoogleLogout").addEventListener("click",()=>{
+  const tokenAtual=driveAccessToken;
+  driveAccessToken=null;
+  driveFileId=null;
+  if(tokenAtual&&window.google&&window.google.accounts&&window.google.accounts.oauth2){
+    window.google.accounts.oauth2.revoke(tokenAtual,()=>{});
+  }
+  $("bGoogleLogin").hidden=false;
+  $("bGoogleLogout").hidden=true;
+  atualizarSyncUI("Cache local","Sessão encerrada — alterações ficam apenas no cache local.");
+});
 
 // Consulta a data local atual na hora (YYYY-MM-DD) para evitar datas obsoletas ao deixar a aba aberta
 function dataHoje(){
@@ -179,7 +352,10 @@ let ultimoMesConhecido=mesAtual();
 $("data").value=ultimoDiaConhecido;
 $("mes").value=ultimoMesConhecido;
 
-function salvar(){try{localStorage.setItem(KEY,JSON.stringify(gastos))}catch(e){}}
+function salvar(){
+  try{localStorage.setItem(KEY,JSON.stringify(gastos))}catch(e){}
+  agendarSyncDrive();
+}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function setStatus(txt){$("statusMsg").textContent=txt||""}
 
