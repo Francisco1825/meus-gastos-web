@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meus gastos — Painel Financeiro</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            gold: '#f5b82e',
+            goldHover: '#e5a71d',
+            goldSoft: '#fef6e0',
+            dark: '#14171a',
+            surface: '#f7f8fa',
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f7f8fa;
+    color: #18181b;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Barra de rolagem discreta */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa;
+  }
+  /* Transições suaves */
+  .sidebar-transition {
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .donut-segment {
+    transition: stroke-dasharray 0.45s ease, stroke-dashoffset 0.45s ease, stroke-width 0.2s ease;
+  }
+  .donut-segment:hover {
+    stroke-width: 17;
+  }
+</style>
+</head>
+<body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900">
+
+  <!-- Backdrop Mobile para Sidebar -->
+  <div id="mobileBackdrop" class="fixed inset-0 bg-zinc-900/40 z-30 hidden lg:hidden backdrop-blur-xs"></div>
+
+  <!-- Sidebar Lateral Esquerda Retrátil -->
+  <aside id="sidebar" class="sidebar-transition fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white border-r border-zinc-200 flex flex-col justify-between shrink-0 -translate-x-full lg:translate-x-0">
+    <div>
+      <!-- Logotipo -->
+      <div class="h-16 px-5 flex items-center justify-between border-b border-zinc-100">
+        <div class="flex items-center gap-3 overflow-hidden">
+          <div class="w-9 h-9 rounded-xl bg-zinc-900 text-brand-gold flex items-center justify-center shrink-0 shadow-xs">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="sidebar-label truncate">
+            <span class="font-extrabold tracking-tight text-base text-zinc-900 block leading-none">Meus gastos</span>
+            <span class="text-[11px] font-medium text-zinc-400">Minhas Finanças</span>
+          </div>
+        </div>
+        <button id="btnCloseMobile" type="button" class="lg:hidden p-2 rounded-lg text-zinc-500 hover:bg-zinc-100" aria-label="Fechar menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Menu Principal -->
+      <div class="p-3">
+        <p class="sidebar-label px-3 pt-2 pb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Menu</p>
+        <nav class="space-y-1" aria-label="Navegação principal">
+          <button type="button" data-nav="inicio" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-brand-gold text-zinc-950 shadow-xs transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>
+            <span class="sidebar-label truncate">Início</span>
+          </button>
+
+          <button type="button" data-nav="transacoes" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+            <span class="sidebar-label truncate">Transações</span>
+          </button>
+
+          <button type="button" data-nav="orcamento" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+            <span class="sidebar-label truncate">Orçamento</span>
+          </button>
+
+          <button type="button" data-nav="contas" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3Z"/></svg>
+            <span class="sidebar-label truncate">Contas</span>
+          </button>
+
+          <button type="button" data-nav="tags" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5a1.99 1.99 0 0 1 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4Z"/></svg>
+            <span class="sidebar-label truncate">Tags &amp; Categorias</span>
+          </button>
+        </nav>
+
+        <p class="sidebar-label px-3 pt-6 pb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Dados &amp; Nuvem</p>
+        <div class="space-y-1">
+          <button type="button" id="sideBtnExport" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4m0 0-4-4m4 4V4"/></svg>
+            <span class="sidebar-label truncate">Exportar CSV / JSON</span>
+          </button>
+          <button type="button" id="sideBtnDemo" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15"/></svg>
+            <span class="sidebar-label truncate">Recarregar exemplo</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé Sidebar: Recolher menu -->
+    <div class="p-3 border-t border-zinc-100">
+      <button id="btnCollapseSidebar" type="button" class="hidden lg:flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition">
+        <svg id="collapseIcon" class="w-5 h-5 shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+        <span class="sidebar-label truncate">Recolher menu</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Área Principal -->
+  <div class="flex-1 min-w-0 flex flex-col">
+    <!-- Barra Superior -->
+    <header class="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-zinc-200 px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="btnOpenMobile" type="button" class="lg:hidden p-2 rounded-xl border border-zinc-200 text-zinc-700 hover:bg-zinc-50" aria-label="Abrir menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+
+        <!-- Seletor de Mês -->
+        <div class="flex items-center gap-1.5 bg-zinc-50 border border-zinc-200 rounded-xl px-2 py-1">
+          <button type="button" id="btnPrevMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white hover:text-zinc-900 transition" title="Mês anterior" aria-label="Mês anterior">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <input type="month" id="mes" aria-label="Mês de referência" class="bg-transparent text-sm font-semibold text-zinc-800 focus:outline-none cursor-pointer">
+          <button type="button" id="btnNextMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white hover:text-zinc-900 transition" title="Próximo mês" aria-label="Próximo mês">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- Ocultar valores (olho) -->
+        <button type="button" id="btnTogglePrivacy" class="hidden sm:flex p-2 rounded-xl border border-zinc-200 text-zinc-600 hover:bg-zinc-50 transition" title="Ocultar ou mostrar valores" aria-label="Alternar privacidade de valores">
+          <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+
+      <!-- Controles Direitos: Google Drive Sync + Novo Lançamento -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Status Sync -->
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs">
+          <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-500"></span>
+          <span id="syncStatus" class="font-semibold text-zinc-700">Cache local</span>
+        </div>
+
+        <button type="button" id="bGoogleLogin" class="flex items-center gap-2 px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-xs sm:text-sm font-semibold text-zinc-800 transition shadow-2xs">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
+            <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.1-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.22 1.18-3.25 0-6-2.19-6.98-5.14H1.01v3.14C3.05 21.2 7.24 24 12 24Z"/>
+            <path fill="#FBBC05" d="M5.02 14.03c-.25-.74-.39-1.54-.39-2.36 0-.82.14-1.62.39-2.36V6.17H1.01C.37 7.45 0 8.88 0 10.37s.37 2.92 1.01 4.2l4.01-3.14Z"/>
+            <path fill="#EA4335" d="M12 4.75c1.79 0 3.41.62 4.68 1.82l3.51-3.51C18.07 1.19 15.3 0 12 0 7.24 0 3.05 2.8 1.01 6.83l4.01 3.14c.98-2.95 3.73-5.22 6.98-5.22Z"/>
+          </svg>
+          <span class="hidden sm:inline">Entrar com Google</span>
+          <span class="sm:hidden">Google</span>
+        </button>
+
+        <button type="button" id="bGoogleLogout" hidden class="px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-xs sm:text-sm font-semibold text-zinc-700 transition">
+          Sair
+        </button>
+
+        <button type="button" id="btnOpenModal" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs sm:text-sm font-bold shadow-xs transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span>Novo lançamento</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Faixa de Status / Mensagens -->
+    <div id="statusBanner" class="bg-white border-b border-zinc-200 px-4 sm:px-6 py-2 flex items-center justify-between gap-2 text-xs text-zinc-500">
+      <span id="contaStatus">Modo local ativo — entre com o Google para sincronizar no seu Drive (appDataFolder).</span>
+      <span id="statusMsg" class="font-medium text-zinc-700" role="status" aria-live="polite"></span>
+    </div>
+
+    <!-- Conteúdo Dinâmico -->
+    <main class="flex-1 max-w-[1320px] w-full mx-auto p-4 sm:p-6 space-y-6">
+
+      <!-- =========================================================
+           VISÃO 1: INÍCIO (DASHBOARD ESTILO AUVP / MINHAS FINANÇAS)
+           ========================================================= -->
+      <section id="view-inicio" class="view-section space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-zinc-900">O que está acontecendo hoje?</h1>
+            <p id="periodoSubtitulo" class="text-xs sm:text-sm text-zinc-500">Resumo financeiro consolidado do mês selecionado</p>
+          </div>
+          <div id="filtroDiaBadge" hidden class="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 px-3 py-1.5 rounded-xl text-xs font-semibold">
+            <span id="filtroDiaTexto">Filtrando dia</span>
+            <button type="button" id="btnLimparDia" class="underline hover:text-red-900">Limpar filtro</button>
+          </div>
+        </div>
+
+        <!-- 4 Cards Superiores de KPI -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <!-- Card 1: Resultado do Período -->
+          <div class="bg-white rounded-2xl border border-zinc-200/90 p-5 shadow-2xs">
+            <div class="flex items-center justify-between text-xs font-medium text-zinc-500 mb-2">
+              <span>Resultado do Período</span>
+              <span class="w-5 h-5 rounded-full bg-zinc-100 text-zinc-400 inline-flex items-center justify-center text-[11px]" title="Receitas menos Despesas no mês">i</span>
+            </div>
+            <div id="kpiResultado" class="text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums text-zinc-900">R$ 0,00</div>
+            <p id="kpiResultadoMeta" class="text-xs text-zinc-400 mt-1.5">Balanço líquido mensal</p>
+          </div>
+
+          <!-- Card 2: Receitas -->
+          <div class="bg-white rounded-2xl border border-zinc-200/90 p-5 shadow-2xs">
+            <div class="flex items-center justify-between text-xs font-medium text-zinc-500 mb-2">
+              <span>Receitas</span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold">Entradas</span>
+            </div>
+            <div id="kpiReceitas" class="text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums text-emerald-600">R$ 0,00</div>
+            <p id="kpiReceitasQtd" class="text-xs text-zinc-400 mt-1.5">0 lançamentos no mês</p>
+          </div>
+
+          <!-- Card 3: Despesas -->
+          <div class="bg-white rounded-2xl border border-zinc-200/90 p-5 shadow-2xs">
+            <div class="flex items-center justify-between text-xs font-medium text-zinc-500 mb-2">
+              <span>Despesas</span>
+              <span class="px-2 py-0.5 rounded-full bg-red-50 text-red-600 text-[11px] font-semibold">Saídas</span>
+            </div>
+            <div id="kpiDespesas" class="text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums text-red-600">R$ 0,00</div>
+            <p id="kpiDespesasQtd" class="text-xs text-zinc-400 mt-1.5">0 lançamentos no mês</p>
+          </div>
+
+          <!-- Card 4: Saldo acumulado -->
+          <div class="bg-white rounded-2xl border border-zinc-200/90 p-5 shadow-2xs">
+            <div class="flex items-center justify-between text-xs font-medium text-zinc-500 mb-2">
+              <span>Saldo em conta</span>
+              <span class="w-5 h-5 rounded-full bg-zinc-100 text-zinc-400 inline-flex items-center justify-center text-[11px]" title="Saldo acumulado até o fim do mês selecionado">i</span>
+            </div>
+            <div id="kpiSaldoConta" class="text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums text-zinc-900">R$ 0,00</div>
+            <p class="text-xs text-zinc-400 mt-1.5">Acumulado até o período</p>
+          </div>
+        </div>
+
+        <!-- Grid Central: Calendário "Saídas por dia" + Donut "Por tags / categorias" -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Card Esquerdo: Saídas por dia (7 colunas no desktop) -->
+          <div class="lg:col-span-7 bg-white rounded-2xl border border-zinc-200/90 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <h2 class="text-base font-bold text-zinc-900">Saídas por dia</h2>
+                  <p id="calSubtitulo" class="text-xs text-zinc-500 mt-0.5">quanto saiu em cada dia</p>
+                </div>
+                <span class="text-[11px] font-medium text-zinc-400 bg-zinc-50 border border-zinc-200/80 px-2.5 py-1 rounded-lg">Toque num dia</span>
+              </div>
+
+              <div class="mt-3 mb-4 flex items-baseline gap-2.5 flex-wrap">
+                <strong id="calTotalSaidas" class="text-2xl sm:text-3xl font-extrabold tracking-tight tabular-nums text-zinc-900">R$ 0,00</strong>
+                <span id="calDiasComSaida" class="text-xs font-medium text-zinc-500">em 0 dias com saída</span>
+              </div>
+
+              <!-- Cabeçalho Dias da Semana -->
+              <div class="grid grid-cols-7 gap-1.5 text-center text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+              </div>
+
+              <!-- Grade do Calendário -->
+              <div id="calendarioGrid" class="grid grid-cols-7 gap-1.5"></div>
+            </div>
+
+            <!-- Rodapé de Métricas do Calendário -->
+            <div class="mt-5 pt-4 border-t border-zinc-100 grid grid-cols-3 gap-3 items-end">
+              <div>
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Média por dia</span>
+                <strong id="calMediaDia" class="text-xs sm:text-sm font-bold tabular-nums text-zinc-800">R$ 0,00</strong>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Maior dia</span>
+                <strong id="calMaiorDia" class="text-xs sm:text-sm font-bold tabular-nums text-zinc-800">—</strong>
+              </div>
+              <div>
+                <span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400">Dias sem saída</span>
+                <strong id="calDiasSemSaida" class="text-xs sm:text-sm font-bold tabular-nums text-zinc-800">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Direito: Por tags / categorias (5 colunas no desktop) -->
+          <div class="lg:col-span-5 bg-white rounded-2xl border border-zinc-200/90 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <h2 class="text-base font-bold text-zinc-900">Por tags &amp; categorias</h2>
+                <div class="inline-flex rounded-xl bg-zinc-100 p-1 text-xs font-semibold">
+                  <button type="button" id="tabDonutDespesas" class="px-3 py-1 rounded-lg bg-brand-gold text-zinc-950 shadow-2xs transition">Despesas</button>
+                  <button type="button" id="tabDonutReceitas" class="px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 transition">Receitas</button>
+                </div>
+              </div>
+
+              <!-- Gráfico de Rosca SVG -->
+              <div class="relative w-48 h-48 mx-auto my-2 flex items-center justify-center">
+                <svg id="donutSvg" viewBox="0 0 120 120" class="w-full h-full -rotate-90 overflow-visible"></svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-4">
+                  <strong id="donutCenterTotal" class="text-sm sm:text-base font-extrabold tabular-nums text-zinc-900 leading-tight">R$ 0,00</strong>
+                  <span id="donutCenterLabel" class="text-[11px] font-medium text-zinc-400 mt-0.5">total no mês</span>
+                </div>
+              </div>
+
+              <!-- Lista Ranqueada de Categorias -->
+              <div id="donutLista" class="mt-4 space-y-3 max-h-[260px] overflow-y-auto pr-1"></div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs">
+              <button type="button" data-nav="tags" class="nav-jump font-semibold text-amber-600 hover:text-amber-700 transition">Ver todas as tags →</button>
+              <button type="button" data-nav="transacoes" class="nav-jump font-medium text-zinc-500 hover:text-zinc-800 transition">Gerenciar lançamentos</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha Inferior: Histórico Financeiro (6 meses) + Lançamentos do Mês/Dia -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Histórico Financeiro 6 meses -->
+          <div class="lg:col-span-5 bg-white rounded-2xl border border-zinc-200/90 p-5 sm:p-6 shadow-2xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <h2 class="text-base font-bold text-zinc-900">Histórico Financeiro</h2>
+                <div class="flex items-center gap-3 text-[11px] font-semibold">
+                  <span class="flex items-center gap-1.5 text-zinc-600"><span class="w-2.5 h-2.5 rounded-xs bg-emerald-500"></span>Receitas</span>
+                  <span class="flex items-center gap-1.5 text-zinc-600"><span class="w-2.5 h-2.5 rounded-xs bg-red-500"></span>Despesas</span>
+                </div>
+              </div>
+              <p class="text-xs text-zinc-500 mb-5">Comparativo dos últimos 6 meses</p>
+
+              <div id="historicoChart" class="h-48 grid grid-cols-6 gap-2 items-end pt-4 border-b border-zinc-100 pb-2"></div>
+            </div>
+            <p class="text-[11px] text-zinc-400 mt-3">Clique em qualquer barra de mês para navegar até o período.</p>
+          </div>
+
+          <!-- Lista Rápida de Lançamentos do Período -->
+          <div class="lg:col-span-7 bg-white rounded-2xl border border-zinc-200/90 p-5 sm:p-6 shadow-2xs">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div>
+                <h2 id="listaRapidaTitulo" class="text-base font-bold text-zinc-900">Lançamentos do mês</h2>
+                <p id="listaRapidaSub" class="text-xs text-zinc-500">Movimentações pontuais e recorrentes ativas</p>
+              </div>
+              <button type="button" data-nav="transacoes" class="nav-jump text-xs font-semibold px-3 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition">Ver tudo</button>
+            </div>
+            <div id="listaRapida" class="divide-y divide-zinc-100 max-h-[270px] overflow-y-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VISÃO 2: TRANSAÇÕES (FORMULÁRIO COMPLETO + CSV + BACKUP)
+           ========================================================= -->
+      <section id="view-transacoes" class="view-section hidden space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Transações &amp; Recorrências</h1>
+            <p class="text-xs sm:text-sm text-zinc-500">Adicione gastos/ganhos, gerencie itens fixos e importe ou exporte planilhas</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" id="bCsv" class="px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition">Exportar CSV</button>
+            <button type="button" id="bImp" class="px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition">Importar CSV</button>
+            <input type="file" id="fCsv" accept=".csv,text/csv" hidden>
+            <button type="button" id="bBkp" class="px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition">Salvar backup JSON</button>
+            <button type="button" id="bRes" class="px-3 py-2 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition">Restaurar JSON</button>
+            <input type="file" id="fRes" accept=".json,application/json" hidden>
+          </div>
+        </div>
+
+        <!-- Painel de Exportação Avançada CSV -->
+        <div id="expBox" hidden class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-2xs space-y-3">
+          <div class="flex flex-wrap items-center gap-3">
+            <label for="expModo" class="text-xs font-semibold text-zinc-600">Exportar período:</label>
+            <select id="expModo" class="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium">
+              <option value="mes">Mês selecionado</option>
+              <option value="intervalo-meses">Intervalo de meses</option>
+              <option value="intervalo-anos">Intervalo de anos</option>
+              <option value="tudo">Todos os lançamentos</option>
+            </select>
+            <span id="expCamposMeses" hidden class="flex items-center gap-2 text-xs">
+              <label for="expMesIni" class="text-zinc-500">De</label>
+              <input type="month" id="expMesIni" class="rounded-xl border border-zinc-200 px-2.5 py-1">
+              <label for="expMesFim" class="text-zinc-500">até</label>
+              <input type="month" id="expMesFim" class="rounded-xl border border-zinc-200 px-2.5 py-1">
+            </span>
+            <span id="expCamposAnos" hidden class="flex items-center gap-2 text-xs">
+              <label for="expAnoIni" class="text-zinc-500">Ano inicial</label>
+              <input type="number" id="expAnoIni" min="1970" max="2100" class="w-24 rounded-xl border border-zinc-200 px-2.5 py-1">
+              <label for="expAnoFim" class="text-zinc-500">até</label>
+              <input type="number" id="expAnoFim" min="1970" max="2100" class="w-24 rounded-xl border border-zinc-200 px-2.5 py-1">
+            </span>
+            <button type="button" id="bCsvConfirmar" class="px-4 py-1.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs font-bold transition">Baixar CSV</button>
+          </div>
+          <p id="expResumo" class="text-xs text-zinc-500"></p>
+        </div>
+
+        <!-- Chips de Meses Importados -->
+        <div id="impMeses" class="flex flex-wrap gap-1.5 empty:hidden"></div>
+
+        <!-- Formulário Inline de Novo Lançamento -->
+        <form id="f" class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-2xs space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="inline-flex rounded-xl bg-zinc-100 p-1 text-xs font-bold" role="radiogroup" aria-label="Tipo de lançamento">
+              <label class="cursor-pointer">
+                <input type="radio" name="tipo" value="gasto" checked class="sr-only peer">
+                <span class="block px-4 py-1.5 rounded-lg text-zinc-600 peer-checked:bg-red-600 peer-checked:text-white transition">Gastei (Despesa)</span>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="tipo" value="ganho" class="sr-only peer">
+                <span class="block px-4 py-1.5 rounded-lg text-zinc-600 peer-checked:bg-emerald-600 peer-checked:text-white transition">Ganhei (Receita)</span>
+              </label>
+            </div>
+
+            <label class="inline-flex items-center gap-2 text-xs font-semibold text-zinc-700 cursor-pointer select-none">
+              <input type="checkbox" id="fixo" class="w-4 h-4 rounded accent-amber-500">
+              <span>Lançamento fixo (repete todo mês)</span>
+            </label>
+          </div>
+
+          <!-- Configuração de Duração para Fixos -->
+          <div id="durBox" hidden class="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs">
+            <label for="durTipo" class="font-semibold text-zinc-700">Duração:</label>
+            <select id="durTipo" class="rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 font-medium">
+              <option value="perpetuo">Perpétuo</option>
+              <option value="meses">Número de meses</option>
+              <option value="anos">Número de anos</option>
+            </select>
+            <input type="number" id="durQtd" min="1" max="600" step="1" value="12" hidden class="w-20 rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 font-semibold">
+            <span id="durResumo" class="text-zinc-600 font-medium">Repete por tempo indeterminado</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3">
+            <div class="lg:col-span-4">
+              <label for="desc" class="block text-[11px] font-semibold text-zinc-500 mb-1">Descrição</label>
+              <input id="desc" placeholder="Ex: Supermercado, Salário, Aluguel..." required maxlength="60" class="w-full rounded-xl border border-zinc-200 bg-zinc-50/60 focus:bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div class="lg:col-span-2">
+              <label for="valor" class="block text-[11px] font-semibold text-zinc-500 mb-1">Valor (R$)</label>
+              <input id="valor" type="number" inputmode="decimal" step="0.01" min="0.01" placeholder="0,00" required class="w-full rounded-xl border border-zinc-200 bg-zinc-50/60 focus:bg-white px-3.5 py-2.5 text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div class="lg:col-span-2">
+              <label for="cat" class="block text-[11px] font-semibold text-zinc-500 mb-1">Tag / Categoria</label>
+              <select id="cat" class="w-full rounded-xl border border-zinc-200 bg-zinc-50/60 focus:bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></select>
+            </div>
+            <div class="lg:col-span-2">
+              <label for="conta" class="block text-[11px] font-semibold text-zinc-500 mb-1">Conta / Carteira</label>
+              <select id="conta" class="w-full rounded-xl border border-zinc-200 bg-zinc-50/60 focus:bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <option>Conta Principal</option>
+                <option>Cartão de Crédito</option>
+                <option>Reserva / Investimentos</option>
+                <option>Dinheiro</option>
+              </select>
+            </div>
+            <div class="lg:col-span-2">
+              <label for="data" class="block text-[11px] font-semibold text-zinc-500 mb-1">Data</label>
+              <input id="data" type="date" required class="w-full rounded-xl border border-zinc-200 bg-zinc-50/60 focus:bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button type="submit" id="bAdd" class="px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-sm font-bold shadow-xs transition">
+              Adicionar lançamento
+            </button>
+          </div>
+        </form>
+
+        <!-- Barra de Filtros e Tabela de Lançamentos -->
+        <div class="bg-white rounded-2xl border border-zinc-200 shadow-2xs overflow-hidden">
+          <div class="p-4 border-b border-zinc-100 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2 flex-1 min-w-[220px]">
+              <input type="search" id="filtroBusca" placeholder="Buscar por descrição..." class="w-full sm:w-60 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <select id="filtroTipo" class="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-medium">
+                <option value="todos">Todos os tipos</option>
+                <option value="gasto">Apenas Despesas</option>
+                <option value="ganho">Apenas Receitas</option>
+              </select>
+              <select id="filtroCat" class="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-medium">
+                <option value="todas">Todas as tags</option>
+              </select>
+            </div>
+            <div id="transacoesResumoBarra" class="text-xs font-semibold text-zinc-500 tabular-nums"></div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-zinc-100 text-[11px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-50/60">
+                  <th class="py-3 px-4">Data</th>
+                  <th class="py-3 px-4">Descrição</th>
+                  <th class="py-3 px-4">Tag / Categoria</th>
+                  <th class="py-3 px-4">Conta</th>
+                  <th class="py-3 px-4 text-right">Valor</th>
+                  <th class="py-3 px-4 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaTransacoes" class="divide-y divide-zinc-100 text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VISÃO 3: ORÇAMENTO (METAS POR CATEGORIA)
+           ========================================================= -->
+      <section id="view-orcamento" class="view-section hidden space-y-5">
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Orçamento Mensal por Tag</h1>
+          <p class="text-xs sm:text-sm text-zinc-500">Defina tetos de gasto mensais para cada categoria e acompanhe o consumo em tempo real</p>
+        </div>
+        <div id="orcamentoGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </section>
+
+      <!-- =========================================================
+           VISÃO 4: CONTAS (SALDO POR CARTEIRA / CONTA)
+           ========================================================= -->
+      <section id="view-contas" class="view-section hidden space-y-5">
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Contas &amp; Carteiras</h1>
+          <p class="text-xs sm:text-sm text-zinc-500">Distribuição de entradas, saídas e saldo acumulado por conta</p>
+        </div>
+        <div id="contasGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+      </section>
+
+      <!-- =========================================================
+           VISÃO 5: TAGS & CATEGORIAS
+           ========================================================= -->
+      <section id="view-tags" class="view-section hidden space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold text-zinc-900">Tags &amp; Categorias</h1>
+            <p class="text-xs sm:text-sm text-zinc-500">Crie novas tags personalizadas e veja o consolidado por categoria</p>
+          </div>
+          <form id="formNovaTag" class="flex items-center gap-2">
+            <select id="novaTagTipo" class="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold">
+              <option value="gasto">Despesa</option>
+              <option value="ganho">Receita</option>
+            </select>
+            <input id="novaTagNome" placeholder="Nome da nova tag..." maxlength="28" required class="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            <button type="submit" class="px-4 py-2 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs font-bold transition">Criar tag</button>
+          </form>
+        </div>
+        <div id="tagsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+    </main>
+  </div>
+
+<script>
+const KEY = "meus-gastos-v1";
+const META_KEY = "meus-gastos-metas-v1";
+const TAGS_KEY = "meus-gastos-tags-v1";
+const GOOGLE_CLIENT_ID = "701476095582-oanbqq0re8bdo7ldjo3t0pcrnt4sv3vf.apps.googleusercontent.com";
+const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
+const DRIVE_FILE_NAME = "meus-gastos-dados.json";
+
+const $ = id => document.getElementById(id);
+const brl = n => {
+  if (ocultarValores) return "R$ •••••";
+  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+};
+const brlCompacto = n => {
+  if (ocultarValores) return "•••";
+  const abs = Math.abs(n);
+  if (abs >= 1000000) return "R$ " + (n / 1000000).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "mi";
+  if (abs >= 1000) return "R$ " + (n / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "mil";
+  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+};
+
+const PALETA_TAGS = [
+  "#18181b", "#2563eb", "#7f1d1d", "#eab308", "#0284c7",
+  "#059669", "#d97706", "#7c3aed", "#db2777", "#4f46e5"
+];
+
+let ocultarValores = false;
+let visaoAtual = "inicio";
+let donutModo = "gasto";
+let diaSelecionadoFiltro = null; // YYYY-MM-DD ou null
+let pendenteExclusao = null;
+
+// Datas locais
+function dataHoje() {
+  const d0 = new Date();
+  return d0.getFullYear() + "-" + String(d0.getMonth() + 1).padStart(2, "0") + "-" + String(d0.getDate()).padStart(2, "0");
+}
+function mesAtual() {
+  return dataHoje().slice(0, 7);
+}
+
+let ultimoDiaConhecido = dataHoje();
+let ultimoMesConhecido = mesAtual();
+$("data").value = ultimoDiaConhecido;
+$("mes").value = ultimoMesConhecido;
+
+// Categorias / Tags padrão
+const DEFAULT_CATS = {
+  gasto: ["Alimentação", "Investimentos", "Moradia", "Transporte", "Lazer", "Saúde", "Sem Tags", "Outros"],
+  ganho: ["Salário", "Renda extra", "Dividendos", "Outros"]
+};
+
+let customCats = DEFAULT_CATS;
+try {
+  const savedCats = JSON.parse(localStorage.getItem(TAGS_KEY) || "null");
+  if (savedCats && Array.isArray(savedCats.gasto) && Array.isArray(savedCats.ganho)) {
+    customCats = savedCats;
+  }
+} catch (e) {}
+
+let metasOrcamento = {
+  "Alimentação": 1500,
+  "Moradia": 2800,
+  "Transporte": 800,
+  "Lazer": 700,
+  "Saúde": 500,
+  "Outros": 600
+};
+try {
+  const savedMetas = JSON.parse(localStorage.getItem(META_KEY) || "null");
+  if (savedMetas && typeof savedMetas === "object") metasOrcamento = savedMetas;
+} catch (e) {}
+
+// Dados iniciais de demonstração (carregados apenas se localStorage estiver vazio)
+function gerarDadosExemplo() {
+  const hoje = dataHoje();
+  const mes = hoje.slice(0, 7);
+  const [y, m] = mes.split("-").map(Number);
+  const prevDate = new Date(y, m - 2, 1);
+  const prevMes = prevDate.getFullYear() + "-" + String(prevDate.getMonth() + 1).padStart(2, "0");
+
+  return [
+    { id: "demo-1", desc: "Salário Mensal", valor: 9500.00, tipo: "ganho", cat: "Salário", conta: "Conta Principal", data: `${mes}-05`, fixo: true, durTipo: "perpetuo", durQtd: null },
+    { id: "demo-2", desc: "Aluguel & Condomínio", valor: 2450.00, tipo: "gasto", cat: "Moradia", conta: "Conta Principal", data: `${mes}-10`, fixo: true, durTipo: "perpetuo", durQtd: null },
+    { id: "demo-3", desc: "Aporte Tesouro / Ações", valor: 1800.00, tipo: "gasto", cat: "Investimentos", conta: "Reserva / Investimentos", data: `${mes}-06`, fixo: true, durTipo: "perpetuo", durQtd: null },
+    { id: "demo-4", desc: "Supermercado Semanal", valor: 486.90, tipo: "gasto", cat: "Alimentação", conta: "Cartão de Crédito", data: `${mes}-03`, fixo: false },
+    { id: "demo-5", desc: "Restaurante & Café", valor: 164.50, tipo: "gasto", cat: "Alimentação", conta: "Cartão de Crédito", data: `${mes}-08`, fixo: false },
+    { id: "demo-6", desc: "Combustível & Estacionamento", valor: 310.00, tipo: "gasto", cat: "Transporte", conta: "Cartão de Crédito", data: `${mes}-11`, fixo: false },
+    { id: "demo-7", desc: "Cinema & Jantar", valor: 245.00, tipo: "gasto", cat: "Lazer", conta: "Cartão de Crédito", data: `${mes}-15`, fixo: false },
+    { id: "demo-8", desc: "Farmácia & Consulta", valor: 189.40, tipo: "gasto", cat: "Saúde", conta: "Conta Principal", data: `${mes}-14`, fixo: false },
+    { id: "demo-9", desc: "Freela Consultoria", valor: 1450.00, tipo: "ganho", cat: "Renda extra", conta: "Conta Principal", data: `${mes}-18`, fixo: false },
+    { id: "demo-10", desc: "Compras diversas", valor: 320.00, tipo: "gasto", cat: "Sem Tags", conta: "Cartão de Crédito", data: `${mes}-19`, fixo: false },
+    { id: "demo-11", desc: "Feira & Padaria", valor: 142.80, tipo: "gasto", cat: "Alimentação", conta: "Dinheiro", data: `${mes}-21`, fixo: false },
+    { id: "demo-12", desc: "Supermercado Mês Anterior", valor: 890.00, tipo: "gasto", cat: "Alimentação", conta: "Cartão de Crédito", data: `${prevMes}-12`, fixo: false },
+    { id: "demo-13", desc: "Viagem Fim de Semana", valor: 1120.00, tipo: "gasto", cat: "Lazer", conta: "Cartão de Crédito", data: `${prevMes}-20`, fixo: false }
+  ];
+}
+
+let gastos = [];
+try {
+  const raw = localStorage.getItem(KEY);
+  if (raw === null) {
+    gastos = gerarDadosExemplo();
+    localStorage.setItem(KEY, JSON.stringify(gastos));
+  } else {
+    gastos = JSON.parse(raw) || [];
+  }
+} catch (e) {
+  gastos = gerarDadosExemplo();
+}
+
+// =========================================================
+// INTEGRAÇÃO GOOGLE IDENTITY SERVICES & DRIVE (appDataFolder)
+// =========================================================
+let tokenClient = null;
+let driveAccessToken = null;
+let driveFileId = null;
+let syncTimer = null;
+
+function atualizarSyncUI(estado, detalhe, corDot = "bg-amber-500") {
+  $("syncStatus").textContent = estado;
+  $("syncDot").className = `w-2 h-2 rounded-full ${corDot}`;
+  if (detalhe) $("contaStatus").textContent = detalhe;
+}
+
+function mesclarGastos(remotos, locais) {
+  const mapa = new Map();
+  (Array.isArray(remotos) ? remotos : []).forEach(item => {
+    if (item && item.id != null && item.data && item.valor > 0) mapa.set(String(item.id), item);
+  });
+  (Array.isArray(locais) ? locais : []).forEach(item => {
+    if (item && item.id != null && item.data && item.valor > 0 && !mapa.has(String(item.id))) {
+      mapa.set(String(item.id), item);
+    }
+  });
+  return Array.from(mapa.values());
+}
+
+async function driveFetch(url, opcoes = {}) {
+  if (!driveAccessToken) throw new Error("Sem token do Google Drive.");
+  const headers = Object.assign({}, opcoes.headers || {}, { Authorization: "Bearer " + driveAccessToken });
+  const resp = await fetch(url, Object.assign({}, opcoes, { headers }));
+  if (!resp.ok) {
+    const txt = await resp.text().catch(() => "");
+    throw new Error(`Erro no Google Drive (${resp.status}): ${txt || resp.statusText}`);
+  }
+  return resp;
+}
+
+async function carregarDoDrive() {
+  atualizarSyncUI("Sincronizando...", "Carregando dados do seu Google Drive...", "bg-blue-500 animate-pulse");
+  const q = encodeURIComponent(`name='${DRIVE_FILE_NAME}' and trashed=false`);
+  const listResp = await driveFetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,name,modifiedTime)`);
+  const listJson = await listResp.json();
+  const arquivo = listJson.files && listJson.files[0];
+
+  if (arquivo) {
+    driveFileId = arquivo.id;
+    const contentResp = await driveFetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveFileId)}?alt=media`);
+    const dadosRemotos = await contentResp.json();
+    gastos = mesclarGastos(dadosRemotos, gastos);
+    try { localStorage.setItem(KEY, JSON.stringify(gastos)); } catch (e) {}
+    renderTudo();
+    await enviarParaDrive(true);
+    atualizarSyncUI("Sincronizado", `Conectado ao Google Drive (${DRIVE_FILE_NAME}).`, "bg-emerald-500");
+  } else {
+    driveFileId = null;
+    await enviarParaDrive(true);
+    atualizarSyncUI("Sincronizado", "Novo arquivo criado no seu Google Drive.", "bg-emerald-500");
+  }
+}
+
+async function enviarParaDrive(silencioso = false) {
+  if (!driveAccessToken) return;
+  if (!silencioso) atualizarSyncUI("Salvando...", null, "bg-blue-500 animate-pulse");
+  const payload = JSON.stringify(gastos);
+  if (!driveFileId) {
+    const metadata = { name: DRIVE_FILE_NAME, parents: ["appDataFolder"], mimeType: "application/json" };
+    const form = new FormData();
+    form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+    form.append("file", new Blob([payload], { type: "application/json" }));
+    const createResp = await driveFetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
+      method: "POST",
+      body: form
+    });
+    const created = await createResp.json();
+    driveFileId = created.id;
+  } else {
+    await driveFetch(`https://www.googleapis.com/upload/drive/v3/files/${encodeURIComponent(driveFileId)}?uploadType=media`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: payload
+    });
+  }
+  atualizarSyncUI("Sincronizado", null, "bg-emerald-500");
+}
+
+function agendarSyncDrive() {
+  if (!driveAccessToken) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => {
+    enviarParaDrive(false).catch(err => {
+      atualizarSyncUI("Erro no Drive", null, "bg-red-500");
+      setStatus(err.message || "Falha ao sincronizar com o Google Drive.");
+    });
+  }, 300);
+}
+
+async function obterPerfilGoogle() {
+  if (!driveAccessToken) return;
+  try {
+    const resp = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: "Bearer " + driveAccessToken }
+    });
+    if (!resp.ok) return;
+    const perfil = await resp.json();
+    const rotulo = perfil.email || perfil.name || "Conta Google";
+    $("contaStatus").textContent = `Conectado como ${rotulo}`;
+    $("bGoogleLogin").hidden = true;
+    $("bGoogleLogout").hidden = false;
+  } catch (e) {}
+}
+
+function iniciarTokenClient() {
+  if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) return false;
+  if (tokenClient) return true;
+  tokenClient = window.google.accounts.oauth2.initTokenClient({
+    client_id: GOOGLE_CLIENT_ID,
+    scope: DRIVE_SCOPE,
+    callback: async resp => {
+      if (resp.error) {
+        setStatus("Não foi possível concluir o login com o Google: " + resp.error);
+        return;
+      }
+      driveAccessToken = resp.access_token;
+      $("bGoogleLogin").hidden = true;
+      $("bGoogleLogout").hidden = false;
+      await obterPerfilGoogle();
+      try {
+        await carregarDoDrive();
+      } catch (err) {
+        atualizarSyncUI("Erro no Drive", null, "bg-red-500");
+        setStatus(err.message || "Erro ao acessar o Google Drive.");
+      }
+    }
+  });
+  return true;
+}
+
+$("bGoogleLogin").addEventListener("click", () => {
+  if (window.location.protocol === "file:") {
+    setStatus("Aviso: O login OAuth do Google exige HTTPS (GitHub Pages) ou http://localhost.");
+    return;
+  }
+  if (!iniciarTokenClient()) {
+    setStatus("Carregando serviço de login do Google... tente novamente em 1 segundo.");
+    return;
+  }
+  tokenClient.requestAccessToken({ prompt: driveAccessToken ? "" : "consent" });
+});
+
+$("bGoogleLogout").addEventListener("click", () => {
+  const tokenAtual = driveAccessToken;
+  driveAccessToken = null;
+  driveFileId = null;
+  if (tokenAtual && window.google && window.google.accounts && window.google.accounts.oauth2) {
+    window.google.accounts.oauth2.revoke(tokenAtual, () => {});
+  }
+  $("bGoogleLogin").hidden = false;
+  $("bGoogleLogout").hidden = true;
+  atualizarSyncUI("Cache local", "Sessão encerrada — alterações ficam apenas no cache local.", "bg-amber-500");
+});
+
+// =========================================================
+// LÓGICA DE RECORRÊNCIA, DATAS E CÁLCULOS FINANCEIROS
+// =========================================================
+function salvar() {
+  try { localStorage.setItem(KEY, JSON.stringify(gastos)); } catch (e) {}
+  agendarSyncDrive();
+}
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+function setStatus(txt) {
+  $("statusMsg").textContent = txt || "";
+}
+
+function dataNoMes(d, mes) {
+  const [y, m] = mes.split("-").map(Number);
+  const ult = new Date(y, m, 0).getDate();
+  return mes + "-" + String(Math.min(+d.slice(8, 10), ult)).padStart(2, "0");
+}
+
+function diffMeses(iniMes, alvoMes) {
+  const [y1, m1] = iniMes.split("-").map(Number);
+  const [y2, m2] = alvoMes.split("-").map(Number);
+  return (y2 - y1) * 12 + (m2 - m1) + 1;
+}
+
+function somarMeses(iniMes, qtdMeses) {
+  const [y1, m1] = iniMes.split("-").map(Number);
+  const total = (y1 * 12 + (m1 - 1)) + Math.max(1, qtdMeses) - 1;
+  const y = Math.floor(total / 12);
+  const m = (total % 12) + 1;
+  return y + "-" + String(m).padStart(2, "0");
+}
+
+function deslocarMes(mesStr, delta) {
+  const [y, m] = mesStr.split("-").map(Number);
+  const d = new Date(y, m - 1 + delta, 1);
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+}
+
+function nomeMesExtenso(mesStr) {
+  const [y, m] = mesStr.split("-").map(Number);
+  const d = new Date(y, m - 1, 1);
+  return d.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+}
+
+function nomeMesCurto(mesStr) {
+  const [y, m] = mesStr.split("-").map(Number);
+  const d = new Date(y, m - 1, 1);
+  return d.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "");
+}
+
+function fimPrevisto(g) {
+  if (!g.fixo) return null;
+  const ini = g.data.slice(0, 7);
+  let limite = null;
+  if (g.durTipo === "meses" && g.durQtd > 0) {
+    limite = somarMeses(ini, g.durQtd);
+  } else if (g.durTipo === "anos" && g.durQtd > 0) {
+    limite = somarMeses(ini, g.durQtd * 12);
+  }
+  if (g.fim && limite) return g.fim < limite ? g.fim : limite;
+  return g.fim || limite || null;
+}
+
+function badgeFixo(g, mes) {
+  const ini = g.data.slice(0, 7);
+  const parc = diffMeses(ini, mes);
+  const fim = fimPrevisto(g);
+  const encerradoAqui = g.fim === mes;
+  if (g.durTipo === "meses" && g.durQtd > 0) {
+    return encerradoAqui ? "Fixo, encerrado" : `Fixo ${parc}/${g.durQtd}m`;
+  }
+  if (g.durTipo === "anos" && g.durQtd > 0) {
+    const totalM = g.durQtd * 12;
+    const anoAtual = Math.min(g.durQtd, Math.ceil(parc / 12));
+    return encerradoAqui ? "Fixo, encerrado" : `Fixo ${anoAtual}/${g.durQtd}a (${parc}/${totalM}m)`;
+  }
+  if (fim && fim === mes) return "Fixo, último mês";
+  return encerradoAqui ? "Fixo, último mês" : "Fixo";
+}
+
+function itensDoMes(mes) {
+  return gastos.filter(g => {
+    if (!g.fixo) return g.data.startsWith(mes);
+    const ini = g.data.slice(0, 7);
+    if (ini > mes) return false;
+    const fim = fimPrevisto(g);
+    if (fim && mes > fim) return false;
+    return true;
+  }).map(g => ({
+    ...g,
+    tipo: g.tipo || "gasto",
+    conta: g.conta || "Conta Principal",
+    dv: g.fixo ? dataNoMes(g.data, mes) : g.data
+  })).sort((a, b) => b.dv.localeCompare(a.dv) || String(b.id).localeCompare(String(a.id)));
+}
+
+// Calcula saldo acumulado desde o primeiro lançamento registrado até o mês selecionado
+function calcularSaldoAcumuladoAte(mesAlvo) {
+  if (!gastos.length) return 0;
+  let menorMes = mesAlvo;
+  gastos.forEach(g => {
+    const m = g.data.slice(0, 7);
+    if (m < menorMes) menorMes = m;
+  });
+  let cursor = menorMes;
+  let acumulado = 0;
+  for (let i = 0; i < 600; i++) {
+    const lista = itensDoMes(cursor);
+    lista.forEach(it => {
+      acumulado += it.tipo === "ganho" ? it.valor : -it.valor;
+    });
+    if (cursor >= mesAlvo) break;
+    cursor = deslocarMes(cursor, 1);
+  }
+  return acumulado;
+}
+
+// =========================================================
+// RENDERIZAÇÃO DO DASHBOARD (INÍCIO)
+// =========================================================
+function renderInicio() {
+  const mes = $("mes").value || mesAtual();
+  const itens = itensDoMes(mes);
+  const receitas = itens.filter(g => g.tipo === "ganho");
+  const despesas = itens.filter(g => g.tipo === "gasto");
+
+  const totalReceitas = receitas.reduce((s, g) => s + g.valor, 0);
+  const totalDespesas = despesas.reduce((s, g) => s + g.valor, 0);
+  const resultado = totalReceitas - totalDespesas;
+  const saldoAcumulado = calcularSaldoAcumuladoAte(mes);
+
+  $("periodoSubtitulo").textContent = `Resumo financeiro de ${nomeMesExtenso(mes)}`;
+
+  // KPIs
+  $("kpiResultado").textContent = brl(resultado);
+  $("kpiResultado").className = `text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums ${resultado < 0 ? "text-red-600" : resultado > 0 ? "text-emerald-600" : "text-zinc-900"}`;
+  $("kpiReceitas").textContent = brl(totalReceitas);
+  $("kpiReceitasQtd").textContent = `${receitas.length} ${receitas.length === 1 ? "entrada" : "entradas"} no mês`;
+  $("kpiDespesas").textContent = brl(totalDespesas);
+  $("kpiDespesasQtd").textContent = `${despesas.length} ${despesas.length === 1 ? "saída" : "saídas"} no mês`;
+  $("kpiSaldoConta").textContent = brl(saldoAcumulado);
+  $("kpiSaldoConta").className = `text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums ${saldoAcumulado < 0 ? "text-red-600" : "text-zinc-900"}`;
+
+  // Calendário "Saídas por dia"
+  renderCalendarioSaidas(mes, despesas, totalDespesas);
+
+  // Donut "Por tags & categorias"
+  renderDonutCategorias(itens);
+
+  // Histórico Financeiro (6 meses)
+  renderHistorico6Meses(mes);
+
+  // Lista rápida (filtrada por dia caso o usuário tenha clicado no calendário)
+  renderListaRapida(mes, itens);
+}
+
+function renderCalendarioSaidas(mes, despesas, totalDespesas) {
+  const [ano, m] = mes.split("-").map(Number);
+  const primeiroDiaSemana = new Date(ano, m - 1, 1).getDay(); // 0 = Dom
+  const diasNoMes = new Date(ano, m, 0).getDate();
+
+  const gastosPorDia = {};
+  despesas.forEach(d => {
+    const dia = parseInt(d.dv.slice(8, 10), 10);
+    gastosPorDia[dia] = (gastosPorDia[dia] || 0) + d.valor;
+  });
+
+  const valoresDias = Object.values(gastosPorDia);
+  const maxDiaValor = valoresDias.length ? Math.max(...valoresDias) : 0;
+  const diasComSaida = valoresDias.filter(v => v > 0).length;
+  const diasSemSaida = Math.max(0, diasNoMes - diasComSaida);
+  const mediaPorDia = diasNoMes > 0 ? totalDespesas / diasNoMes : 0;
+
+  let maiorDiaTexto = "—";
+  if (maxDiaValor > 0) {
+    const diaMax = Object.entries(gastosPorDia).sort((a, b) => b[1] - a[1])[0][0];
+    maiorDiaTexto = `${String(diaMax).padStart(2, "0")}/${String(m).padStart(2, "0")} · ${brlCompacto(maxDiaValor)}`;
+  }
+
+  $("calSubtitulo").textContent = `${nomeMesExtenso(mes)} · quanto saiu em cada dia`;
+  $("calTotalSaidas").textContent = brl(totalDespesas);
+  $("calDiasComSaida").textContent = `em ${diasComSaida} ${diasComSaida === 1 ? "dia com saída" : "dias com saída"}`;
+  $("calMediaDia").textContent = brl(mediaPorDia);
+  $("calMaiorDia").textContent = maiorDiaTexto;
+  $("calDiasSemSaida").textContent = String(diasSemSaida);
+
+  const celulas = [];
+  for (let i = 0; i < primeiroDiaSemana; i++) {
+    celulas.push(`<div class="h-14 sm:h-16 rounded-xl bg-zinc-50/40 border border-transparent"></div>`);
+  }
+
+  for (let dia = 1; dia <= diasNoMes; dia++) {
+    const dataIso = `${mes}-${String(dia).padStart(2, "0")}`;
+    const val = gastosPorDia[dia] || 0;
+    const selecionado = diaSelecionadoFiltro === dataIso;
+    const ratio = maxDiaValor > 0 ? val / maxDiaValor : 0;
+
+    // Mapa de calor coral/vermelho suave igual ao painel de referência
+    let estiloFundo = "background-color: #f9fafb; border-color: #f1f5f9;";
+    let textoValorCor = "text-zinc-400";
+    let textoDiaCor = "text-zinc-500";
+
+    if (val > 0) {
+      const alpha = (0.10 + ratio * 0.45).toFixed(2);
+      const borderAlpha = (0.20 + ratio * 0.45).toFixed(2);
+      estiloFundo = `background-color: rgba(239, 68, 68, ${alpha}); border-color: rgba(220, 38, 38, ${borderAlpha});`;
+      textoValorCor = ratio > 0.55 ? "text-red-950 font-extrabold" : "text-zinc-800 font-bold";
+      textoDiaCor = ratio > 0.55 ? "text-red-950 font-bold" : "text-zinc-700 font-semibold";
+    }
+
+    const ringClass = selecionado ? "ring-2 ring-zinc-900 ring-offset-1" : "hover:brightness-95";
+
+    celulas.push(`
+      <button type="button" data-cal-date="${dataIso}" style="${estiloFundo}"
+        class="cal-day-btn h-14 sm:h-16 p-1.5 sm:p-2 rounded-xl border text-left flex flex-col justify-between transition cursor-pointer ${ringClass}"
+        title="${dia}/${String(m).padStart(2, "0")}: ${val > 0 ? brl(val) : "Sem saídas"}">
+        <span class="text-[11px] leading-none ${textoDiaCor}">${dia}</span>
+        <span class="text-[10px] sm:text-[11px] leading-tight truncate tabular-nums ${textoValorCor}">${val > 0 ? brlCompacto(val) : "—"}</span>
+      </button>
+    `);
+  }
+
+  $("calendarioGrid").innerHTML = celulas.join("");
+}
+
+function renderDonutCategorias(itens) {
+  const filtrados = itens.filter(g => g.tipo === donutModo);
+  const total = filtrados.reduce((s, g) => s + g.valor, 0);
+
+  $("donutCenterTotal").textContent = brl(total);
+  $("donutCenterLabel").textContent = donutModo === "gasto" ? "despesas no mês" : "receitas no mês";
+
+  const porCat = {};
+  filtrados.forEach(g => {
+    const c = g.cat || "Sem Tags";
+    porCat[c] = (porCat[c] || 0) + g.valor;
+  });
+
+  const ranking = Object.entries(porCat).sort((a, b) => b[1] - a[1]);
+  const svg = $("donutSvg");
+  const radius = 44;
+  const circumference = 2 * Math.PI * radius;
+
+  if (!ranking.length || total <= 0) {
+    svg.innerHTML = `<circle cx="60" cy="60" r="${radius}" fill="none" stroke="#e4e4e7" stroke-width="14"></circle>`;
+    $("donutLista").innerHTML = `<p class="text-xs text-zinc-400 text-center py-6">Nenhum lançamento de ${donutModo === "gasto" ? "despesa" : "receita"} neste mês.</p>`;
+    return;
+  }
+
+  let acumuladoOffset = 0;
+  const segmentosSvg = ranking.map(([cat, val], idx) => {
+    const cor = PALETA_TAGS[idx % PALETA_TAGS.length];
+    const pct = val / total;
+    const dash = pct * circumference;
+    const gap = Math.max(0, circumference - dash);
+    const seg = `<circle class="donut-segment" cx="60" cy="60" r="${radius}" fill="none" stroke="${cor}" stroke-width="14" stroke-dasharray="${dash.toFixed(2)} ${gap.toFixed(2)}" stroke-dashoffset="${(-acumuladoOffset).toFixed(2)}"><title>${esc(cat)}: ${brl(val)} (${(pct * 100).toFixed(1)}%)</title></circle>`;
+    acumuladoOffset += dash;
+    return seg;
+  });
+  svg.innerHTML = segmentosSvg.join("");
+
+  $("donutLista").innerHTML = ranking.map(([cat, val], idx) => {
+    const cor = PALETA_TAGS[idx % PALETA_TAGS.length];
+    const pct = total > 0 ? (val / total) * 100 : 0;
+    return `
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-xs gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color:${cor}"></span>
+            <span class="font-semibold text-zinc-800 truncate">${esc(cat)}</span>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0 tabular-nums">
+            <span class="font-bold text-zinc-900">${brl(val)}</span>
+            <span class="text-zinc-400 w-10 text-right">${pct.toFixed(1)}%</span>
+          </div>
+        </div>
+        <div class="h-1.5 w-full bg-zinc-100 rounded-full overflow-hidden">
+          <div class="h-full rounded-full transition-all duration-300" style="width:${pct.toFixed(1)}%; background-color:${cor}"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderHistorico6Meses(mesReferencia) {
+  const meses = [];
+  for (let i = 5; i >= 0; i--) {
+    meses.push(deslocarMes(mesReferencia, -i));
+  }
+
+  const dados = meses.map(m => {
+    const lista = itensDoMes(m);
+    const rec = lista.filter(g => g.tipo === "ganho").reduce((s, g) => s + g.valor, 0);
+    const desp = lista.filter(g => g.tipo === "gasto").reduce((s, g) => s + g.valor, 0);
+    return { mes: m, rec, desp };
+  });
+
+  const maxValor = Math.max(1, ...dados.flatMap(d => [d.rec, d.desp]));
+
+  $("historicoChart").innerHTML = dados.map(d => {
+    const hRec = Math.max(4, Math.round((d.rec / maxValor) * 100));
+    const hDesp = Math.max(4, Math.round((d.desp / maxValor) * 100));
+    const ativo = d.mes === mesReferencia;
+    return `
+      <button type="button" data-hist-mes="${d.mes}" class="hist-bar-btn group flex flex-col items-center gap-1.5 h-full justify-end focus:outline-none" title="${nomeMesExtenso(d.mes)} — Receitas: ${brl(d.rec)} | Despesas: ${brl(d.desp)}">
+        <div class="w-full flex items-end justify-center gap-1 h-32">
+          <div class="w-2.5 sm:w-3 rounded-t-md bg-emerald-500 group-hover:bg-emerald-600 transition-all" style="height:${d.rec > 0 ? hRec : 2}%"></div>
+          <div class="w-2.5 sm:w-3 rounded-t-md bg-red-500 group-hover:bg-red-600 transition-all" style="height:${d.desp > 0 ? hDesp : 2}%"></div>
+        </div>
+        <span class="text-[11px] capitalize ${ativo ? "font-extrabold text-zinc-900 underline decoration-brand-gold decoration-2 underline-offset-4" : "font-medium text-zinc-400 group-hover:text-zinc-700"}">${nomeMesCurto(d.mes)}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+function renderListaRapida(mes, itens) {
+  let exibidos = itens;
+  if (diaSelecionadoFiltro) {
+    exibidos = itens.filter(g => g.dv === diaSelecionadoFiltro);
+    $("filtroDiaBadge").hidden = false;
+    $("filtroDiaTexto").textContent = `Dia ${diaSelecionadoFiltro.split("-").reverse().join("/")}`;
+    $("listaRapidaTitulo").textContent = `Lançamentos de ${diaSelecionadoFiltro.split("-").reverse().join("/")}`;
+    $("listaRapidaSub").textContent = `${exibidos.length} ${exibidos.length === 1 ? "movimentação" : "movimentações"} neste dia`;
+  } else {
+    $("filtroDiaBadge").hidden = true;
+    $("listaRapidaTitulo").textContent = `Lançamentos de ${nomeMesExtenso(mes)}`;
+    $("listaRapidaSub").textContent = `${itens.length} ${itens.length === 1 ? "movimentação ativa" : "movimentações ativas"}`;
+  }
+
+  if (!exibidos.length) {
+    $("listaRapida").innerHTML = `<div class="py-10 text-center text-xs text-zinc-400">Nenhum lançamento encontrado para este filtro.</div>`;
+    return;
+  }
+
+  $("listaRapida").innerHTML = exibidos.map(g => `
+    <div class="py-3 flex items-center justify-between gap-3">
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="font-semibold text-sm text-zinc-900 truncate">${esc(g.desc)}</span>
+          ${g.fixo ? `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold shrink-0">${esc(badgeFixo(g, mes))}</span>` : ""}
+        </div>
+        <div class="text-xs text-zinc-400 mt-0.5">
+          ${esc(g.cat)} · ${esc(g.conta)} · ${g.dv.split("-").reverse().join("/")}
+        </div>
+      </div>
+      <div class="text-right shrink-0">
+        <span class="font-bold text-sm tabular-nums ${g.tipo === "ganho" ? "text-emerald-600" : "text-red-600"}">
+          ${g.tipo === "ganho" ? "+" : "−"} ${brl(g.valor)}
+        </span>
+      </div>
+    </div>
+  `).join("");
+}
+
+// =========================================================
+// RENDERIZAÇÃO DE TRANSAÇÕES, ORÇAMENTO, CONTAS E TAGS
+// =========================================================
+function popularSelectsCategorias() {
+  const tipoForm = document.querySelector("input[name=tipo]:checked").value;
+  const listaForm = customCats[tipoForm] || DEFAULT_CATS[tipoForm];
+  $("cat").innerHTML = listaForm.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  $("desc").placeholder = tipoForm === "ganho" ? "De onde veio o dinheiro?" : "O que você comprou?";
+
+  const todas = Array.from(new Set([...customCats.gasto, ...customCats.ganho, ...gastos.map(g => g.cat)])).filter(Boolean);
+  const atualFiltro = $("filtroCat").value || "todas";
+  $("filtroCat").innerHTML = `<option value="todas">Todas as tags</option>` + todas.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  $("filtroCat").value = todas.includes(atualFiltro) ? atualFiltro : "todas";
+}
+
+function renderTransacoes() {
+  const mes = $("mes").value || mesAtual();
+  const busca = ($("filtroBusca").value || "").trim().toLowerCase();
+  const tipoF = $("filtroTipo").value;
+  const catF = $("filtroCat").value;
+
+  let itens = itensDoMes(mes);
+  if (tipoF !== "todos") itens = itens.filter(g => g.tipo === tipoF);
+  if (catF !== "todas") itens = itens.filter(g => g.cat === catF);
+  if (busca) itens = itens.filter(g => g.desc.toLowerCase().includes(busca) || g.cat.toLowerCase().includes(busca));
+
+  const somaRec = itens.filter(g => g.tipo === "ganho").reduce((s, g) => s + g.valor, 0);
+  const somaDesp = itens.filter(g => g.tipo === "gasto").reduce((s, g) => s + g.valor, 0);
+  $("transacoesResumoBarra").textContent = `${itens.length} itens · Receitas: ${brl(somaRec)} · Despesas: ${brl(somaDesp)}`;
+
+  if (!itens.length) {
+    $("tabelaTransacoes").innerHTML = `<tr><td colspan="6" class="py-10 text-center text-xs text-zinc-400">Nenhum lançamento encontrado neste mês com os filtros atuais.</td></tr>`;
+    return;
+  }
+
+  $("tabelaTransacoes").innerHTML = itens.map(g => {
+    const idStr = String(g.id);
+    const pedindoConfirmacao = g.fixo && pendenteExclusao === idStr;
+    return `
+      <tr class="hover:bg-zinc-50/80 transition">
+        <td class="py-3 px-4 text-xs font-medium text-zinc-500 whitespace-nowrap tabular-nums">${g.dv.split("-").reverse().join("/")}</td>
+        <td class="py-3 px-4">
+          <div class="font-semibold text-zinc-900">${esc(g.desc)}</div>
+          ${g.fixo ? `
+            <div class="flex items-center gap-2 mt-1">
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">${esc(badgeFixo(g, mes))}</span>
+              <button type="button" data-action="toggle-fim" data-id="${esc(idStr)}" class="text-[11px] font-semibold text-amber-700 hover:underline">
+                ${g.fim === mes ? "Retomar recorrência" : "Encerrar neste mês"}
+              </button>
+            </div>
+          ` : ""}
+        </td>
+        <td class="py-3 px-4">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg bg-zinc-100 text-zinc-700 text-xs font-medium">${esc(g.cat)}</span>
+        </td>
+        <td class="py-3 px-4 text-xs text-zinc-500">${esc(g.conta)}</td>
+        <td class="py-3 px-4 text-right font-bold tabular-nums whitespace-nowrap ${g.tipo === "ganho" ? "text-emerald-600" : "text-red-600"}">
+          ${g.tipo === "ganho" ? "+" : "−"} ${brl(g.valor)}
+        </td>
+        <td class="py-3 px-4 text-right whitespace-nowrap">
+          <button type="button" data-action="delete" data-id="${esc(idStr)}"
+            class="px-2.5 py-1 rounded-lg text-xs font-semibold transition ${pedindoConfirmacao ? "bg-red-600 text-white" : "text-zinc-400 hover:text-red-600 hover:bg-red-50"}">
+            ${pedindoConfirmacao ? "Excluir de todos os meses?" : "Excluir"}
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function renderOrcamento() {
+  const mes = $("mes").value || mesAtual();
+  const despesas = itensDoMes(mes).filter(g => g.tipo === "gasto");
+  const gastoPorCat = {};
+  despesas.forEach(g => { gastoPorCat[g.cat] = (gastoPorCat[g.cat] || 0) + g.valor; });
+
+  const cats = Array.from(new Set([...customCats.gasto, ...Object.keys(gastoPorCat)]));
+  $("orcamentoGrid").innerHTML = cats.map(cat => {
+    const gasto = gastoPorCat[cat] || 0;
+    const meta = Number(metasOrcamento[cat]) || 0;
+    const pct = meta > 0 ? Math.min(100, (gasto / meta) * 100) : 0;
+    const estourou = meta > 0 && gasto > meta;
+    return `
+      <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-2xs space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <h3 class="font-bold text-sm text-zinc-900">${esc(cat)}</h3>
+            <p class="text-xs text-zinc-500 mt-0.5">Gasto no mês: <strong class="tabular-nums ${estourou ? "text-red-600" : "text-zinc-800"}">${brl(gasto)}</strong></p>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs">
+            <label class="text-zinc-400 font-medium">Meta R$</label>
+            <input type="number" min="0" step="50" value="${meta}" data-meta-cat="${esc(cat)}"
+              class="meta-input w-24 rounded-xl border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-right font-bold tabular-nums focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          </div>
+        </div>
+        <div class="h-2.5 w-full bg-zinc-100 rounded-full overflow-hidden">
+          <div class="h-full rounded-full transition-all duration-300 ${estourou ? "bg-red-600" : pct > 80 ? "bg-amber-500" : "bg-emerald-500"}" style="width:${meta > 0 ? pct.toFixed(1) : 0}%"></div>
+        </div>
+        <div class="flex justify-between text-[11px] text-zinc-400 tabular-nums">
+          <span>${meta > 0 ? `${((gasto / meta) * 100).toFixed(0)}% utilizado` : "Sem meta definida"}</span>
+          <span>${meta > 0 ? (estourou ? `Excedeu ${brl(gasto - meta)}` : `Restam ${brl(meta - gasto)}`) : ""}</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderContas() {
+  const mes = $("mes").value || mesAtual();
+  const itens = itensDoMes(mes);
+  const nomesContas = ["Conta Principal", "Cartão de Crédito", "Reserva / Investimentos", "Dinheiro"];
+
+  $("contasGrid").innerHTML = nomesContas.map(nome => {
+    const movs = itens.filter(g => (g.conta || "Conta Principal") === nome);
+    const rec = movs.filter(g => g.tipo === "ganho").reduce((s, g) => s + g.valor, 0);
+    const desp = movs.filter(g => g.tipo === "gasto").reduce((s, g) => s + g.valor, 0);
+    const saldo = rec - desp;
+    return `
+      <div class="bg-white rounded-2xl border border-zinc-200 p-5 shadow-2xs flex flex-col justify-between space-y-4">
+        <div>
+          <span class="inline-block px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 text-xs font-semibold">${esc(nome)}</span>
+          <div class="mt-3 text-xl font-extrabold tabular-nums ${saldo < 0 ? "text-red-600" : "text-zinc-900"}">${brl(saldo)}</div>
+          <p class="text-[11px] text-zinc-400 mt-0.5">Balanço no mês selecionado</p>
+        </div>
+        <div class="pt-3 border-t border-zinc-100 space-y-1 text-xs tabular-nums">
+          <div class="flex justify-between"><span class="text-zinc-500">Entradas</span><span class="font-semibold text-emerald-600">${brl(rec)}</span></div>
+          <div class="flex justify-between"><span class="text-zinc-500">Saídas</span><span class="font-semibold text-red-600">${brl(desp)}</span></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderTags() {
+  const mes = $("mes").value || mesAtual();
+  const itens = itensDoMes(mes);
+  const todas = Array.from(new Set([...customCats.gasto, ...customCats.ganho]));
+
+  $("tagsGrid").innerHTML = todas.map((tag, idx) => {
+    const cor = PALETA_TAGS[idx % PALETA_TAGS.length];
+    const movs = itens.filter(g => g.cat === tag);
+    const totalTag = movs.reduce((s, g) => s + g.valor, 0);
+    const isDespesa = customCats.gasto.includes(tag);
+    return `
+      <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-2xs flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-3.5 h-3.5 rounded-full shrink-0" style="background-color:${cor}"></span>
+          <div class="min-w-0">
+            <h3 class="font-bold text-sm text-zinc-900 truncate">${esc(tag)}</h3>
+            <span class="text-[11px] text-zinc-400">${isDespesa ? "Despesa" : "Receita"} · ${movs.length} ${movs.length === 1 ? "item" : "itens"} no mês</span>
+          </div>
+        </div>
+        <strong class="text-sm font-extrabold tabular-nums text-zinc-900 shrink-0">${brl(totalTag)}</strong>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderTudo() {
+  popularSelectsCategorias();
+  renderInicio();
+  renderTransacoes();
+  renderOrcamento();
+  renderContas();
+  renderTags();
+}
+
+// =========================================================
+// NAVEGAÇÃO ENTRE ABAS, SIDEBAR RETRÁTIL E INTERAÇÕES
+// =========================================================
+function mudarVisao(novaVisao) {
+  visaoAtual = novaVisao;
+  document.querySelectorAll(".view-section").forEach(sec => {
+    sec.classList.toggle("hidden", sec.id !== `view-${novaVisao}`);
+  });
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    const ativo = btn.dataset.nav === novaVisao;
+    btn.className = ativo
+      ? "nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-brand-gold text-zinc-950 shadow-xs transition"
+      : "nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition";
+  });
+  // Fecha sidebar no mobile
+  $("sidebar").classList.add("-translate-x-full");
+  $("mobileBackdrop").classList.add("hidden");
+}
+
+document.querySelectorAll(".nav-item").forEach(btn => {
+  btn.addEventListener("click", () => mudarVisao(btn.dataset.nav));
+});
+document.querySelectorAll(".nav-jump").forEach(btn => {
+  btn.addEventListener("click", () => mudarVisao(btn.dataset.nav));
+});
+
+// Recolher sidebar no desktop
+let sidebarRecolhida = false;
+$("btnCollapseSidebar").addEventListener("click", () => {
+  sidebarRecolhida = !sidebarRecolhida;
+  $("sidebar").classList.toggle("w-64", !sidebarRecolhida);
+  $("sidebar").classList.toggle("w-20", sidebarRecolhida);
+  document.querySelectorAll(".sidebar-label").forEach(el => el.classList.toggle("hidden", sidebarRecolhida));
+  $("collapseIcon").classList.toggle("rotate-180", sidebarRecolhida);
+});
+
+// Abrir / Fechar sidebar mobile
+$("btnOpenMobile").addEventListener("click", () => {
+  $("sidebar").classList.remove("-translate-x-full");
+  $("mobileBackdrop").classList.remove("hidden");
+});
+$("btnCloseMobile").addEventListener("click", () => {
+  $("sidebar").classList.add("-translate-x-full");
+  $("mobileBackdrop").classList.add("hidden");
+});
+$("mobileBackdrop").addEventListener("click", () => {
+  $("sidebar").classList.add("-translate-x-full");
+  $("mobileBackdrop").classList.add("hidden");
+});
+
+// Botão "+ Novo lançamento" abre aba Transações e foca na descrição
+$("btnOpenModal").addEventListener("click", () => {
+  mudarVisao("transacoes");
+  setTimeout(() => $("desc").focus(), 60);
+});
+
+// Navegação de mês
+$("mes").addEventListener("change", () => {
+  diaSelecionadoFiltro = null;
+  pendenteExclusao = null;
+  renderTudo();
+});
+$("btnPrevMonth").addEventListener("click", () => {
+  $("mes").value = deslocarMes($("mes").value || mesAtual(), -1);
+  diaSelecionadoFiltro = null;
+  renderTudo();
+});
+$("btnNextMonth").addEventListener("click", () => {
+  $("mes").value = deslocarMes($("mes").value || mesAtual(), 1);
+  diaSelecionadoFiltro = null;
+  renderTudo();
+});
+
+// Clique nos dias do calendário "Saídas por dia"
+$("calendarioGrid").addEventListener("click", e => {
+  const btn = e.target.closest(".cal-day-btn");
+  if (!btn) return;
+  const dt = btn.dataset.calDate;
+  diaSelecionadoFiltro = diaSelecionadoFiltro === dt ? null : dt;
+  renderInicio();
+});
+$("btnLimparDia").addEventListener("click", () => {
+  diaSelecionadoFiltro = null;
+  renderInicio();
+});
+
+// Clique nas barras do Histórico de 6 meses
+$("historicoChart").addEventListener("click", e => {
+  const btn = e.target.closest(".hist-bar-btn");
+  if (!btn) return;
+  $("mes").value = btn.dataset.histMes;
+  diaSelecionadoFiltro = null;
+  renderTudo();
+});
+
+// Abas do Donut (Despesas / Receitas)
+$("tabDonutDespesas").addEventListener("click", () => {
+  donutModo = "gasto";
+  $("tabDonutDespesas").className = "px-3 py-1 rounded-lg bg-brand-gold text-zinc-950 shadow-2xs transition";
+  $("tabDonutReceitas").className = "px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 transition";
+  renderInicio();
+});
+$("tabDonutReceitas").addEventListener("click", () => {
+  donutModo = "ganho";
+  $("tabDonutReceitas").className = "px-3 py-1 rounded-lg bg-brand-gold text-zinc-950 shadow-2xs transition";
+  $("tabDonutDespesas").className = "px-3 py-1 rounded-lg text-zinc-600 hover:text-zinc-900 transition";
+  renderInicio();
+});
+
+// Privacidade (ocultar valores)
+$("btnTogglePrivacy").addEventListener("click", () => {
+  ocultarValores = !ocultarValores;
+  renderTudo();
+});
+
+// =========================================================
+// FORMULÁRIO DE LANÇAMENTO & RECORRÊNCIAS
+// =========================================================
+function atualizarDuracaoUI() {
+  const ativo = $("fixo").checked;
+  $("durBox").hidden = !ativo;
+  if (!ativo) return;
+  const tipo = $("durTipo").value;
+  const isQtd = tipo === "meses" || tipo === "anos";
+  $("durQtd").hidden = !isQtd;
+  if (isQtd) {
+    const max = tipo === "anos" ? 50 : 600;
+    $("durQtd").max = String(max);
+    let qtd = parseInt($("durQtd").value, 10);
+    if (!Number.isFinite(qtd) || qtd < 1) qtd = tipo === "anos" ? 1 : 12;
+    if (qtd > max) qtd = max;
+    $("durQtd").value = String(qtd);
+    const totalMeses = tipo === "anos" ? qtd * 12 : qtd;
+    const fim = somarMeses(($("data").value || dataHoje()).slice(0, 7), totalMeses);
+    $("durResumo").textContent = tipo === "anos"
+      ? `Repete por ${qtd} ${qtd === 1 ? "ano" : "anos"} (${totalMeses} meses, até ${fim.split("-").reverse().join("/")})`
+      : `Repete por ${qtd} ${qtd === 1 ? "mês" : "meses"} (até ${fim.split("-").reverse().join("/")})`;
+  } else {
+    $("durResumo").textContent = "Repete por tempo indeterminado";
+  }
+}
+
+$("fixo").addEventListener("change", atualizarDuracaoUI);
+$("durTipo").addEventListener("change", atualizarDuracaoUI);
+$("durQtd").addEventListener("input", atualizarDuracaoUI);
+$("data").addEventListener("change", atualizarDuracaoUI);
+
+document.querySelectorAll("input[name=tipo]").forEach(r => r.addEventListener("change", popularSelectsCategorias));
+
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  if (!$("f").reportValidity()) return;
+  const valor = parseFloat(String($("valor").value).replace(",", "."));
+  const desc = $("desc").value.trim();
+  const data = $("data").value;
+  if (!desc || !(valor > 0) || !data) return;
+
+  const fixo = $("fixo").checked;
+  const durTipo = fixo ? $("durTipo").value : "perpetuo";
+  const durQtd = fixo && (durTipo === "meses" || durTipo === "anos") ? Math.max(1, parseInt($("durQtd").value, 10) || 1) : null;
+  const tipo = document.querySelector("input[name=tipo]:checked").value;
+
+  gastos.push({
+    id: Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+    desc,
+    valor,
+    tipo,
+    cat: $("cat").value,
+    conta: $("conta").value,
+    data,
+    fixo,
+    durTipo,
+    durQtd
+  });
+
+  salvar();
+  $("mes").value = data.slice(0, 7);
+  $("desc").value = "";
+  $("valor").value = "";
+  $("fixo").checked = false;
+  atualizarDuracaoUI();
+  pendenteExclusao = null;
+  diaSelecionadoFiltro = null;
+  renderTudo();
+  setStatus(`Lançamento "${desc}" adicionado com sucesso.`);
+});
+
+// Ações na Tabela de Transações (Encerrar fixo / Excluir)
+$("tabelaTransacoes").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const g = gastos.find(x => String(x.id) === id);
+  if (!g) return;
+
+  if (btn.dataset.action === "delete") {
+    if (g.fixo && pendenteExclusao !== id) {
+      pendenteExclusao = id;
+      renderTransacoes();
+      return;
+    }
+    gastos = gastos.filter(x => String(x.id) !== id);
+    setStatus(`Lançamento "${g.desc}" removido.`);
+  } else if (btn.dataset.action === "toggle-fim") {
+    const mes = $("mes").value || mesAtual();
+    if (g.fim === mes) delete g.fim;
+    else g.fim = mes;
+  }
+  pendenteExclusao = null;
+  salvar();
+  renderTudo();
+});
+
+// Filtros da aba Transações
+$("filtroBusca").addEventListener("input", renderTransacoes);
+$("filtroTipo").addEventListener("change", renderTransacoes);
+$("filtroCat").addEventListener("change", renderTransacoes);
+
+// Metas de Orçamento
+$("orcamentoGrid").addEventListener("change", e => {
+  const inp = e.target.closest(".meta-input");
+  if (!inp) return;
+  const cat = inp.dataset.metaCat;
+  metasOrcamento[cat] = Math.max(0, parseFloat(inp.value) || 0);
+  try { localStorage.setItem(META_KEY, JSON.stringify(metasOrcamento)); } catch (err) {}
+  renderOrcamento();
+});
+
+// Criar nova Tag personalizada
+$("formNovaTag").addEventListener("submit", e => {
+  e.preventDefault();
+  const nome = $("novaTagNome").value.trim();
+  const tipo = $("novaTagTipo").value;
+  if (!nome) return;
+  if (!customCats[tipo].includes(nome)) {
+    customCats[tipo].push(nome);
+    try { localStorage.setItem(TAGS_KEY, JSON.stringify(customCats)); } catch (err) {}
+  }
+  $("novaTagNome").value = "";
+  renderTudo();
+  setStatus(`Tag "${nome}" criada.`);
+});
+
+// Atalhos da Sidebar
+$("sideBtnExport").addEventListener("click", () => {
+  mudarVisao("transacoes");
+  $("expBox").hidden = false;
+  atualizarExportacaoUI();
+});
+$("sideBtnDemo").addEventListener("click", () => {
+  gastos = gerarDadosExemplo();
+  salvar();
+  diaSelecionadoFiltro = null;
+  renderTudo();
+  setStatus("Dados de exemplo recarregados.");
+});
+
+// =========================================================
+// EXPORTAÇÃO CSV, IMPORTAÇÃO CSV E BACKUP/RESTAURAÇÃO JSON
+// =========================================================
+function baixar(nome, conteudo, tipo) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([conteudo], { type: tipo }));
+  a.download = nome;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function listarMesesIntervalo(mesIni, mesFim) {
+  if (!mesIni || !mesFim) return [];
+  let [a, b] = mesIni <= mesFim ? [mesIni, mesFim] : [mesFim, mesIni];
+  let [y1, m1] = a.split("-").map(Number);
+  const [y2, m2] = b.split("-").map(Number);
+  const meses = [];
+  for (let k = 0; k < 1200; k++) {
+    const atual = y1 + "-" + String(m1).padStart(2, "0");
+    meses.push(atual);
+    if (atual === `${y2}-${String(m2).padStart(2, "0")}`) break;
+    if (++m1 > 12) { m1 = 1; y1++; }
+  }
+  return meses;
+}
+
+function ocorrenciasParaMeses(mesesAlvo) {
+  const listaMeses = Array.from(new Set(mesesAlvo)).sort();
+  const out = [];
+  listaMeses.forEach(mes => {
+    gastos.forEach(g => {
+      if (!g.fixo) {
+        if (g.data.startsWith(mes)) out.push({ ...g, dv: g.data });
+        return;
+      }
+      const ini = g.data.slice(0, 7);
+      if (ini > mes) return;
+      const fim = fimPrevisto(g);
+      if (fim && mes > fim) return;
+      out.push({ ...g, dv: dataNoMes(g.data, mes) });
+    });
+  });
+  return out.sort((a, b) => a.dv.localeCompare(b.dv));
+}
+
+function ocorrenciasTodas() {
+  const out = [], atual = mesAtual();
+  gastos.forEach(g => {
+    if (!g.fixo) { out.push({ ...g, dv: g.data }); return; }
+    const ini = g.data.slice(0, 7);
+    let [y, m] = ini.split("-").map(Number);
+    const fim = fimPrevisto(g) || (ini > atual ? ini : atual);
+    for (let k = 0; k < 600; k++) {
+      const mes = y + "-" + String(m).padStart(2, "0");
+      if (mes > fim) break;
+      out.push({ ...g, dv: dataNoMes(g.data, mes) });
+      if (++m > 12) { m = 1; y++; }
+    }
+  });
+  return out.sort((a, b) => a.dv.localeCompare(b.dv));
+}
+
+function atualizarExportacaoUI() {
+  const modo = $("expModo").value;
+  const mesSel = $("mes").value || mesAtual();
+  const anoSel = parseInt(mesSel.slice(0, 4), 10) || new Date().getFullYear();
+  $("expCamposMeses").hidden = modo !== "intervalo-meses";
+  $("expCamposAnos").hidden = modo !== "intervalo-anos";
+  if (!$("expMesIni").value) $("expMesIni").value = mesSel;
+  if (!$("expMesFim").value) $("expMesFim").value = mesSel;
+  if (!$("expAnoIni").value) $("expAnoIni").value = String(anoSel);
+  if (!$("expAnoFim").value) $("expAnoFim").value = String(anoSel);
+
+  if (modo === "mes") {
+    $("expResumo").textContent = `Exporta apenas ${mesSel.split("-").reverse().join("/")} (incluindo recorrências ativas).`;
+  } else if (modo === "intervalo-meses") {
+    const m1 = $("expMesIni").value || mesSel;
+    const m2 = $("expMesFim").value || m1;
+    const qtdM = listarMesesIntervalo(m1, m2).length;
+    $("expResumo").textContent = `Exporta ${qtdM} ${qtdM === 1 ? "mês" : "meses"} selecionados.`;
+  } else if (modo === "intervalo-anos") {
+    let a1 = parseInt($("expAnoIni").value, 10) || anoSel;
+    let a2 = parseInt($("expAnoFim").value, 10) || a1;
+    if (a1 > a2) [a1, a2] = [a2, a1];
+    $("expResumo").textContent = `Exporta de ${a1} a ${a2}.`;
+  } else {
+    $("expResumo").textContent = "Exporta todos os lançamentos registrados.";
+  }
+}
+
+$("bCsv").addEventListener("click", () => {
+  $("expBox").hidden = !$("expBox").hidden;
+  if (!$("expBox").hidden) atualizarExportacaoUI();
+});
+$("expModo").addEventListener("change", atualizarExportacaoUI);
+$("expMesIni").addEventListener("change", atualizarExportacaoUI);
+$("expMesFim").addEventListener("change", atualizarExportacaoUI);
+$("expAnoIni").addEventListener("input", atualizarExportacaoUI);
+$("expAnoFim").addEventListener("input", atualizarExportacaoUI);
+
+const aspas = t => '"' + String(t).replace(/"/g, '""') + '"';
+$("bCsvConfirmar").addEventListener("click", () => {
+  const modo = $("expModo").value;
+  const mesSel = $("mes").value || mesAtual();
+  let itens = [];
+  let nomeArquivo = "meus-gastos.csv";
+
+  if (modo === "mes") {
+    itens = ocorrenciasParaMeses([mesSel]);
+    nomeArquivo = `meus-gastos-${mesSel}.csv`;
+  } else if (modo === "intervalo-meses") {
+    const m1 = $("expMesIni").value || mesSel;
+    const m2 = $("expMesFim").value || m1;
+    const [ini, fim] = m1 <= m2 ? [m1, m2] : [m2, m1];
+    itens = ocorrenciasParaMeses(listarMesesIntervalo(ini, fim));
+    nomeArquivo = `meus-gastos-${ini}-a-${fim}.csv`;
+  } else if (modo === "intervalo-anos") {
+    const anoBase = parseInt(mesSel.slice(0, 4), 10) || new Date().getFullYear();
+    let a1 = parseInt($("expAnoIni").value, 10) || anoBase;
+    let a2 = parseInt($("expAnoFim").value, 10) || a1;
+    if (a1 > a2) [a1, a2] = [a2, a1];
+    itens = ocorrenciasParaMeses(listarMesesIntervalo(`${a1}-01`, `${a2}-12`));
+    nomeArquivo = `meus-gastos-${a1}-a-${a2}.csv`;
+  } else {
+    itens = ocorrenciasTodas();
+    nomeArquivo = `meus-gastos-completo-${dataHoje()}.csv`;
+  }
+
+  const linhas = [["Mês/Ano", "Data", "Tipo", "Categoria", "Descrição", "Valor (R$)", "Fixo", "Duração"].join(";")];
+  itens.forEach(g => {
+    const v = (g.tipo === "ganho" ? 1 : -1) * g.valor;
+    const dur = !g.fixo ? "Pontual" : g.durTipo === "meses" ? `${g.durQtd} meses` : g.durTipo === "anos" ? `${g.durQtd} anos` : "Perpétuo";
+    const mesAno = g.dv.slice(0, 7).split("-").reverse().join("/");
+    linhas.push([mesAno, g.dv.split("-").reverse().join("/"), g.tipo === "ganho" ? "Ganho" : "Gasto", aspas(g.cat), aspas(g.desc), v.toFixed(2).replace(".", ","), g.fixo ? "Sim" : "Não", aspas(dur)].join(";"));
+  });
+  baixar(nomeArquivo, "\ufeff" + linhas.join("\r\n"), "text/csv;charset=utf-8");
+  setStatus(`Planilha "${nomeArquivo}" exportada (${itens.length} linhas).`);
+});
+
+// Importação CSV
+function parseCsvLinha(linha, sep) {
+  const res = []; let cur = ""; let inQuotes = false;
+  for (let i = 0; i < linha.length; i++) {
+    const ch = linha[i];
+    if (inQuotes) {
+      if (ch === '"' && linha[i + 1] === '"') { cur += '"'; i++; }
+      else if (ch === '"') inQuotes = false;
+      else cur += ch;
+    } else {
+      if (ch === '"') inQuotes = true;
+      else if (ch === sep) { res.push(cur.trim()); cur = ""; }
+      else cur += ch;
+    }
+  }
+  res.push(cur.trim());
+  return res;
+}
+
+function normalizarData(raw) {
+  if (!raw) return null;
+  const s = String(raw).trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  const br = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (br) return `${br[3]}-${br[2].padStart(2, "0")}-${br[1].padStart(2, "0")}`;
+  const brMes = s.match(/^(\d{1,2})\/(\d{4})$/);
+  if (brMes) return `${brMes[2]}-${brMes[1].padStart(2, "0")}-01`;
+  const isoMes = s.match(/^(\d{4})-(\d{2})$/);
+  if (isoMes) return `${isoMes[1]}-${isoMes[2]}-01`;
+  return null;
+}
+
+function normalizarValor(raw) {
+  if (typeof raw === "number") return Number.isFinite(raw) ? Math.abs(raw) : NaN;
+  if (!raw) return NaN;
+  let s = String(raw).replace(/R\$/gi, "").replace(/\s+/g, "").trim();
+  if (s.includes(",") && s.includes(".")) {
+    s = s.lastIndexOf(",") > s.lastIndexOf(".") ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
+  } else if (s.includes(",")) {
+    s = s.replace(",", ".");
+  }
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? Math.abs(n) : NaN;
+}
+
+$("bImp").addEventListener("click", () => $("fCsv").click());
+$("fCsv").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const limpo = String(r.result || "").replace(/^\ufeff/, "");
+      const linhas = limpo.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      if (linhas.length < 2) throw new Error("Planilha vazia.");
+      const sep = linhas[0].split(";").length >= linhas[0].split(",").length ? ";" : ",";
+      const cab = parseCsvLinha(linhas[0], sep).map(h => h.toLowerCase());
+      const idxData = cab.findIndex(h => h.includes("data"));
+      const idxTipo = cab.findIndex(h => h.includes("tipo"));
+      const idxCat = cab.findIndex(h => h.includes("categ") || h.includes("cat"));
+      const idxDesc = cab.findIndex(h => h.includes("desc"));
+      const idxVal = cab.findIndex(h => h.includes("valor"));
+
+      let added = 0;
+      for (let i = 1; i < linhas.length; i++) {
+        const cols = parseCsvLinha(linhas[i], sep);
+        const data = normalizarData(idxData >= 0 ? cols[idxData] : cols[0]);
+        const valor = normalizarValor(idxVal >= 0 ? cols[idxVal] : cols[4]);
+        if (!data || !(valor > 0)) continue;
+        const tipoStr = (idxTipo >= 0 ? cols[idxTipo] : "").toLowerCase();
+        const tipo = tipoStr.includes("ganho") || tipoStr.includes("receita") ? "ganho" : "gasto";
+        const desc = (idxDesc >= 0 ? cols[idxDesc] : cols[3] || "Importado").trim().slice(0, 60);
+        const cat = (idxCat >= 0 ? cols[idxCat] : cols[2] || "Outros").trim() || "Outros";
+        gastos.push({ id: Date.now() + "-" + i + "-" + Math.random().toString(36).slice(2, 5), desc, valor, tipo, cat, conta: "Conta Principal", data, fixo: false });
+        added++;
+      }
+      if (!added) throw new Error("Nenhum lançamento válido encontrado.");
+      salvar();
+      renderTudo();
+      setStatus(`${added} lançamentos importados de "${f.name}".`);
+    } catch (err) {
+      setStatus(err.message || "Erro ao importar CSV.");
+    }
+  };
+  r.readAsText(f, "utf-8");
+  e.target.value = "";
+});
+
+// Backup e Restauração JSON
+$("bBkp").addEventListener("click", () => {
+  baixar("backup-gastos-" + dataHoje() + ".json", JSON.stringify(gastos, null, 2), "application/json");
+});
+$("bRes").addEventListener("click", () => $("fRes").click());
+$("fRes").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!Array.isArray(d)) throw 0;
+      const ids = new Set(gastos.map(g => String(g.id)));
+      let added = 0;
+      d.forEach(g => {
+        if (g && g.data && g.valor > 0 && !ids.has(String(g.id))) {
+          gastos.push(g);
+          added++;
+        }
+      });
+      salvar();
+      renderTudo();
+      setStatus(`Backup restaurado (${added} ${added === 1 ? "novo item" : "novos itens"}).`);
+    } catch (err) {
+      setStatus("Arquivo de backup JSON inválido.");
+    }
+  };
+  r.readAsText(f);
+  e.target.value = "";
+});
+
+// Inicialização
+atualizarDuracaoUI();
+renderTudo();
+</script>
+</body>
+</html>
