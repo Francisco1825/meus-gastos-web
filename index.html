@@ -1833,12 +1833,71 @@ try {
   if (Number.isFinite(savedEm)) configEm = savedEm;
 } catch (e) {}
 
+/* =====================================================
+   CONTROLE DE STATUS DO GOOGLE DRIVE
+   ===================================================== */
+
 function atualizarSyncUI(statusTexto, contaTexto, dotClass) {
-  if ($("syncStatus") && statusTexto) $("syncStatus").textContent = statusTexto;
-  if ($("contaStatus") && contaTexto) $("contaStatus").textContent = contaTexto;
-  if ($("syncDot") && dotClass) {
-    $("syncDot").className = `w-2 h-2 rounded-full ${dotClass}`;
-  }
+
+    const status = $("syncStatus");
+    const conta = $("contaStatus");
+    const indicador = $("syncDot");
+
+    const conectado = Boolean(driveAccessToken);
+
+    // Atualiza o status superior
+    if (status && statusTexto) {
+        status.textContent = statusTexto;
+    }
+
+    // Atualiza o indicador de conexão
+    if (indicador && dotClass) {
+        indicador.className =
+            `w-2 h-2 rounded-full ${dotClass}`;
+    }
+
+    // Atualiza a mensagem inferior
+    if (conta) {
+
+        if (!conectado) {
+
+            conta.textContent =
+                "Modo local ativo — entre com o Google para sincronizar seus dados.";
+
+            conta.style.color = "";
+
+        } else if (statusTexto === "Drive sincronizado") {
+
+            conta.textContent =
+                "Google Drive conectado — seus dados estão sincronizados.";
+
+            conta.style.color = "#10b981";
+
+        } else if (statusTexto === "Sincronizando...") {
+
+            conta.textContent =
+                "Sincronizando seus dados com o Google Drive...";
+
+            conta.style.color = "#f59e0b";
+
+        } else if (
+            statusTexto === "Erro na nuvem" ||
+            statusTexto === "Aviso Drive"
+        ) {
+
+            conta.textContent =
+                "Não foi possível sincronizar com o Google Drive. Verifique sua conexão ou sessão.";
+
+            conta.style.color = "#ef4444";
+
+        } else {
+
+            conta.textContent = contaTexto ||
+                "Google Drive conectado.";
+
+            conta.style.color = "#10b981";
+        }
+    }
 }
 
 async function obterPerfilGoogle() {
