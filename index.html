@@ -2832,7 +2832,135 @@ function renderRelatorioAnual() {
     }
   }
 }
+/* =====================================================
+   CONTROLE DE PAGAMENTOS
+   ===================================================== */
 
+function estaPago(item, data) {
+
+    const original = gastos.find(
+        g => String(g.id) === String(item.id)
+    );
+
+    if (!original) return false;
+
+    return Boolean(
+        original.pagamentos?.[data] ||
+        (
+            original.faturaPagaCartao &&
+            String(original.data || "").slice(0, 7) ===
+            data.slice(0, 7)
+        )
+    );
+}
+
+function alternarPagamento(id, data) {
+
+    const item = gastos.find(
+        g => String(g.id) === String(id)
+    );
+
+    if (!item) return;
+
+    prepararDesfazer();
+
+    if (!item.pagamentos) {
+        item.pagamentos = {};
+    }
+
+    const jaPago = estaPago(item, data);
+
+    if (jaPago) {
+
+        delete item.pagamentos[data];
+
+        if (
+            item.faturaPagaCartao &&
+            String(item.data || "").slice(0, 7) ===
+            data.slice(0, 7)
+        ) {
+            mostrarDesfazer(
+                "Esta compra pertence a uma fatura já quitada."
+            );
+            return;
+        }
+
+    } else {
+
+        item.pagamentos[data] = {
+            pago: true,
+            confirmadoEm: new Date().toISOString()
+        };
+
+    }
+
+    salvar();
+    renderTudo();
+    abrirModalDia(data);
+
+    mostrarDesfazer(
+        jaPago
+            ? "Pagamento desfeito."
+            : "Pagamento confirmado com sucesso."
+    );
+}
+
+function statusPagamentoHTML(item, data) {
+
+    if (item.tipo !== "gasto") return "";
+
+    const pago = estaPago(item, data);
+
+    const hoje = new Date();
+
+    const hojeISO =
+        hoje.getFullYear() + "-" +
+        String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
+        String(hoje.getDate()).padStart(2, "0");
+
+    if (pago) {
+
+        return `
+            <span class="inline-flex items-center gap-1
+                px-2 py-0.5 rounded-full text-[10px]
+                font-bold bg-emerald-100 text-emerald-700
+                dark:bg-emerald-950 dark:text-emerald-400">
+
+                ✓ Pago
+
+            </span>
+        `;
+
+    }
+
+    if (data < hojeISO) {
+
+        return `
+            <span class="inline-flex items-center gap-1
+                px-2 py-0.5 rounded-full text-[10px]
+                font-bold bg-red-100 text-red-700
+                dark:bg-red-950 dark:text-red-400">
+
+                Vencido
+
+            </span>
+        `;
+
+    }
+
+    return `
+        <span class="inline-flex items-center gap-1
+            px-2 py-0.5 rounded-full text-[10px]
+            font-bold bg-amber-100 text-amber-700
+            dark:bg-amber-950 dark:text-amber-400">
+
+            Pendente
+
+        </span>
+    `;
+}
+
+/* FIM DO CONTROLE DE PAGAMENTOS */
 function abrirModalDia(dataIso) {
   diaModalAtual = dataIso;
   const mes = dataIso.slice(0, 7);
@@ -2841,19 +2969,94 @@ function abrirModalDia(dataIso) {
   const totG = itensDia.filter(x => x.tipo === "ganho").reduce((s, x) => s + Number(x.valor || 0), 0);
   const totD = itensDia.filter(x => x.tipo === "gasto").reduce((s, x) => s + Number(x.valor || 0), 0);
   if ($("modalDiaResumo")) $("modalDiaResumo").textContent = `Receitas: ${brl(totG)} · Despesas: ${brl(totD)}`;
-  if ($("modalDiaLista")) {
+if ($("modalDiaLista")) {
+
     $("modalDiaLista").innerHTML = itensDia.length
-      ? itensDia.map(it => `
-          <div class="py-2 flex items-center justify-between gap-2 text-xs">
-            <div>
-              <div class="font-bold">${esc(it.desc)}</div>
-              <div class="text-[11px] text-zinc-500">${esc(it.cat || "Outros")} · ${esc(it.conta || "Conta Principal")}</div>
-            </div>
-            <strong class="font-extrabold tabular-nums ${it.tipo === "ganho" ? "text-emerald-600" : "text-red-600"}">${it.tipo === "ganho" ? "+" : "−"} ${brl(Number(it.valor || 0))}</strong>
-          </div>
-        `).join("")
-      : `<div class="py-6 text-center text-xs text-zinc-400">Nenhum lançamento neste dia.</div>`;
-  }
+        ? itensDia.map(it => {
+
+            const pago = estaPago(it, dataIso);
+
+            return `
+                <div class="py-3 flex items-center
+                    justify-between gap-3 text-xs
+                    border-b border-zinc-100
+                    dark:border-zinc-800">
+
+                    <div class="flex-1 min-w-0">
+
+                        <div class="flex items-center
+                            flex-wrap gap-2">
+
+                            <div class="font-bold">
+                                ${esc(it.desc)}
+                            </div>
+
+                            ${statusPagamentoHTML(it, dataIso)}
+
+                        </div>
+
+                        <div class="text-[11px] text-zinc-500 mt-1">
+                            ${esc(it.cat || "Outros")} ·
+                            ${esc(it.conta || "Conta Principal")}
+                        </div>
+
+                    </div>
+
+                    <div class="flex flex-col items-end gap-2">
+
+                        <strong class="font-extrabold tabular-nums
+                            ${it.tipo === "ganho"
+                                ? "text-emerald-600"
+                                : "text-red-600"}">
+
+                            ${it.tipo === "ganho" ? "+" : "−"}
+                            ${brl(Number(it.valor || 0))}
+
+                        </strong>
+
+                        ${it.tipo === "gasto" ? `
+                            <button
+                                type="button"
+                                data-pagamento-id="${esc(it.id)}"
+                                data-pagamento-data="${esc(dataIso)}"
+                                class="px-3 py-1.5 rounded-lg
+                                    text-[11px] font-bold transition
+                                    ${pago
+                                        ? "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+                                        : "bg-emerald-600 text-white hover:bg-emerald-700"}">
+
+                                ${pago ? "Desfazer" : "✓ Pagar"}
+
+                            </button>
+                        ` : ""}
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join("")
+
+        : `<div class="py-6 text-center text-xs text-zinc-400">
+            Nenhum lançamento neste dia.
+           </div>`;
+
+    $("modalDiaLista")
+        .querySelectorAll("[data-pagamento-id]")
+        .forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                alternarPagamento(
+                    btn.dataset.pagamentoId,
+                    btn.dataset.pagamentoData
+                );
+
+            });
+
+        });
+
+}
   mostrarModal($("modalDia"));
 }
 
@@ -3340,7 +3543,13 @@ document.addEventListener("click", e => {
         cat: "Fatura Cartão",
         conta: contaOrig,
         data: `${mes}-01`,
-        fixo: false
+                fixo: false,
+        pagamentos: {
+            [`${mes}-01`]: {
+                pago: true,
+                confirmadoEm: new Date().toISOString()
+            }
+        }
       });
       gastos.forEach(g => {
         if (g.conta === cartaoNome && g.tipo === "gasto" && String(g.data || "").slice(0, 7) === mes) {
