@@ -78,6 +78,7 @@
   .sidebar-transition {
     transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  @media (prefers-reduced-motion: no-preference) { #donutLista .h-full.rounded-full { transform-origin:left; animation: barraDonut 2s ease-out; } @keyframes barraDonut { from { transform:scaleX(0); } to { transform:scaleX(1); } } }
   .donut-segment {
     transition: stroke-dasharray 0.45s ease, stroke-dashoffset 0.45s ease, stroke-width 0.2s ease;
   }
@@ -557,6 +558,189 @@ tbody tr {
 }
 
 /* FIM DAS ANIMAÇÕES PREMIUM */
+
+#mgHeader{display:block;padding:10px 20px;min-height:0;box-shadow:0 3px 12px #00000008}
+#mgHeader .mg-head-top,#mgHeader .mg-head-bottom{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:nowrap;margin:0}
+#mgHeader .mg-head-bottom{border-top:1px solid #a1a1aa40;margin-top:9px;padding-top:9px}
+.mg-brand,.mg-head-actions,.mg-head-page,.mg-head-period,.mg-sync{display:flex;align-items:center;gap:8px;min-width:0}
+.mg-brand{margin-right:auto}.mg-wallet{display:grid;place-items:center;background:#fbbf24;color:#18181b;border-radius:11px;width:38px;height:38px;flex:none}
+.mg-brand strong,#mgPageTitle{display:block;font-size:16px;line-height:1.2;font-weight:750}.mg-brand small,#mgPageSubtitle{display:block;font-size:11px;color:#71717a}.dark .mg-brand small,.dark #mgPageSubtitle{color:#a1a1aa}
+#mgHeader button{flex-shrink:0}#mgHeader #mes{min-width:0;max-width:150px}#mgHeader .mg-sync{gap:4px}#mgHeader #syncStatus{white-space:nowrap}
+@media(max-width:767px){#mgHeader{padding:8px}#mgHeader .mg-head-top,#mgHeader .mg-head-bottom{gap:5px}#mgHeader .mg-head-actions,#mgHeader .mg-head-period{gap:4px}#mgHeader .mg-brand small,#mgPageSubtitle{display:none}#mgHeader .mg-wallet{width:28px;height:28px}#mgHeader .mg-brand strong{font-size:13px}#mgHeader #syncStatus{font-size:10px}#mgHeader .mg-sync>div{padding:4px;gap:3px}#mgHeader #bGoogleLogin{padding:6px}#mgHeader #bGoogleLogin span{display:none}#mgHeader #mes{width:105px}#mgHeader #btnOpenModal{padding:6px}#mgHeader #btnOpenModal span{font-size:11px}#mgHeader #mgPageTitle{font-size:12px}#mgHeader .mg-head-page{flex:1}#mgHeader #btnVoltarTopo{display:none!important}#mgHeader #btnTogglePrivacy{padding:6px}#mgHeader #btnToggleTheme{min-width:30px;padding:5px}#mgHeader #btnOpenMobile{padding:5px}}
+@media(max-width:420px){#mgHeader .mg-wallet{display:none}#mgHeader .mg-head-bottom{flex-wrap:wrap}#mgHeader .mg-head-period{margin-left:auto}#mgHeader .mg-sync>div{border:0;background:transparent}#mgHeader #syncStatus{max-width:65px;overflow:hidden;text-overflow:ellipsis}}
+</style>
+<style>.mg-dialog::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}</style><style id="mg-select-contrast">
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+select, select option, select optgroup { color-scheme: light; }
+select option, select optgroup { background-color: #ffffff; color: #18181b; }
+html.dark select, html.dark select option, html.dark select optgroup { color-scheme: dark; }
+html.dark select option, html.dark select optgroup { background-color: #27272a; color: #fafafa; }
+</style><style>
+#cadastroCartaoMG,#cadastroContaMG{background:#fff;color:#18181b;border:1px solid #d4d4d8;padding:24px;border-radius:18px;width:min(92vw,760px);max-height:90vh;overflow:auto} .dark #cadastroCartaoMG,.dark #cadastroContaMG{background:#18181b;color:#f4f4f5;border-color:#52525b} :is(#cadastroCartaoMG,#cadastroContaMG) form{display:grid;gap:14px} :is(#cadastroCartaoMG,#cadastroContaMG) label{display:block;margin:6px 0;font-weight:600} :is(#cadastroCartaoMG,#cadastroContaMG) input:not([type=checkbox]),:is(#cadastroCartaoMG,#cadastroContaMG) select{display:block;width:100%;min-height:40px;padding:8px;border:1px solid #a1a1aa;border-radius:8px;background:#fafafa;color:#18181b;box-sizing:border-box} .dark :is(#cadastroCartaoMG,#cadastroContaMG) input:not([type=checkbox]),.dark :is(#cadastroCartaoMG,#cadastroContaMG) select{background:#27272a;color:#fafafa;border-color:#71717a;color-scheme:dark} :is(#cadastroCartaoMG,#cadastroContaMG) button{padding:10px 16px;border:1px solid #71717a;border-radius:8px} :is(#cadastroCartaoMG,#cadastroContaMG) [type=submit]{background:#fbbf24;color:#18181b;font-weight:700} :is(#cadastroCartaoMG,#cadastroContaMG) [data-erro]{color:#dc2626} .dark :is(#cadastroCartaoMG,#cadastroContaMG) [data-erro]{color:#fca5a5} .mg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px} .mg-actions{display:flex;justify-content:flex-end;gap:10px} #cadastroCartaoMG [data-previa],#cadastroContaMG [data-previa]{min-height:100px;padding:20px;border-radius:14px;color:white;display:flex;align-items:center;font-weight:700}
+</style><style id="mgMotionCSS">
+html[data-motion="suave"]{--anim-fast:100ms;--anim-normal:180ms;--anim-slow:260ms}
+html[data-motion="premium"]{--anim-fast:150ms;--anim-normal:280ms;--anim-slow:450ms}
+html[data-motion="imersivo"]{--anim-fast:180ms;--anim-normal:350ms;--anim-slow:650ms}
+#mgMotionMode{width:100%;border:1px solid #a1a1aa80;border-radius:8px;padding:8px;background:#fff;color:#18181b; color-scheme:light}
+.dark #mgMotionMode{background:#27272a;color:#fafafa;color-scheme:dark}
+html[data-motion="suave"] .view-section:not(.hidden):not([hidden]),html[data-motion="suave"] .view-section:not(.hidden):not([hidden]) > *{animation-duration:180ms!important;animation-delay:0ms!important}
+html[data-motion="imersivo"] .view-section:not(.hidden):not([hidden]){animation-duration:450ms}
+html[data-motion="imersivo"] .view-section:not(.hidden):not([hidden]) > *{animation-duration:500ms}
+html[data-motion="desativado"] *,html[data-motion="desativado"] *::before,html[data-motion="desativado"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){html[data-motion] *,html[data-motion] *::before,html[data-motion] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style><script>
+const MG_MOTION_KEY='meus-gastos-motion-v1';
+const MG_MOTION_MODES=['desativado','suave','premium','imersivo'];
+function mgMotionRead(){try{const v=localStorage.getItem(MG_MOTION_KEY);return MG_MOTION_MODES.includes(v)?v:'imersivo'}catch(e){return 'imersivo'}}
+function mgMotionApply(v){document.documentElement.dataset.motion=MG_MOTION_MODES.includes(v)?v:'imersivo';const el=document.getElementById('mgMotionMode');if(el)el.value=document.documentElement.dataset.motion;}
+mgMotionApply(mgMotionRead());
+function mgMotionReduced(){return document.documentElement.dataset.motion==='desativado'||matchMedia('(prefers-reduced-motion: reduce)').matches;}
+</script><style id="mgPageMotionCSS">
+/* Navigation remains synchronous; only presentation is animated. */
+html[data-motion] .view-section:not(.hidden):not([hidden]){animation:none!important}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > *{animation:mgPageReveal var(--mg-page-time,320ms) cubic-bezier(.22,1,.36,1) backwards!important;animation-delay:0ms!important}
+html[data-motion="suave"]{--mg-page-time:160ms;--mg-step:0ms;--mg-shift:0px}
+html[data-motion="premium"]{--mg-page-time:320ms;--mg-step:35ms;--mg-shift:4px}
+html[data-motion="imersivo"]{--mg-page-time:480ms;--mg-step:55ms;--mg-shift:7px}
+@keyframes mgPageReveal{from{opacity:.45;translate:0 var(--mg-shift,4px)}to{opacity:1;translate:none}}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > :nth-child(2){animation-delay:var(--mg-step)!important}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > :nth-child(3){animation-delay:calc(2 * var(--mg-step))!important}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > :nth-child(4){animation-delay:calc(3 * var(--mg-step))!important}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > :nth-child(5){animation-delay:calc(4 * var(--mg-step))!important}
+html[data-motion] .view-section:not(.hidden):not([hidden]) > :nth-child(6){animation-delay:calc(5 * var(--mg-step))!important}
+html[data-motion] #view-contas > [role="tablist"],html[data-motion] #view-contas > form{animation:none!important}
+html[data-motion] #view-contas > [role="tabpanel"]:not([hidden]){animation:mgPageReveal var(--mg-page-time,320ms) cubic-bezier(.22,1,.36,1) backwards!important;animation-delay:0ms!important}
+#view-contas [role="tablist"]{position:relative;isolation:isolate;width:fit-content;max-width:100%}
+#mgTabMotionIndicator{position:absolute;z-index:-1;pointer-events:none;background:#fbbf24;border-radius:12px;top:0;left:0;width:0;height:0;transition:transform var(--mg-page-time,320ms) cubic-bezier(.22,1,.36,1),width var(--mg-page-time,320ms) cubic-bezier(.22,1,.36,1),height var(--mg-page-time,320ms) cubic-bezier(.22,1,.36,1)}
+#view-contas [role="tablist"].mg-indicator-ready .mg-fin-tab[aria-selected="true"]{background:transparent}
+#view-contas .mg-fin-tab{transition:color 150ms ease,border-color 150ms ease;transform:none!important}
+html[data-motion] #btnOpenModal,html[data-motion] #sidebar nav .nav-item{transform:none!important;animation:none!important}
+html[data-motion] #btnOpenModal{transition:background-color 180ms ease,box-shadow 180ms ease}
+html[data-motion="desativado"] .view-section:not(.hidden):not([hidden]) > *,html[data-motion="desativado"] #view-contas > [role="tabpanel"]:not([hidden]){animation:none!important}
+@media(prefers-reduced-motion:reduce){html[data-motion] .view-section:not(.hidden):not([hidden]) > *,html[data-motion] #view-contas > [role="tabpanel"]:not([hidden]){animation:none!important}}
+</style>
+<style id="mgSidebarRevision">
+#sidebar{overflow-x:hidden;overflow-y:auto;transition:width var(--anim-normal,350ms) cubic-bezier(.22,1,.36,1),transform var(--anim-normal,350ms) cubic-bezier(.22,1,.36,1),background-color 250ms ease,border-color 250ms ease}
+#sidebar > div{flex-shrink:0;min-width:0}
+#sidebar button{min-width:0;text-align:left;transform:none!important}
+#sidebar button .sidebar-label{min-width:0;white-space:nowrap}
+#sidebar button svg{flex-shrink:0}
+#sidebar.w-20 button:not(#btnCloseMobile){justify-content:center;padding-left:0;padding-right:0;gap:0}
+#sidebar.w-20 .sidebar-label{display:none!important}
+#sidebar.w-20 > div:first-child > div:first-child{padding-left:0;padding-right:0;justify-content:center}
+#sidebar.w-20 #collapseIcon{transform:rotate(180deg)}
+#mgMotionSettings{margin:8px 12px;padding:12px;border:1px solid #a1a1aa40;border-radius:12px;background:#71717a08}
+#mgMotionMode{min-height:40px;font-size:14px}
+#mgMotionStatus:empty{display:none}
+</style>
+<style id="mgChartMotionCSS">
+html[data-motion="suave"]{--mg-chart-time:250ms}
+html[data-motion="premium"]{--mg-chart-time:650ms}
+html[data-motion="imersivo"]{--mg-chart-time:1200ms}
+html[data-motion] #historicoChart > *{animation:none}
+html[data-motion] :is(#historicoChart,#anualChart12Meses) span[style*="height:"]{transform-origin:bottom center;animation:mgChartRise var(--mg-chart-time,650ms) cubic-bezier(.22,1,.36,1) both}
+html[data-motion] :is(#donutLista,#orcamentoGrid,#anualRankingTags,#faturasCartoesGrid) .h-full.rounded-full[style*="width:"]{transform-origin:left center;animation:mgChartFill var(--mg-chart-time,650ms) cubic-bezier(.22,1,.36,1) both}
+html[data-motion] :is(#barraTaxaPoupanca,#barraComprometimento){transition:width var(--mg-chart-time,650ms) cubic-bezier(.22,1,.36,1),background-color 180ms ease}
+html[data-motion] .donut-segment{transition:stroke-width 180ms ease}
+@keyframes mgChartRise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes mgChartFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+<style id="mgCardMotionCSS">
+[data-card-gradient]{position:relative;isolation:isolate;--mg-rx:0deg;--mg-ry:0deg;--mg-shine-x:50%;--mg-shine-y:50%;--mg-shine:0;}
+[data-card-gradient]::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at var(--mg-shine-x) var(--mg-shine-y),rgba(255,255,255,.24),transparent 65%);opacity:var(--mg-shine);transition:opacity 220ms ease;}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+html[data-motion="suave"] [data-card-gradient]{transition:box-shadow 180ms ease;}
+html[data-motion="suave"] [data-card-gradient]:hover{box-shadow:0 10px 24px #0003;}
+html:is([data-motion="premium"],[data-motion="imersivo"]) [data-card-gradient]{transform:perspective(1100px) rotateX(var(--mg-rx)) rotateY(var(--mg-ry));transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms ease;}
+html:is([data-motion="premium"],[data-motion="imersivo"]) [data-card-gradient]:hover{box-shadow:0 14px 30px #0004;}
+html[data-motion] [data-card-gradient]:focus-within,html[data-motion] [data-card-gradient]:has(details[open]){transform:none;}
+}
+html[data-motion="desativado"] [data-card-gradient]::before,html[data-motion="suave"] [data-card-gradient]::before{opacity:0;}
+@media (prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){[data-card-gradient]::before{opacity:0;}[data-card-gradient]{transform:none!important;}}
+</style>
+<style id="mgGlassCSS">
+/* Visual only: no delayed close, focus changes or financial handlers. */
+html[data-motion] {--mg-glass-bg:rgba(255,255,255,.95);--mg-glass-border:rgba(113,113,122,.30);--mg-glass-focus:#a16207;--mg-glass-blur:0px;--mg-glass-time:160ms}
+html.dark[data-motion]{--mg-glass-bg:rgba(24,24,27,.95);--mg-glass-border:rgba(161,161,170,.30);--mg-glass-focus:#fbbf24}
+html[data-motion="premium"]{--mg-glass-blur:12px;--mg-glass-time:280ms;--mg-glass-bg:rgba(255,255,255,.80)}
+html.dark[data-motion="premium"]{--mg-glass-bg:rgba(24,24,27,.80)}
+html[data-motion="imersivo"]{--mg-glass-blur:12px;--mg-glass-time:420ms;--mg-glass-bg:rgba(255,255,255,.60)}
+html.dark[data-motion="imersivo"]{--mg-glass-bg:rgba(24,24,27,.60)}
+html[data-motion]:not([data-motion="desativado"]) :is(dialog[open],#modalDiaCard,#formProrrogarFuturo,#formEditModal,#modalImportarCard){background:var(--mg-glass-bg)!important;border:1px solid var(--mg-glass-border)!important;box-shadow:0 24px 64px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.10)!important;backdrop-filter:blur(var(--mg-glass-blur));-webkit-backdrop-filter:blur(var(--mg-glass-blur));animation:mgGlassEnter var(--mg-glass-time) cubic-bezier(.16,1,.3,1) both}
+@keyframes mgGlassEnter{from{opacity:.18}to{opacity:1}}
+html[data-motion]:not([data-motion="desativado"]) dialog[open]::backdrop{background:rgba(0,0,0,.15);backdrop-filter:blur(var(--mg-glass-blur));-webkit-backdrop-filter:blur(var(--mg-glass-blur))}
+html[data-motion] :is(dialog[open],#modalDiaCard,#formProrrogarFuturo,#formEditModal,#modalImportarCard) :is(input,select,textarea):focus-visible{outline:2px solid var(--mg-glass-focus);outline-offset:2px}
+html[data-motion] :is(dialog[open],#formProrrogarFuturo,#formEditModal,#modalImportarCard) :is(input,select,textarea){transition:border-color var(--mg-glass-time) ease,box-shadow var(--mg-glass-time) ease}
+@media(prefers-reduced-motion:reduce){html[data-motion] :is(dialog[open],#modalDiaCard,#formProrrogarFuturo,#formEditModal,#modalImportarCard){animation:none!important;transition:none!important}html[data-motion] dialog[open]::backdrop{animation:none!important;transition:none!important}}
+
+/* Keep interactive geometry stationary: animate light and opacity, not hit targets. */
+html[data-motion]:not([data-motion="desativado"]) :is(dialog[open],#modalDiaCard,#formProrrogarFuturo,#formEditModal,#modalImportarCard){background-image:linear-gradient(145deg,rgba(255,255,255,.065),transparent 45%)!important;scrollbar-width:thin;scrollbar-color:#71717a transparent;box-shadow:0 24px 64px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.24)!important}
+html[data-motion="imersivo"] dialog[open]::backdrop{animation:mgGlassBackdrop 420ms cubic-bezier(.16,1,.3,1) both}
+@keyframes mgGlassBackdrop{from{opacity:0}to{opacity:1}}
+/* Progressive exit only for persistent native dialogs. Removed dialogs close immediately. */
+@supports (transition-behavior:allow-discrete) and (overlay:auto){
+html:is([data-motion="premium"],[data-motion="imersivo"]) dialog{transition:display 180ms allow-discrete,overlay 180ms allow-discrete,opacity 180ms ease;opacity:0;pointer-events:none}
+html[data-motion="imersivo"] dialog{transition-duration:250ms}
+html:is([data-motion="premium"],[data-motion="imersivo"]) dialog[open]{opacity:1;pointer-events:auto}
+html:is([data-motion="premium"],[data-motion="imersivo"]) dialog:not([open]){background:var(--mg-glass-bg)!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){html[data-motion] dialog{transition:none!important}}
+}
+
+/* Inner form must not mask the translucent dialog. Keep fields opaque. */
+html[data-motion="imersivo"] dialog[open] #f{background:rgba(255,255,255,.10)!important;box-shadow:none!important}
+html.dark[data-motion="imersivo"] dialog[open] #f{background:rgba(24,24,27,.12)!important}
+html[data-motion="premium"] dialog[open] #f{background:rgba(255,255,255,.18)!important;box-shadow:none!important}
+html.dark[data-motion="premium"] dialog[open] #f{background:rgba(24,24,27,.18)!important}
+</style>
+<style id="mgMicroCSS">
+html[data-motion]:not([data-motion="desativado"]) button:active:not(:disabled){filter:brightness(.88)}
+html[data-motion]:not([data-motion="desativado"]) input[type=checkbox]:checked{accent-color:#eab308}
+html[data-motion]:not([data-motion="desativado"]) #mg-sucesso{overflow:hidden;animation:mgMicroEnter var(--anim-normal,280ms) ease-out both}
+html[data-motion]:not([data-motion="desativado"]) #mg-sucesso::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:3px;background:#22c55e;transform-origin:left;animation:mgMicroProgress 5s linear forwards;pointer-events:none}
+#statusMsg.mg-undo-temporario{position:fixed;bottom:16px;right:16px;z-index:10000;box-sizing:border-box;width:max-content;max-width:calc(100vw - 32px);padding:14px 16px 16px;border:1px solid #16a34a;border-radius:12px;background:#f0fdf4;color:#14532d;box-shadow:0 8px 28px #0003;overflow:hidden;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px}
+html.dark #statusMsg.mg-undo-temporario{background:#14291e;color:#dcfce7}
+#statusMsg.mg-undo-temporario #btnUndoAcao{min-height:32px;padding:4px 8px;flex-shrink:0;cursor:pointer}
+html[data-motion]:not([data-motion="desativado"]) #statusMsg.mg-undo-temporario{animation:mgUndoFade 5s linear both}
+html[data-motion]:not([data-motion="desativado"]) #statusMsg.mg-undo-temporario::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:#eab308;transform-origin:left;animation:mgMicroProgress 5s linear forwards;pointer-events:none}
+@keyframes mgUndoFade{0%,95%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){#statusMsg.mg-undo-temporario{animation:none!important}#statusMsg.mg-undo-temporario::after{display:none!important}}
+@keyframes mgMicroEnter{from{opacity:0}to{opacity:1}}
+@keyframes mgMicroProgress{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@media(prefers-reduced-motion:reduce){#mg-sucesso::after{display:none}}
+</style>
+<style id="mgListMotionCSS">
+/* Block 08: opacity only, no layout shifts or delayed data changes. */
+html[data-motion="suave"]{--mg-list-time:140ms;--mg-list-step:0ms}
+html[data-motion="premium"]{--mg-list-time:240ms;--mg-list-step:15ms}
+html[data-motion="imersivo"]{--mg-list-time:360ms;--mg-list-step:25ms}
+@keyframes mgListReveal{from{opacity:.65}to{opacity:1}}
+html[data-motion]:not([data-motion="desativado"]) :is(#calendarioGrid > button,#listaRapida > *,#modalDiaLista > *,#tabelaTransacoes > tr){animation:mgListReveal var(--mg-list-time) ease-out both;transition:background-color 180ms ease,border-color 180ms ease,box-shadow 180ms ease;transform:none!important}
+html[data-motion] :is(#listaRapida,#modalDiaLista,#tabelaTransacoes) > :nth-child(2){animation-delay:var(--mg-list-step,0ms)}
+html[data-motion] :is(#listaRapida,#modalDiaLista,#tabelaTransacoes) > :nth-child(3){animation-delay:calc(2 * var(--mg-list-step,0ms))}
+html[data-motion] :is(#listaRapida,#modalDiaLista,#tabelaTransacoes) > :nth-child(4){animation-delay:calc(3 * var(--mg-list-step,0ms))}
+@media(hover:hover) and (pointer:fine){html[data-motion]:not([data-motion="desativado"]) #calendarioGrid > button:hover{box-shadow:inset 0 0 0 1px #eab30880;transform:none!important}html[data-motion]:not([data-motion="desativado"]) :is(#listaRapida,#modalDiaLista,#tabelaTransacoes) > *:hover{background-color:#eab3080d;transform:none!important}}
+html[data-motion="desativado"] :is(#calendarioGrid > button,#listaRapida > *,#modalDiaLista > *,#tabelaTransacoes > tr){animation:none!important;transition:none!important;transform:none!important}
+@media(prefers-reduced-motion:reduce){html[data-motion] :is(#calendarioGrid > button,#listaRapida > *,#modalDiaLista > *,#tabelaTransacoes > tr){animation:none!important;transition:none!important;transform:none!important}}
+</style>
+<style id="mgGlobalMotionCSS">
+html[data-motion]:not([data-motion="desativado"]) :is(body,#mgHeader,#mgHeader button,#mgHeader .mg-sync>div,aside){transition-property:background-color,border-color,color;transition-duration:var(--anim-normal);transition-timing-function:ease-out}
+#btnTogglePrivacy[aria-pressed="true"]{outline:2px solid #d97706;outline-offset:2px}
+#btnToggleTheme::before{content:"☾";font-size:14px;margin-right:4px}
+.dark #btnToggleTheme::before{content:"☀"}
+@media(max-width:767px){#btnToggleTheme::before{margin-right:0}}
+@keyframes mgGlobalFeedback{from{opacity:.55}to{opacity:1}}
+@keyframes mgSyncPulse{0%,100%{box-shadow:0 0 0 0 #3b82f680}50%{box-shadow:0 0 0 5px #3b82f600}}
+html[data-motion]:not([data-motion="desativado"]) #syncDot[data-sync-state="busy"]{animation:mgSyncPulse 1.2s ease-in-out infinite}
+html[data-motion]:not([data-motion="desativado"]) :is(#btnToggleTheme,#eyeIcon).mg-global-feedback{animation:mgGlobalFeedback var(--anim-normal) ease-out}
+</style>
+<style id="mgAccessibilityCSS">
+/* Block 10: keyboard focus, independent of motion preference. */
+html[data-motion] :is(button,a[href],summary,input,select,textarea,[tabindex]):focus-visible{outline:2px solid #92400e!important;outline-offset:3px!important}
+html.dark[data-motion] :is(button,a[href],summary,input,select,textarea,[tabindex]):focus-visible{outline-color:#fbbf24!important}
+html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){html[data-motion] :is(dialog,#modalDia)::backdrop{animation:none!important;transition:none!important}}
+@media(hover:none),(pointer:coarse){html[data-motion] #syncDot[data-sync-state="busy"]{animation:none!important}}
 </style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
@@ -590,32 +774,36 @@ tbody tr {
       <div class="p-3">
         <p class="sidebar-label px-3 pt-2 pb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Menu</p>
         <nav class="space-y-1" aria-label="Navegação principal">
-          <button type="button" data-nav="inicio" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-brand-gold text-zinc-950 shadow-sm transition">
+          <button aria-label="Início" title="Início" type="button" data-nav="inicio" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold bg-brand-gold text-zinc-950 shadow-sm transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>
             <span class="sidebar-label truncate">Início</span>
           </button>
 
-          <button type="button" data-nav="transacoes" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Transações &amp; Futuros" title="Transações &amp; Futuros" type="button" data-nav="transacoes" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
             <span class="sidebar-label truncate">Transações &amp; Futuros</span>
           </button>
 
-          <button type="button" data-nav="orcamento" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Controle de Pagamentos" title="Controle de Pagamentos" type="button" data-nav="pagamentos" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path stroke-linecap="round" stroke-linejoin="round" d="m7 12 3 3 7-7"/></svg>
+            <span class="sidebar-label truncate">Controle de Pagamentos</span>
+          </button>
+          <button aria-label="Orçamento" title="Orçamento" type="button" data-nav="orcamento" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
             <span class="sidebar-label truncate">Orçamento</span>
           </button>
 
-          <button type="button" data-nav="contas" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Contas &amp; Cartão" title="Contas &amp; Cartão" type="button" data-nav="contas" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3Z"/></svg>
             <span class="sidebar-label truncate">Contas &amp; Cartão</span>
           </button>
 
-          <button type="button" data-nav="anual" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Relatório Anual" title="Relatório Anual" type="button" data-nav="anual" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>
             <span class="sidebar-label truncate">Relatório Anual</span>
           </button>
 
-          <button type="button" data-nav="tags" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Tags &amp; Categorias" title="Tags &amp; Categorias" type="button" data-nav="tags" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5a1.99 1.99 0 0 1 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4Z"/></svg>
             <span class="sidebar-label truncate">Tags &amp; Categorias</span>
           </button>
@@ -623,23 +811,23 @@ tbody tr {
 
         <p class="sidebar-label px-3 pt-6 pb-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Dados &amp; Nuvem</p>
         <div class="space-y-1">
-          <button type="button" id="sideBtnImport" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-amber-700 dark:text-amber-300 bg-amber-50/70 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/60 transition">
+          <button aria-label="Importar Planilha / Extrato / PDF" title="Importar Planilha / Extrato / PDF" type="button" id="sideBtnImport" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-amber-700 dark:text-amber-300 bg-amber-50/70 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-950/60 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-8-4-4m0 0L8 8m4-4v12"/></svg>
-            <span class="sidebar-label truncate">Importar Planilha / Extrato / PDF</span>
+            <span class="sidebar-label truncate" title="Importar Planilha / Extrato / PDF">Importar arquivos</span>
           </button>
-          <button type="button" id="sideBtnExport" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Exportar CSV / XLSX" title="Exportar CSV / XLSX" type="button" id="sideBtnExport" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4-4 4m0 0-4-4m4 4V4"/></svg>
             <span class="sidebar-label truncate">Exportar CSV / XLSX</span>
           </button>
-          <button type="button" id="sideBtnDemo" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Carregar exemplo" title="Carregar exemplo" type="button" id="sideBtnDemo" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 0 0 4.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15"/></svg>
             <span class="sidebar-label truncate">Carregar exemplo</span>
           </button>
-          <button type="button" id="sideBtnLimparDemo" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+          <button aria-label="Remover exemplos" title="Remover exemplos" type="button" id="sideBtnLimparDemo" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12m-9 0V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 .7 11a1 1 0 0 0 1 .9h6.6a1 1 0 0 0 1-.9L17 7"/></svg>
             <span class="sidebar-label truncate">Remover exemplos</span>
           </button>
-          <button type="button" id="sideBtnZerar" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-zinc-800 transition">
+          <button aria-label="Zerar painel" title="Zerar painel" type="button" id="sideBtnZerar" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-zinc-800 transition">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
             <span class="sidebar-label truncate">Zerar painel</span>
           </button>
@@ -647,9 +835,10 @@ tbody tr {
       </div>
     </div>
 
-    <!-- Rodapé Sidebar: Recolher menu -->
+    <div class="p-3 sidebar-label" id="mgMotionSettings"><label for="mgMotionMode" class="block text-xs font-semibold mb-2">Animações</label><select id="mgMotionMode"><option value="desativado">Desativadas</option><option value="suave">Suaves</option><option value="premium">Premium</option><option value="imersivo">Imersivas</option></select><p id="mgMotionStatus" role="status" class="text-xs mt-1"></p></div>
+<!-- Rodapé Sidebar: Recolher menu -->
     <div class="p-3 border-t border-zinc-100 dark:border-zinc-800">
-      <button id="btnCollapseSidebar" type="button" class="hidden lg:flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
+      <button aria-label="Recolher menu" title="Recolher menu" id="btnCollapseSidebar" aria-expanded="true" type="button" class="hidden lg:flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 transition">
         <svg id="collapseIcon" class="w-5 h-5 shrink-0 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
         <span class="sidebar-label truncate">Recolher menu</span>
       </button>
@@ -659,52 +848,16 @@ tbody tr {
   <!-- Área Principal -->
   <div class="flex-1 min-w-0 flex flex-col">
     <!-- Barra Superior -->
-    <header class="sticky top-0 z-20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-3">
-      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-        <button id="btnOpenMobile" type="button" class="lg:hidden p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800" aria-label="Abrir menu">
+<header id="mgHeader" class="sticky top-0 z-20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800"><div class="mg-head-top"><button id="btnOpenMobile" type="button" class="lg:hidden p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800" aria-label="Abrir menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-
-        <!-- Botão Voltar (oculto apenas na aba Início) -->
-        <button id="btnVoltarTopo" type="button" hidden class="btn-voltar-aba flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition">
-          <span>← Voltar</span>
-        </button>
-
-        <!-- Seletor de Mês -->
-        <div class="flex items-center gap-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-1.5 sm:px-2 py-1">
-          <button type="button" id="btnPrevMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition" title="Mês anterior" aria-label="Mês anterior">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <input type="month" id="mes" aria-label="Mês de referência" class="bg-transparent text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-100 focus:outline-none cursor-pointer">
-          <button type="button" id="btnNextMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition" title="Próximo mês" aria-label="Próximo mês">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-
-        <!-- Ocultar valores (olho) -->
-        <button type="button" id="btnTogglePrivacy" class="flex p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition" title="Ocultar ou mostrar valores" aria-label="Alternar privacidade de valores">
+        </button><div class="mg-brand"><span class="mg-wallet" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 14h2"/></svg></span><div><strong>Meus Gastos</strong><small>Gestão financeira pessoal</small></div></div><div class="mg-head-actions"><button type="button" id="btnTogglePrivacy" aria-pressed="false" class="flex p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition" title="Ocultar ou mostrar valores" aria-label="Alternar privacidade de valores">
           <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
-
-        <!-- Tema Escuro / Claro -->
-        <button type="button" id="btnToggleTheme" class="flex px-2.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition" title="Alternar tema">
+        </button><button type="button" id="btnToggleTheme" class="flex px-2.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition" title="Alternar tema">
           Escuro
-        </button>
-      </div>
-
-      <!-- Controles Direitos: Importar + Google Drive Sync + Novo Lançamento -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs">
-          <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-500"></span>
-          <span id="syncStatus" class="font-semibold text-zinc-700 dark:text-zinc-200">Cache local</span>
-        </div>
-
-        <button type="button" id="btnTopImport" class="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition shadow-sm" title="Importar extrato bancário (PDF, OFX, CSV) ou planilha (XLSX, CSV)">
-          <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-8-4-4m0 0L8 8m4-4v12"/></svg>
-          <span>Importar PDF / Extrato</span>
-        </button>
-
-        <button type="button" id="bGoogleLogin" class="flex items-center gap-2 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition shadow-sm">
+        </button><div class="mg-sync"><div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs">
+          <span id="syncDot" data-sync-state="local" class="w-2 h-2 rounded-full bg-amber-500"></span>
+          <span id="syncStatus" class="font-semibold text-zinc-700 dark:text-zinc-200">Modo local</span>
+        </div><button type="button" id="bGoogleLogin" aria-label="Entrar com Google" class="flex items-center gap-2 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition shadow-sm">
           <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
             <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.1-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.22 1.18-3.25 0-6-2.19-6.98-5.14H1.01v3.14C3.05 21.2 7.24 24 12 24Z"/>
@@ -713,18 +866,22 @@ tbody tr {
           </svg>
           <span class="hidden lg:inline">Entrar com Google</span>
           <span class="lg:hidden">Google</span>
-        </button>
-
-        <button type="button" id="bGoogleLogout" hidden class="px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-red-50 hover:text-red-600 text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-200 transition">
+        </button><button type="button" id="bGoogleLogout" hidden class="px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-red-50 hover:text-red-600 text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-200 transition">
           Sair
-        </button>
-
-        <button type="button" id="btnOpenModal" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs sm:text-sm font-bold shadow-sm transition">
+        </button></div></div></div><div class="mg-head-bottom"><div class="mg-head-page"><button id="btnVoltarTopo" type="button" hidden class="btn-voltar-aba flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition">
+          <span>← Voltar</span>
+        </button><div><strong id="mgPageTitle">Início</strong><small id="mgPageSubtitle">Visão geral das suas finanças</small></div></div><div class="mg-head-period"><div class="flex items-center gap-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-1.5 sm:px-2 py-1">
+          <button type="button" id="btnPrevMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition" title="Mês anterior" aria-label="Mês anterior">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <input type="month" id="mes" aria-label="Mês de referência" class="bg-transparent text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-100 focus:outline-none cursor-pointer">
+          <button type="button" id="btnNextMonth" class="p-1.5 rounded-lg text-zinc-500 hover:bg-white dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition" title="Próximo mês" aria-label="Próximo mês">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div><button type="button" id="btnOpenModal" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs sm:text-sm font-bold shadow-sm transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
           <span class="hidden sm:inline">Novo lançamento</span><span class="sm:hidden">Novo</span>
-        </button>
-      </div>
-    </header>
+        </button></div></div></header>
 
     <!-- Faixa de Status / Mensagens -->
     <div id="statusBanner" class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-4 sm:px-6 py-2 flex items-center justify-between gap-2 text-xs text-zinc-500 dark:text-zinc-400">
@@ -970,6 +1127,19 @@ tbody tr {
             <button type="button" id="bCsv" class="px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition">Exportar CSV / XLSX</button>
             <button type="button" id="bBkp" class="px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition">Salvar backup JSON</button>
             <button type="button" id="bRes" class="px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 text-xs font-semibold text-zinc-700 dark:text-zinc-200 transition">Restaurar JSON</button>
+
+<button type="button"
+    id="bRecuperarPreventivo"
+    class="px-3 py-2 rounded-xl border
+    border-amber-300 dark:border-amber-800
+    bg-amber-50 dark:bg-amber-950/50
+    hover:bg-amber-100 dark:hover:bg-amber-900
+    text-xs font-semibold
+    text-amber-800 dark:text-amber-300
+    transition">
+    Recuperar backup preventivo
+</button>
+
             <input type="file" id="fRes" accept=".json,application/json" hidden>
           </div>
         </div>
@@ -1020,7 +1190,7 @@ tbody tr {
 
             <label id="fixoToggleWrap" class="inline-flex items-center gap-2 text-xs font-semibold text-zinc-700 dark:text-zinc-300 cursor-pointer select-none">
               <input type="checkbox" id="fixo" class="w-4 h-4 rounded accent-amber-500">
-              <span>Lançamento fixo (repete todo mês)</span>
+              <span>Despesa recorrente (valor mensal)</span>
             </label>
           </div>
 
@@ -1045,12 +1215,13 @@ tbody tr {
             <span id="lancCartaoTitulo" class="font-bold text-zinc-800 dark:text-zinc-200">Cartão de Crédito:</span>
             <label class="inline-flex items-center gap-1.5 font-medium text-zinc-700 dark:text-zinc-300">
               <span>Dia de fechamento:</span>
-              <input type="number" id="lancCartaoFechamento" min="1" max="31" class="w-16 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-center font-bold tabular-nums">
+              <input type="number" readonly id="lancCartaoFechamento" min="1" max="31" class="w-16 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-center font-bold tabular-nums">
             </label>
             <label class="inline-flex items-center gap-1.5 font-medium text-zinc-700 dark:text-zinc-300">
               <span>Dia de vencimento:</span>
-              <input type="number" id="lancCartaoVencimento" min="1" max="31" class="w-16 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-center font-bold tabular-nums">
+              <input type="number" readonly id="lancCartaoVencimento" min="1" max="31" class="w-16 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-center font-bold tabular-nums">
             </label>
+            <span id="primeiraFaturaPreview" class="font-bold"></span>
           </div>
 
           <div id="futuroParcelaBox" hidden class="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 text-xs">
@@ -1101,7 +1272,7 @@ tbody tr {
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <span id="formErroInline" class="text-xs font-semibold text-red-600 dark:text-red-400"></span>
+            <label id="rf02Pagamento" class="flex items-center gap-2 text-sm font-medium"><input id="rf02Pago" type="checkbox" checked class="accent-amber-500"> Despesa já paga</label><span id="formErroInline" class="text-xs font-semibold text-red-600 dark:text-red-400"></span>
             <button type="submit" id="bAdd" class="ml-auto px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-sm font-bold shadow-sm transition cursor-pointer">
               Adicionar lançamento
             </button>
@@ -1193,6 +1364,7 @@ tbody tr {
       </section>
 
       <!-- VISÃO 4: CONTAS & CARTÃO -->
+      <section id="view-pagamentos" class="view-section hidden space-y-4"><h1 class="text-xl font-bold">Controle de Pagamentos</h1><div id="pagResumo"></div><div class="flex flex-wrap gap-2"><select id="pagFiltro" class="rounded-lg border bg-transparent p-2"><option>Todos</option><option>Pago</option><option>Pendente</option><option>Vencido</option><option>Não classificado</option></select><input id="pagBusca" placeholder="Buscar conta, categoria ou descrição" class="rounded-lg border bg-transparent p-2 flex-1"><button id="pagLote" class="bg-amber-400 text-black rounded-lg px-3">Confirmar selecionados</button></div><div id="pagLista"></div></section>
       <section id="view-contas" class="view-section hidden space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-3">
@@ -1204,6 +1376,11 @@ tbody tr {
           </div>
         </div>
 
+        <div role="tablist" aria-label="Contas e cartões" class="flex flex-wrap gap-2">
+          <button type="button" role="tab" id="mgTabContas" aria-controls="mgPainelContas" aria-selected="false" class="mg-fin-tab">Contas correntes</button>
+          <button type="button" role="tab" id="mgTabCartoes" aria-controls="mgPainelCartoes" aria-selected="true" class="mg-fin-tab">Cartões de crédito</button>
+        </div>
+        <style>.mg-fin-tab{padding:10px 16px;border:1px solid #a1a1aa;border-radius:12px;font-weight:600}.mg-fin-tab[aria-selected=true]{background:#fbbf24;color:#18181b;border-color:#fbbf24}.mg-fin-tab:focus-visible{outline:2px solid #f59e0b;outline-offset:3px}#mgPainelContas[hidden],#mgPainelCartoes[hidden]{display:none!important}</style>
         <!-- Formulário para Criar Nova Conta ou Cartão Personalizado -->
         <form id="formNovaConta" class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5 shadow-sm space-y-3">
           <h2 class="text-sm font-bold text-zinc-900 dark:text-white">Adicionar nova conta ou cartão de crédito</h2>
@@ -1240,17 +1417,19 @@ tbody tr {
         </form>
 
         <!-- Visão Consolidada de Faturas de Cartão -->
-        <div class="space-y-3">
+        <div id="mgPainelCartoes" role="tabpanel" aria-labelledby="mgTabCartoes" class="space-y-3">
           <div class="flex items-center justify-between">
             <h2 class="text-base font-bold text-zinc-900 dark:text-white">Faturas de Cartão de Crédito</h2>
             <span id="faturasPeriodoHint" class="text-xs text-zinc-500 dark:text-zinc-400">Referência mensal</span>
           </div>
+          <div id="cartaoAbas" class="flex flex-wrap gap-2"></div>
+          <button type="button" id="novoCartaoDireto" class="bg-amber-400 text-black rounded-xl px-3 py-2 font-bold">+ Novo cartão</button>
           <div id="faturasCartoesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
 
         <!-- Visão de Contas & Carteiras -->
-        <div class="space-y-3">
-          <h2 class="text-base font-bold text-zinc-900 dark:text-white">Contas &amp; Carteiras</h2>
+        <div id="mgPainelContas" role="tabpanel" aria-labelledby="mgTabContas" hidden class="space-y-3">
+          <h2 class="text-base font-bold text-zinc-900 dark:text-white">Contas &amp; Carteiras</h2><button type="button" id="novaContaIntegrada" class="bg-amber-400 text-black rounded-xl px-4 py-2 font-bold">+ Nova conta</button>
           <div id="contasGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
       </section>
@@ -1620,6 +1799,7 @@ let tokenClient = null;
 let driveAccessToken = null;
 let driveFileId = null;
 let syncTimer = null;
+let driveLiberado = false;
 const GOOGLE_FLAG = "meus-gastos-google-ativo-v1";
 
 function carimbar() {
@@ -1636,40 +1816,77 @@ function esc(s) {
 }
 
 function setStatus(msg) {
-  if ($("statusMsg")) $("statusMsg").textContent = msg || "";
+  const el = $("statusMsg");
+  if (el) { el.classList.remove('mg-undo-temporario'); el.textContent = msg || ""; }
 }
 
+const pilhaMG=[];let filaMG=Promise.resolve();
+function dialogoMG(msg,tipo='info'){const executar=()=>new Promise(resolve=>{const d=document.createElement('dialog');d.className='mg-dialog';const dark=document.documentElement.classList.contains('dark');d.style.cssText=`background:${dark?'#18181b':'#fff'};color:${dark?'#fafafa':'#18181b'};border:1px solid ${dark?'#52525b':'#d4d4d8'};border-radius:18px;padding:24px;width:min(92vw,460px);max-height:85vh;overflow:auto;box-shadow:0 20px 60px #0005`;d.innerHTML='<h2 style="font-size:20px;font-weight:bold;margin-bottom:12px">Meus Gastos</h2><p style="white-space:pre-wrap;overflow-wrap:anywhere"></p><form method="dialog" style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap"></form><small style="opacity:.7">ESC para fechar</small>';d.querySelector('p').textContent=String(msg);const f=d.querySelector('form');if(tipo==='prompt'){const i=document.createElement('input');i.className='border rounded p-2 bg-transparent';i.name='resposta';f.append(i);}if(tipo!=='info'){const b=document.createElement('button');b.type='button';b.textContent='Cancelar';b.className='border rounded-lg px-4 py-2';b.onclick=()=>d.close('cancel');f.append(b);}const ok=document.createElement('button');ok.value='ok';ok.textContent=tipo==='confirm'?'Confirmar':'OK';ok.className='bg-amber-400 text-black font-bold rounded-lg px-4 py-2';f.append(ok);d.addEventListener('cancel',e=>{e.preventDefault();d.close('cancel');});d.addEventListener('close',()=>{const v=d.returnValue==='ok'?(tipo==='prompt'?f.elements.resposta.value:true):false;d.remove();resolve(v);},{once:true});document.body.append(d);d.showModal();if(tipo==='confirm')f.querySelector('button').focus();});const p=filaMG.then(executar);filaMG=p.catch(()=>{});return p;}
+function avisarMG(msg){void dialogoMG(msg);}
+function confirmarMG(msg){return dialogoMG(msg,'confirm');}
+function perguntarMG(msg){return dialogoMG(msg,'prompt');}
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||document.querySelector('dialog[open]'))return;const menu=[...document.querySelectorAll('details[open]')].find(x=>x.querySelector('[data-editar-card]')&&x.getClientRects().length);if(menu){menu.open=false;e.preventDefault();return;}const el=[...pilhaMG].reverse().find(x=>x.style.display!=='none');if(el){e.preventDefault();if(el.id==='modalDia')fecharModalDia();else ocultarModal(el);}});
 function mostrarModal(el) {
   if (!el) return;
   el.style.display = "flex";
+  const i=pilhaMG.indexOf(el);if(i>=0)pilhaMG.splice(i,1);pilhaMG.push(el);
 }
 
 function ocultarModal(el) {
   if (!el) return;
   el.style.display = "none";
+  const i=pilhaMG.indexOf(el);if(i>=0)pilhaMG.splice(i,1);
 }
 
 function fecharModalImportar() {
   ocultarModal($("modalImportar"));
 }
 
+// Mantém as chaves antigas; verifica cada gravação e tenta reverter falhas.
+function gravarLocalVerificado(entradas) {
+  const anterior = entradas.map(([chave]) => [chave, localStorage.getItem(chave)]);
+  const alteradas = [];
+  try {
+    for (const [chave, valor] of entradas) {
+      localStorage.setItem(chave, valor);
+      alteradas.push(chave);
+      if (localStorage.getItem(chave) !== valor) throw new Error("Falha de verificação: " + chave);
+    }
+  } catch (erro) {
+    let falhaRollback = false;
+    for (const [chave, valor] of anterior.reverse()) {
+      if (!alteradas.includes(chave)) continue;
+      try {
+        if (valor === null) localStorage.removeItem(chave);
+        else localStorage.setItem(chave, valor);
+        if (localStorage.getItem(chave) !== valor) falhaRollback = true;
+      } catch (_) { falhaRollback = true; }
+    }
+    throw new Error(falhaRollback ? "Falha na gravação e na reversão. Preserve seu backup." : "Falha na gravação; alterações locais revertidas.");
+  }
+}
+function entradasFinanceiras(dados) {
+  return [[KEY, JSON.stringify(dados.gastos)], [FUTUROS_KEY, JSON.stringify(dados.ganhosFuturos)],
+    [TAGS_KEY, JSON.stringify(dados.customCats)], [META_KEY, JSON.stringify(dados.metasOrcamento)],
+    [CONTAS_KEY, JSON.stringify(dados.contasLista)], [EXCL_KEY, JSON.stringify(dados.excluidos)],
+    [CFGEM_KEY, String(dados.configEm)], ["meus-gastos-storage-schema", "2"]];
+}
 function salvarLocal() {
   try {
-    localStorage.setItem(KEY, JSON.stringify(gastos));
-    localStorage.setItem(FUTUROS_KEY, JSON.stringify(ganhosFuturos));
-    localStorage.setItem(TAGS_KEY, JSON.stringify(customCats));
-    localStorage.setItem(META_KEY, JSON.stringify(metasOrcamento));
-    localStorage.setItem(CONTAS_KEY, JSON.stringify(contasLista));
-    localStorage.setItem(EXCL_KEY, JSON.stringify(excluidos));
-    localStorage.setItem(CFGEM_KEY, String(configEm));
-  } catch (e) {}
+    gravarLocalVerificado(entradasFinanceiras({gastos, ganhosFuturos, customCats, metasOrcamento, contasLista, excluidos, configEm}));
+    return true;
+  } catch (e) {
+    console.error(e);
+    avisarMG("Não foi possível salvar os dados. " + e.message + " Exporte um backup antes de fechar a página.");
+    return false;
+  }
 }
-
 function salvar() {
+  vincularCartoesLegados();
   carimbar();
   cacheSaldo.clear();
-  salvarLocal();
-  agendarSyncDrive();
+  if (salvarLocal()) { agendarSyncDrive(); return true; }
+  clearTimeout(syncTimer); driveLiberado = false; return false;
 }
 
 function deslocarMes(ym, delta) {
@@ -1692,11 +1909,12 @@ function valorFixoNoMes(item, ym) {
   return v;
 }
 
+function camposRecorrencia(g,mes){const out={};for(const x of (g.edicoesFuturas||[]).slice().sort((a,b)=>a.mes.localeCompare(b.mes)))if(x.mes<=mes)Object.assign(out,x.campos);return Object.assign(out,g.edicoesMensais?.[mes]||{});}
 function itensDoMes(ym) {
   const mes = String(ym || mesAtual());
   const out = [];
   for (const g of gastos) {
-    if (!g) continue;
+    if (!g || g.estornadoEm) continue;
     if (g.fixo) {
       const iniMes = String(g.data || mes + "-01").slice(0, 7);
       if (mes < iniMes) continue;
@@ -1713,7 +1931,8 @@ function itensDoMes(ym) {
       out.push({
         ...g,
         dv,
-        valor: valorFixoNoMes(g, mes)
+        valor: valorFixoNoMes(g, mes),
+        ...camposRecorrencia(g, mes)
       });
     } else if (String(g.data || "").slice(0, 7) === mes) {
       out.push({
@@ -1722,7 +1941,7 @@ function itensDoMes(ym) {
       });
     }
   }
-  return out;
+  return out.map(g=>{const abatimento=(g.estornosCompra||[]).filter(e=>e.ocorrencia===(g.dv||g.data)).reduce((a,e)=>a+Math.round(e.valor*100),0);return abatimento?{...g,valor:Math.max(0,(Math.round(g.valor*100)-abatimento)/100)}:g;});
 }
 
 function popularSelectsCategorias() {
@@ -1760,14 +1979,23 @@ function prepararDesfazer() {
 }
 
 function mostrarDesfazer(msg) {
-  if (!snapshotUndo) {
+  if (!snapshotUndo || !$("statusMsg")) {
+    sucessoMG(msg);
     setStatus(msg);
     return;
   }
   if ($("statusMsg")) {
+    $("mg-sucesso")?.remove();
     const snap = snapshotUndo;
     $("statusMsg").innerHTML = `${esc(msg)} <button type="button" id="btnUndoAcao" class="ml-2 underline font-bold text-amber-600 dark:text-amber-400">Desfazer</button>`;
+    const status = $("statusMsg");
+    status.classList.remove('mg-undo-temporario');
+    void status.offsetWidth;
+    status.classList.add('mg-undo-temporario');
     const undoBtn = $("btnUndoAcao");
+    setTimeout(() => {
+      if (undoBtn && $("btnUndoAcao") === undoBtn) setStatus("");
+    }, 5000);
     if (undoBtn) {
       undoBtn.addEventListener("click", () => {
         try {
@@ -1780,12 +2008,14 @@ function mostrarDesfazer(msg) {
           excluidos = dados.excluidos || [];
           configEm = dados.configEm || Date.now();
           cacheSaldo.clear();
-          salvarLocal();
+          if (!salvarLocal()) return;
           agendarSyncDrive();
           popularSelectsCategorias();
           popularSelectsContas();
           renderTudo();
           setStatus("Ação desfeita.");
+          sucessoMG("Ação desfeita.");
+          setTimeout(() => { if ($("statusMsg")?.textContent === "Ação desfeita.") setStatus(""); }, 5000);
         } catch (err) {
           setStatus("Não foi possível desfazer.");
         }
@@ -1802,6 +2032,7 @@ function renderTudo() {
   renderContas();
   renderRelatorioAnual();
   renderTags();
+  renderPagamentos();
 }
 
 function parseValorBR(val) {
@@ -1844,6 +2075,10 @@ function atualizarSyncUI(statusTexto, contaTexto, dotClass) {
     const indicador = $("syncDot");
 
     const conectado = Boolean(driveAccessToken);
+    if (!conectado) { statusTexto = 'Modo local'; dotClass = 'bg-amber-500'; }
+    else if (statusTexto === 'Drive conectado') { dotClass = 'bg-amber-500'; }
+    else if (statusTexto === 'Sincronizando...') { dotClass = 'bg-blue-500'; }
+
 
     // Atualiza o status superior
     if (status && statusTexto) {
@@ -1854,6 +2089,7 @@ function atualizarSyncUI(statusTexto, contaTexto, dotClass) {
     if (indicador && dotClass) {
         indicador.className =
             `w-2 h-2 rounded-full ${dotClass}`;
+        indicador.dataset.syncState = !conectado ? 'local' : statusTexto === 'Sincronizando...' ? 'busy' : statusTexto === 'Drive sincronizado' ? 'success' : dotClass === 'bg-red-500' ? 'error' : 'pending';
     }
 
     // Atualiza a mensagem inferior
@@ -1927,10 +2163,9 @@ async function buscarArquivoDrive() {
 }
 
 async function enviarParaDrive() {
-  if (!driveAccessToken) return;
+  if (!driveAccessToken || !driveLiberado) return;
   try {
     atualizarSyncUI("Sincronizando...", null, "bg-amber-500");
-    carimbar();
     const payload = {
       gastos,
       ganhosFuturos,
@@ -1940,6 +2175,7 @@ async function enviarParaDrive() {
       excluidos,
       configEm
     };
+    validarBackup(payload);
     const existente = await buscarArquivoDrive();
     const boundary = "-------314159265358979323846";
     const metadata = {
@@ -1980,6 +2216,7 @@ async function carregarDoDrive() {
   try {
     const arq = await buscarArquivoDrive();
     if (!arq) {
+      driveLiberado = true;
       await enviarParaDrive();
       return;
     }
@@ -1987,9 +2224,13 @@ async function carregarDoDrive() {
     const resp = await fetch(`https://www.googleapis.com/drive/v3/files/${arq.id}?alt=media`, {
       headers: { Authorization: "Bearer " + driveAccessToken }
     });
-    if (!resp.ok) return;
+    if (!resp.ok) throw new Error("Falha ao ler backup remoto");
     const dados = await resp.json();
-    if (dados && (Number(dados.configEm) || 0) >= configEm) {
+    validarBackup(dados);
+    if (JSON.stringify(dados.gastos) !== JSON.stringify(gastos) || JSON.stringify(dados.contasLista) !== JSON.stringify(contasLista) || Number(dados.configEm) !== configEm) {
+      if (!await confirmarMG("Dados locais e remotos podem divergir. OK: usar backup do Drive. Cancelar: manter dados locais e suspender sincronização.")) throw new Error("Conflito não resolvido; exporte os dois backups.");
+      if (!criarBackupPreventivo()) throw new Error("Falha no backup antes da sincronização.");
+      gravarLocalVerificado(entradasFinanceiras({...dados, configEm: Number(dados.configEm) || Date.now()}));
       if (Array.isArray(dados.gastos)) gastos = dados.gastos;
       if (Array.isArray(dados.ganhosFuturos)) ganhosFuturos = dados.ganhosFuturos;
       if (dados.customCats) customCats = dados.customCats;
@@ -1998,22 +2239,25 @@ async function carregarDoDrive() {
       if (Array.isArray(dados.excluidos)) excluidos = dados.excluidos;
       configEm = Number(dados.configEm) || Date.now();
       cacheSaldo.clear();
-      salvarLocal();
       popularSelectsCategorias();
       popularSelectsContas();
       renderTudo();
     } else {
-      await enviarParaDrive();
+      driveLiberado = true;
     }
+    driveLiberado = true;
     atualizarSyncUI("Drive sincronizado", null, "bg-emerald-500");
   } catch (e) {
-    atualizarSyncUI("Aviso Drive", null, "bg-amber-500");
+    driveLiberado = false;
+    console.error(e);
+    atualizarSyncUI("Drive bloqueado", "Sincronização suspensa: " + e.message, "bg-red-500");
   }
 }
 
 function agendarSyncDrive() {
-  if (!driveAccessToken) return;
+  if (!driveAccessToken || !driveLiberado) return;
   clearTimeout(syncTimer);
+  atualizarSyncUI("Pendente", "Alterações aguardando sincronização.", "bg-amber-500");
   syncTimer = setTimeout(() => {
     enviarParaDrive();
   }, 800);
@@ -2031,6 +2275,12 @@ $("data").value = dataHoje();
 $("mes").value = mesAtual();
 anoRelatorioAtual = parseInt(mesAtual().slice(0, 4), 10);
 
+function mgGlobalFeedback(el) {
+  if (!el || mgMotionReduced()) return;
+  el.classList.remove('mg-global-feedback');
+  void el.offsetWidth;
+  el.classList.add('mg-global-feedback');
+}
 function aplicarTema(escuro) {
   document.documentElement.classList.toggle("dark", escuro);
   $("btnToggleTheme").textContent = escuro ? "Claro" : "Escuro";
@@ -2041,6 +2291,7 @@ try {
 } catch (e) {}
 $("btnToggleTheme").addEventListener("click", () => {
   aplicarTema(!document.documentElement.classList.contains("dark"));
+  mgGlobalFeedback($("btnToggleTheme"));
 });
 
 const DEFAULT_CATS = {
@@ -2066,7 +2317,6 @@ try {
 
 const DEFAULT_CONTAS = [
   { id: "acc-principal", nome: "Conta Principal", tipo: "conta", saldoInicial: 0 },
-  { id: "acc-cartao", nome: "Cartão de Crédito", tipo: "cartao", saldoInicial: 0, fechamento: 10, vencimento: 17 },
   { id: "acc-reserva", nome: "Reserva / Investimentos", tipo: "conta", saldoInicial: 0 },
   { id: "acc-dinheiro", nome: "Dinheiro", tipo: "conta", saldoInicial: 0 }
 ];
@@ -2079,18 +2329,24 @@ try {
   }
 } catch (e) {}
 
+function vincularCartoesLegados(){
+ for(const g of gastos){if(g.quitaçãoCartao||g.cartaoId||g.tipo!=='gasto')continue;const cs=contasLista.filter(c=>c.tipo==='cartao'&&c.nome===g.conta);if(cs.length===1){g.cartaoId=cs[0].id;g.nomeCartaoHistorico ||= g.conta;}}
+}
+function destinoPorNome(nome){return contasLista.find(c=>c.nome===nome&&!c.cancelado&&!c.arquivado)||contasLista.find(c=>c.nome===nome);}
+function validarLimiteCompra(c,valor){if(!c||c.tipo!=='cartao')return true;if(c.cancelado||c.arquivado){avisarMG('Cartão indisponível.');return false;}const lim=Number(c.limite);if(!Number.isFinite(lim)||lim<=0){avisarMG('Configure o limite do cartão antes de lançar compras.');return false;}const disponivel=Math.max(0,Math.round(lim*100)-Math.round(compromissoCartao(c)*100));if(Math.round(valor*100)>disponivel){avisarMG('Limite insuficiente. Disponível: '+brl(disponivel/100));return false;}return true;}
 function getContaObj(nome) {
-  return contasLista.find(c => c.nome === nome) || { id: "custom", nome: nome || "Conta Principal", tipo: "conta", saldoInicial: 0 };
+  return destinoPorNome(nome) || { id: "custom", nome: nome || "Conta Principal", tipo: "conta", saldoInicial: 0 };
 }
 
 function popularSelectsContas() {
-  const nomes = contasLista.map(c => c.nome);
+  const nomes = contasLista.filter(c=>!c.arquivado&&!c.cancelado).map(c => c.nome);
+  const destinos = nomes.filter(n=>document.querySelector("input[name=tipo]:checked")?.value==="gasto"||getContaObj(n).tipo!=="cartao");
   const atualConta = $("conta").value;
-  $("conta").innerHTML = nomes.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
-  if (nomes.includes(atualConta)) $("conta").value = atualConta;
+  $("conta").innerHTML = destinos.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
+  if (destinos.includes(atualConta)) $("conta").value = atualConta;
 
   const atualFiltro = $("filtroConta").value || "todas";
-  $("filtroConta").innerHTML = `<option value="todas">Todas as contas</option>` + nomes.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
+  $("filtroConta").innerHTML = `<option value="todas">Todas as contas</option>` + contasLista.map(c=>`<option value="${esc(c.tipo==='cartao'?'card:'+c.id:c.nome)}">${esc(c.nome+(c.cancelado?' (cancelado)':c.arquivado?(c.tipo==='cartao'?' (bloqueado)':' (arquivado)'):''))}</option>`).join("");
   if ($("filtroConta").querySelector(`option[value="${CSS.escape(atualFiltro)}"]`)) $("filtroConta").value = atualFiltro;
 
   const atualLote = $("loteNovaConta").value;
@@ -2118,18 +2374,19 @@ function atualizarCampoNovaTagLancamento() {
 
 function atualizarCicloCartaoLancamentoUI() {
   const contaSel = getContaObj($("conta").value);
-  const ehCartao = contaSel.tipo === "cartao";
+  const ehCartao = contaSel.tipo === "cartao" && document.querySelector("input[name=tipo]:checked")?.value === "gasto";
   if ($("cartaoCicloLancamentoBox")) {
     $("cartaoCicloLancamentoBox").hidden = !ehCartao;
     if (ehCartao) {
       $("lancCartaoTitulo").textContent = `${contaSel.nome}:`;
       $("lancCartaoFechamento").value = contaSel.fechamento || 10;
       $("lancCartaoVencimento").value = contaSel.vencimento || 17;
+      const d=$("data").value||dataHoje(); $("primeiraFaturaPreview").textContent="Primeira fatura: "+dataBR(diaCiclo(mesFatura({data:d,cicloNovo:true},contaSel),contaSel.vencimento));
     }
   }
   if ($("despFechamentoBox")) {
     const parcelas = parseInt($("despParcelas")?.value || "1", 10) || 1;
-    $("despFechamentoBox").hidden = !(ehCartao || parcelas > 1);
+    $("despFechamentoBox").hidden = !ehCartao;
     if ($("despFechamentoTexto")) {
       $("despFechamentoTexto").textContent = ehCartao
         ? `Respeitar fechamento do cartão (dia ${contaSel.fechamento || 10})`
@@ -2153,6 +2410,9 @@ function atualizarDespesaParcelaUI() {
   }
 
   const parcelas = Math.max(1, parseInt($("despParcelas")?.value || "1", 10) || 1);
+  if (ehDespesa && parcelas > 1) $("fixo").checked = false;
+  if ($("fixo")) $("fixo").disabled = ehDespesa && parcelas > 1;
+  if ($("durBox")) $("durBox").hidden = !$("fixo").checked;
   if ($("despDividirBox")) $("despDividirBox").hidden = parcelas <= 1;
 
   const valTotal = Math.abs(parseValorBR($("valor")?.value || "0"));
@@ -2178,9 +2438,19 @@ function atualizarBotoesVoltar() {
   });
 }
 
+function selecionarAbaFinanceiraMG(tipo){
+ const contas=tipo==='contas';
+ for(const [id,ativo] of [['mgTabContas',contas],['mgTabCartoes',!contas]]){const b=$(id);if(b){b.setAttribute('aria-selected',String(ativo));b.tabIndex=ativo?0:-1;}}
+ if($('mgPainelContas')) $('mgPainelContas').hidden=!contas;
+ if($('mgPainelCartoes')) $('mgPainelCartoes').hidden=contas;
+}
 function mudarVisao(novaVisao, pushHistory = true) {
   if (!novaVisao) return;
+  if(novaVisao === "contas") selecionarAbaFinanceiraMG("cartoes");
   visaoAtual = novaVisao;
+  const titulosMG = {inicio:['Início','Visão geral das suas finanças'],transacoes:['Transações & Futuros','Gerencie suas movimentações'],pagamentos:['Controle de pagamentos','Acompanhe suas obrigações'],orcamento:['Orçamento','Planeje seus gastos'],contas:['Contas & Cartão','Saldos e limites de crédito'],anual:['Relatório anual','Evolução financeira'],tags:['Tags & Categorias','Organize seus lançamentos']};
+  if ($('mgPageTitle') && titulosMG[novaVisao]) { $('mgPageTitle').textContent=titulosMG[novaVisao][0]; $('mgPageSubtitle').textContent=titulosMG[novaVisao][1]; }
+
   if (pushHistory && navHistory[navHistory.length - 1] !== novaVisao) {
     navHistory.push(novaVisao);
   }
@@ -2211,7 +2481,7 @@ function voltarVisao() {
 
 function renderAlertasOrcamento() {
   const mes = $("mes").value || mesAtual();
-  const gastosMes = itensDoMes(mes).filter(x => x.tipo === "gasto");
+  const gastosMes = itensDoMes(mes).filter(x => x.tipo === "gasto" && !x.quitaçãoCartao);
   const porCat = {};
   gastosMes.forEach(x => { porCat[x.cat] = (porCat[x.cat] || 0) + x.valor; });
 
@@ -2284,11 +2554,30 @@ function renderTags() {
   `).join("");
 }
 
+
+function mgCounter(el,target,percent=false,previous){
+ if(!el)return;
+ const frames=mgCounter.frames||(mgCounter.frames=new WeakMap());
+ cancelAnimationFrame(frames.get(el)||0);
+ const format=v=>percent?(ocultarValores?'•••':v.toFixed(1).replace('.',',')+'%'):brl(v);
+ const final=format(target), old=previous===undefined?el.textContent:previous;
+ const raw=String(old).trim();
+ const from=/[0-9]/.test(raw)?Number(raw.replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.')):NaN;
+ el.textContent=final;
+ if(ocultarValores||mgMotionReduced()||!Number.isFinite(from)||!Number.isFinite(target)||Math.abs(from-target)<(percent?.05:.005)||!el.getClientRects().length)return;
+ const duration=({suave:180,premium:450,imersivo:700})[document.documentElement.dataset.motion]||450;
+ const start=performance.now();
+ const tick=now=>{if(!el.isConnected)return;if(ocultarValores||mgMotionReduced()){el.textContent=format(target);return;}const p=Math.min(1,(now-start)/duration);el.textContent=p===1?format(target):format(from+(target-from)*(1-Math.pow(1-p,3)));if(p<1)frames.set(el,requestAnimationFrame(tick));};
+ el.textContent=format(from);frames.set(el,requestAnimationFrame(tick));
+}
+function mgCounterSnapshot(root){return new Map([...root.querySelectorAll('[data-mg-counter]')].map(e=>[e.dataset.mgCounter,e.textContent]));}
+function mgCounterRestore(root,old){for(const el of root.querySelectorAll('[data-mg-counter]')){const text=el.textContent;if(!/\d/.test(text)||ocultarValores)continue;const n=Number(text.replace(/[^0-9,.-]/g,'').replace(/\./g,'').replace(',','.'));if(Number.isFinite(n))mgCounter(el,n,false,old.get(el.dataset.mgCounter)||'');}}
+
 function renderInicio() {
   const mes = $("mes")?.value || mesAtual();
   const mesAnt = deslocarMes(mes, -1);
-  const todosMes = itensDoMes(mes);
-  const todosAnt = itensDoMes(mesAnt);
+  const todosMes = itensDoMes(mes).filter(x=>!x.quitaçãoCartao);
+  const todosAnt = itensDoMes(mesAnt).filter(x=>!x.quitaçãoCartao);
   const baseMes = diaSelecionadoFiltro && diaSelecionadoFiltro.startsWith(mes)
     ? todosMes.filter(x => x.dv === diaSelecionadoFiltro)
     : todosMes;
@@ -2307,10 +2596,10 @@ function renderInicio() {
   const saldoInicialTotal = contasLista
     .filter(c => c.tipo !== "cartao")
     .reduce((s, c) => s + (Number(c.saldoInicial) || 0), 0);
-  const saldoConsolidado = saldoInicialTotal + resultado;
+  const saldoConsolidado = contasLista.some(c=>c.referenciaSaldo)||gastos.some(g=>g.regraPagamentoRF02) ? contasLista.filter(c=>c.tipo!=="cartao").reduce((sum,c)=>sum+Number(c.saldoInicial||0)+movimentosSaldoMG(c).reduce((a,g)=>a+(g.tipo==="ganho"?1:-1)*Number(g.valor||0),0),0) : saldoInicialTotal + resultado;
 
   if ($("kpiResultado")) {
-    $("kpiResultado").textContent = brl(resultado);
+    mgCounter($("kpiResultado"), resultado);
     $("kpiResultado").className = `text-2xl sm:text-[26px] font-extrabold tracking-tight tabular-nums ${resultado >= 0 ? "text-zinc-900 dark:text-white" : "text-red-600"}`;
   }
   if ($("kpiResultadoMeta")) {
@@ -2321,38 +2610,38 @@ function renderInicio() {
     $("kpiResultadoDelta").textContent = (diff >= 0 ? "+" : "") + brlCompacto(diff) + " vs ant.";
   }
 
-  if ($("kpiReceitas")) $("kpiReceitas").textContent = brl(receitas);
+  if ($("kpiReceitas")) mgCounter($("kpiReceitas"), receitas);
   if ($("kpiReceitasQtd")) $("kpiReceitasQtd").textContent = `${todosMes.filter(x => x.tipo === "ganho").length} lançamentos no mês`;
   if ($("kpiReceitasDelta")) {
     const diffR = receitas - receitasAnt;
     $("kpiReceitasDelta").textContent = (diffR >= 0 ? "+" : "") + brlCompacto(diffR);
   }
 
-  if ($("kpiDespesas")) $("kpiDespesas").textContent = brl(despesas);
+  if ($("kpiDespesas")) mgCounter($("kpiDespesas"), despesas);
   if ($("kpiDespesasQtd")) $("kpiDespesasQtd").textContent = `${todosMes.filter(x => x.tipo === "gasto").length} lançamentos no mês`;
   if ($("kpiDespesasDelta")) {
     const diffD = despesas - despesasAnt;
     $("kpiDespesasDelta").textContent = (diffD <= 0 ? "" : "+") + brlCompacto(diffD);
   }
 
-  if ($("kpiSaldoConta")) $("kpiSaldoConta").textContent = brl(saldoConsolidado);
+  if ($("kpiSaldoConta")) mgCounter($("kpiSaldoConta"), saldoConsolidado);
   if ($("kpiSaldoProjetado")) $("kpiSaldoProjetado").textContent = `Ganhos futuros no mês: ${brl(totalFuturos)}`;
 
   const aportesInv = todosMes.filter(x => x.tipo === "gasto" && /invest/i.test(x.cat || "")).reduce((s, x) => s + Number(x.valor || 0), 0);
   const poupado = Math.max(0, aportesInv + Math.max(0, resultado));
   const taxaPoup = receitas > 0 ? Math.min(100, (poupado / receitas) * 100) : 0;
-  if ($("kpiTaxaPoupanca")) $("kpiTaxaPoupanca").textContent = `${taxaPoup.toFixed(1).replace(".", ",")}%`;
+  if ($("kpiTaxaPoupanca")) mgCounter($("kpiTaxaPoupanca"), taxaPoup, true);
   if ($("barraTaxaPoupanca")) $("barraTaxaPoupanca").style.width = `${Math.max(0, Math.min(100, taxaPoup))}%`;
   if ($("poupancaValorDetalhe")) $("poupancaValorDetalhe").textContent = `Poupado/Investido: ${brl(poupado)}`;
 
   const fixosParcelas = todosMes.filter(x => x.tipo === "gasto" && (x.fixo || x.parcelaTotal > 1)).reduce((s, x) => s + Number(x.valor || 0), 0);
   const taxaComp = receitas > 0 ? Math.min(150, (fixosParcelas / receitas) * 100) : 0;
-  if ($("kpiComprometimento")) $("kpiComprometimento").textContent = `${taxaComp.toFixed(1).replace(".", ",")}%`;
+  if ($("kpiComprometimento")) mgCounter($("kpiComprometimento"), taxaComp, true);
   if ($("barraComprometimento")) $("barraComprometimento").style.width = `${Math.max(0, Math.min(100, taxaComp))}%`;
   if ($("comprometimentoDetalhe")) $("comprometimentoDetalhe").textContent = `Fixos + Parcelas: ${brl(fixosParcelas)}`;
   if ($("comprometimentoLivre")) $("comprometimentoLivre").textContent = `Renda livre: ${brl(Math.max(0, receitas - despesas))}`;
 
-  if ($("futurosInicioTotal")) $("futurosInicioTotal").textContent = brl(totalFuturos);
+  if ($("futurosInicioTotal")) mgCounter($("futurosInicioTotal"), totalFuturos);
   if ($("listaGanhosFuturosInicio")) {
     if (!futurosMes.length) {
       $("listaGanhosFuturosInicio").innerHTML = `<div class="col-span-full text-xs text-zinc-400 py-2">Nenhum ganho futuro previsto para este mês.</div>`;
@@ -2380,7 +2669,9 @@ function renderInicio() {
   const diasNoMes = new Date(anoNum, mesIdx + 1, 0).getDate();
 
   const mapaDia = {};
-  todosMes.forEach(it => {
+  const fluxo = fluxoMes(mes);
+  const eventosCalendario=calendarioItens(mes);
+  fluxo.forEach(it => {
     const d = it.dv || it.data;
     if (!mapaDia[d]) mapaDia[d] = { ganho: 0, gasto: 0, futuro: 0 };
     if (it.tipo === "ganho") mapaDia[d].ganho += Number(it.valor || 0);
@@ -2393,7 +2684,7 @@ function renderInicio() {
     mapaDia[d].futuro += Math.abs(Number(f.valor || 0));
   });
 
-  const totSaidasMes = todosMes.filter(x => x.tipo === "gasto").reduce((s, x) => s + Number(x.valor || 0), 0);
+  const totSaidasMes = fluxo.filter(x => x.tipo === "gasto" && situacao(x,x.dv||x.data)==="Pago").reduce((s, x) => s + Number(x.valor || 0), 0);
   const totGanhosMes = todosMes.filter(x => x.tipo === "ganho").reduce((s, x) => s + Number(x.valor || 0), 0);
   const diasMov = Object.keys(mapaDia).length;
 
@@ -2429,13 +2720,9 @@ function renderInicio() {
       const info = mapaDia[iso] || { ganho: 0, gasto: 0, futuro: 0 };
       const selecionado = diaSelecionadoFiltro === iso;
       celulas.push(`
-        <button type="button" data-cal-date="${iso}" class="h-14 p-1.5 rounded-xl border text-left flex flex-col justify-between transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
+        <button type="button" data-cal-date="${iso}" class="min-h-[92px] p-1.5 rounded-xl border text-left flex flex-col gap-1 transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
           <span class="text-[11px] font-bold tabular-nums text-zinc-700 dark:text-zinc-200">${dia}</span>
-          <div class="space-y-0.5 leading-none truncate">
-            ${info.ganho > 0 ? `<div class="text-[9px] font-bold tabular-nums text-emerald-600 truncate">+${brlCompacto(info.ganho)}</div>` : ""}
-            ${info.gasto > 0 ? `<div class="text-[9px] font-bold tabular-nums text-red-600 truncate">-${brlCompacto(info.gasto)}</div>` : ""}
-            ${info.futuro > 0 ? `<div class="text-[9px] font-semibold tabular-nums text-amber-600 truncate">◌${brlCompacto(info.futuro)}</div>` : ""}
-          </div>
+          <div class="space-y-1 leading-tight w-full">${calStatus(eventosCalendario.filter(x=>(x.dv||x.data)===iso),info.futuro)}</div>
         </button>
       `);
     }
@@ -2500,12 +2787,13 @@ function renderInicio() {
     }
   }
 
+  animarDonut(totDonut);
   // Histórico dos últimos 6 meses
   if ($("historicoChart")) {
     const meses6 = [];
     for (let i = -5; i <= 0; i++) {
       const mRef = deslocarMes(mes, i);
-      const its = itensDoMes(mRef);
+      const its = itensDoMes(mRef).filter(x=>!x.quitaçãoCartao);
       const r = its.filter(x => x.tipo === "ganho").reduce((s, x) => s + Number(x.valor || 0), 0);
       const d = its.filter(x => x.tipo === "gasto").reduce((s, x) => s + Number(x.valor || 0), 0);
       meses6.push({ mRef, r, d });
@@ -2537,7 +2825,7 @@ function renderInicio() {
         <div class="py-2.5 flex items-center justify-between gap-3">
           <div class="min-w-0">
             <div class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white truncate">${esc(it.desc)}</div>
-            <div class="text-[11px] text-zinc-500">${esc((it.dv || it.data || "").split("-").reverse().join("/"))} · ${esc(it.cat || "Outros")} · ${esc(it.conta || "Conta Principal")}</div>
+            <div class="text-[11px] text-zinc-500">${esc((it.dv || it.data || "").split("-").reverse().join("/"))} · ${esc(it.cat || "Outros")} · ${esc(it.nomeCartaoHistorico || it.conta || "Conta Principal")}</div>
           </div>
           <div class="text-xs sm:text-sm font-extrabold tabular-nums shrink-0 ${it.tipo === "ganho" ? "text-emerald-600" : "text-red-600"}">
             ${it.tipo === "ganho" ? "+" : "−"} ${brl(Number(it.valor || 0))}
@@ -2596,7 +2884,7 @@ function renderTransacoes() {
   let itens = itensDoMes(mes);
   if (tipoFiltro !== "todos") itens = itens.filter(x => x.tipo === tipoFiltro);
   if (catFiltro !== "todas") itens = itens.filter(x => x.cat === catFiltro);
-  if (contaFiltro !== "todas") itens = itens.filter(x => x.conta === contaFiltro);
+  if (contaFiltro !== "todas") itens = itens.filter(x => contaFiltro.startsWith("card:")?String(x.cartaoId||cartaoDe(x)?.id)===contaFiltro.slice(5):x.conta === contaFiltro);
   if (busca) {
     itens = itens.filter(x =>
       String(x.desc || "").toLowerCase().includes(busca) ||
@@ -2630,12 +2918,12 @@ function renderTransacoes() {
               ${it.meio ? `<span class="ml-1.5 px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-[10px] font-semibold">${esc(it.meio)}</span>` : ""}
             </td>
             <td class="py-2.5 px-3 text-xs"><span class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 font-semibold">${esc(it.cat || "Outros")}</span></td>
-            <td class="py-2.5 px-3 text-xs text-zinc-500">${esc(it.conta || "Conta Principal")}</td>
+            <td class="py-2.5 px-3 text-xs text-zinc-500">${esc(it.nomeCartaoHistorico || it.conta || "Conta Principal")}</td>
             <td class="py-2.5 px-3 text-right font-extrabold tabular-nums whitespace-nowrap ${it.tipo === "ganho" ? "text-emerald-600" : "text-red-600"}">
               ${it.tipo === "ganho" ? "+" : "−"} ${brl(Number(it.valor || 0))}
             </td>
             <td class="py-2.5 px-3 text-right whitespace-nowrap text-xs">
-              <button type="button" data-action="edit" data-id="${esc(it.id)}" class="px-2 py-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold">Editar</button>
+              ${botaoEstornoMG(it)}<button type="button" data-action="edit" data-id="${esc(it.id)}" class="px-2 py-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold">Editar</button>
               <button type="button" data-action="clone" data-id="${esc(it.id)}" class="px-2 py-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 font-semibold">Duplicar</button>
               <button type="button" data-action="delete" data-id="${esc(it.id)}" class="px-2 py-1 rounded-lg ${confirmando ? "bg-red-600 text-white font-bold" : "text-red-600 hover:bg-red-50 font-semibold"}">${confirmando ? "Confirmar?" : "Excluir"}</button>
             </td>
@@ -2650,7 +2938,7 @@ function renderTransacoes() {
 function renderOrcamento() {
   if (!$("orcamentoGrid")) return;
   const mes = $("mes")?.value || mesAtual();
-  const gastosMes = itensDoMes(mes).filter(x => x.tipo === "gasto");
+  const gastosMes = itensDoMes(mes).filter(x => x.tipo === "gasto" && !x.quitaçãoCartao);
   const porCat = {};
   gastosMes.forEach(x => { porCat[x.cat] = (porCat[x.cat] || 0) + Number(x.valor || 0); });
 
@@ -2688,9 +2976,10 @@ function renderContas() {
   const contasOrigemOpcoes = contasNormais.map(c => `<option value="${esc(c.nome)}">${esc(c.nome)}</option>`).join("");
 
   if ($("contasGrid")) {
+    const oldCounters=mgCounterSnapshot($("contasGrid"));
     $("contasGrid").innerHTML = contasNormais.map(c => {
       const saldoInicial = Number(c.saldoInicial) || 0;
-      const movsConta = gastos.filter(g => (g.conta || "Conta Principal") === c.nome);
+      const movsConta = movimentosSaldoMG(c);
       const entradas = movsConta.filter(g => g.tipo === "ganho").reduce((s, g) => s + Number(g.valor || 0), 0);
       const saidas = movsConta.filter(g => g.tipo === "gasto").reduce((s, g) => s + Number(g.valor || 0), 0);
       const saldoAtual = saldoInicial + entradas - saidas;
@@ -2700,54 +2989,23 @@ function renderContas() {
           <div class="flex items-center justify-between gap-2">
             <div>
               <div class="font-bold text-sm text-zinc-900 dark:text-white">${esc(c.nome)}</div>
-              <div class="text-[11px] text-zinc-400">Conta / Carteira</div>
+              <div class="text-[11px] text-zinc-400">${esc(c.subtipo||"Conta / Carteira")}</div>
             </div>
             ${!ehPadrao ? `<button type="button" data-del-conta="${esc(c.id)}" class="text-xs text-red-600 hover:underline font-semibold">Remover</button>` : ""}
           </div>
-          <div class="text-xl font-extrabold tabular-nums ${saldoAtual >= 0 ? "text-zinc-900 dark:text-white" : "text-red-600"}">${brl(saldoAtual)}</div>
+          <div data-mg-counter="conta-${esc(c.id)}" ${c.cor?`style="background:${gradienteCartaoMG(c)};color:white;padding:16px;border-radius:12px"`:""} class="text-xl font-extrabold tabular-nums ${saldoAtual >= 0 ? "text-zinc-900 dark:text-white" : "text-red-600"}">${brl(saldoAtual)}</div>
           <label class="flex items-center justify-between text-xs text-zinc-500">
-            <span>Saldo inicial (R$)</span>
+            <span>${c.referenciaSaldo?"Saldo de referência (R$)":"Saldo inicial (R$)"}</span>
             <input type="number" step="0.01" data-conta-saldo-id="${esc(c.id)}" value="${saldoInicial}" class="w-28 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 text-right font-bold tabular-nums text-zinc-800 dark:text-zinc-200">
           </label>
+          ${c.referenciaSaldo?`<div class="text-xs">Referência: ${esc(c.referenciaSaldo.replace("T"," ").slice(0,16))}</div>`:""}<button type="button" data-extrato-mg="${esc(c.id)}" class="border rounded-lg px-3 py-2 text-sm">Importar extrato</button>
         </div>
       `;
     }).join("");
+    mgCounterRestore($("contasGrid"),oldCounters);
   }
 
-  if ($("faturasCartoesGrid")) {
-    $("faturasCartoesGrid").innerHTML = cartoes.map(c => {
-      const faturaAberta = itensMes
-        .filter(x => x.conta === c.nome && x.tipo === "gasto" && !x.faturaPagaCartao)
-        .reduce((s, x) => s + Number(x.valor || 0), 0);
-      return `
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 shadow-sm space-y-3">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <div class="font-bold text-sm text-zinc-900 dark:text-white">${esc(c.nome)}</div>
-              <div class="text-[11px] text-zinc-400">Fatura de ${mes}</div>
-            </div>
-            <strong class="text-lg font-extrabold tabular-nums text-red-600">${brl(faturaAberta)}</strong>
-          </div>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800 px-2.5 py-1.5 rounded-xl">
-              <span>Fechamento</span>
-              <input type="number" min="1" max="31" data-cartao-id="${esc(c.id)}" data-cartao-campo="fechamento" value="${c.fechamento || 10}" class="w-12 bg-transparent text-right font-bold tabular-nums">
-            </label>
-            <label class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800 px-2.5 py-1.5 rounded-xl">
-              <span>Vencimento</span>
-              <input type="number" min="1" max="31" data-cartao-id="${esc(c.id)}" data-cartao-campo="vencimento" value="${c.vencimento || 17}" class="w-12 bg-transparent text-right font-bold tabular-nums">
-            </label>
-          </div>
-          ${faturaAberta > 0 ? `
-            <div class="flex items-center gap-2 pt-1">
-              <select data-pagar-origem="${esc(c.nome)}" class="flex-1 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-2.5 py-1.5 text-xs font-medium">${contasOrigemOpcoes}</select>
-              <button type="button" data-pagar-fatura="${esc(c.nome)}" data-fatura-valor="${faturaAberta.toFixed(2)}" class="px-3 py-1.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-zinc-950 text-xs font-bold">Pagar fatura</button>
-            </div>
-          ` : `<div class="text-xs text-emerald-600 font-semibold">Fatura quitada ou zerada neste mês.</div>`}
-        </div>
-      `;
-    }).join("");
-  }
+  renderCartoesNovos(mes,contasOrigemOpcoes);
 }
 
 function renderRelatorioAnual() {
@@ -2759,7 +3017,7 @@ function renderRelatorioAnual() {
 
   for (let m = 1; m <= 12; m++) {
     const chave = `${anoRelatorioAtual}-${String(m).padStart(2, "0")}`;
-    const its = itensDoMes(chave);
+    const its = itensDoMes(chave).filter(x=>!x.quitaçãoCartao);
     const r = its.filter(x => x.tipo === "ganho").reduce((s, x) => s + Number(x.valor || 0), 0);
     const d = its.filter(x => x.tipo === "gasto").reduce((s, x) => s + Number(x.valor || 0), 0);
     const res = r - d;
@@ -2836,138 +3094,17 @@ function renderRelatorioAnual() {
    CONTROLE DE PAGAMENTOS
    ===================================================== */
 
-function estaPago(item, data) {
-
-    const original = gastos.find(
-        g => String(g.id) === String(item.id)
-    );
-
-    if (!original) return false;
-
-    return Boolean(
-        original.pagamentos?.[data] ||
-        (
-            original.faturaPagaCartao &&
-            String(original.data || "").slice(0, 7) ===
-            data.slice(0, 7)
-        )
-    );
-}
-
-function alternarPagamento(id, data) {
-
-    const item = gastos.find(
-        g => String(g.id) === String(id)
-    );
-
-    if (!item) return;
-
-    prepararDesfazer();
-
-    if (!item.pagamentos) {
-        item.pagamentos = {};
-    }
-
-    const jaPago = estaPago(item, data);
-
-    if (jaPago) {
-
-        delete item.pagamentos[data];
-
-        if (
-            item.faturaPagaCartao &&
-            String(item.data || "").slice(0, 7) ===
-            data.slice(0, 7)
-        ) {
-            mostrarDesfazer(
-                "Esta compra pertence a uma fatura já quitada."
-            );
-            return;
-        }
-
-    } else {
-
-        item.pagamentos[data] = {
-            pago: true,
-            confirmadoEm: new Date().toISOString()
-        };
-
-    }
-
-    salvar();
-    renderTudo();
-    abrirModalDia(data);
-
-    mostrarDesfazer(
-        jaPago
-            ? "Pagamento desfeito."
-            : "Pagamento confirmado com sucesso."
-    );
-}
-
-function statusPagamentoHTML(item, data) {
-
-    if (item.tipo !== "gasto") return "";
-
-    const pago = estaPago(item, data);
-
-    const hoje = new Date();
-
-    const hojeISO =
-        hoje.getFullYear() + "-" +
-        String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
-        String(hoje.getDate()).padStart(2, "0");
-
-    if (pago) {
-
-        return `
-            <span class="inline-flex items-center gap-1
-                px-2 py-0.5 rounded-full text-[10px]
-                font-bold bg-emerald-100 text-emerald-700
-                dark:bg-emerald-950 dark:text-emerald-400">
-
-                ✓ Pago
-
-            </span>
-        `;
-
-    }
-
-    if (data < hojeISO) {
-
-        return `
-            <span class="inline-flex items-center gap-1
-                px-2 py-0.5 rounded-full text-[10px]
-                font-bold bg-red-100 text-red-700
-                dark:bg-red-950 dark:text-red-400">
-
-                Vencido
-
-            </span>
-        `;
-
-    }
-
-    return `
-        <span class="inline-flex items-center gap-1
-            px-2 py-0.5 rounded-full text-[10px]
-            font-bold bg-amber-100 text-amber-700
-            dark:bg-amber-950 dark:text-amber-400">
-
-            Pendente
-
-        </span>
-    `;
-}
-
+function estaPago(item,data){return situacao(item,data)==="Pago";}
+function alternarPagamento(id,data){const item=gastos.find(g=>String(g.id)===String(id)); if(!item||cartaoDe(item)||item.quitaçãoCartao)return; prepararDesfazer(); item.pagamentos ||= {}; item.pagamentos[data]={pago:!estaPago(item,data),confirmadoEm:new Date().toISOString()}; if(salvar()){renderTudo(); if(diaModalAtual===data)abrirModalDia(data); mostrarDesfazer("Situação atualizada.");}}
+function statusPagamentoHTML(it,data){return it.tipo==="gasto"?`<span class="${corStatus(situacao(it,data))} font-bold">${situacao(it,data)}</span>`:"";}
 /* FIM DO CONTROLE DE PAGAMENTOS */
 function abrirModalDia(dataIso) {
   diaModalAtual = dataIso;
   const mes = dataIso.slice(0, 7);
-  const itensDia = itensDoMes(mes).filter(x => (x.dv || x.data) === dataIso);
+  const itensDia = calendarioItens(mes).filter(x => (x.dv || x.data) === dataIso);
   if ($("modalDiaTitulo")) $("modalDiaTitulo").textContent = `Movimentações em ${dataIso.split("-").reverse().join("/")}`;
   const totG = itensDia.filter(x => x.tipo === "ganho").reduce((s, x) => s + Number(x.valor || 0), 0);
-  const totD = itensDia.filter(x => x.tipo === "gasto").reduce((s, x) => s + Number(x.valor || 0), 0);
+  const totD = itensDia.filter(x => x.tipo === "gasto" && !x.compraVisual && !x.quitadaVisual).reduce((s, x) => s + Number(x.valor || 0), 0);
   if ($("modalDiaResumo")) $("modalDiaResumo").textContent = `Receitas: ${brl(totG)} · Despesas: ${brl(totD)}`;
 if ($("modalDiaLista")) {
 
@@ -2997,7 +3134,7 @@ if ($("modalDiaLista")) {
 
                         <div class="text-[11px] text-zinc-500 mt-1">
                             ${esc(it.cat || "Outros")} ·
-                            ${esc(it.conta || "Conta Principal")}
+                            ${esc(it.nomeCartaoHistorico || it.conta || "Conta Principal")}
                         </div>
 
                     </div>
@@ -3014,7 +3151,8 @@ if ($("modalDiaLista")) {
 
                         </strong>
 
-                        ${it.tipo === "gasto" ? `
+                        ${botaoEstornoMG(it)}
+                        ${it.tipo === "gasto" && !it.virtual && !it.quitaçãoCartao && !it.compraVisual && !it.quitadaVisual ? `
                             <button
                                 type="button"
                                 data-pagamento-id="${esc(it.id)}"
@@ -3028,7 +3166,7 @@ if ($("modalDiaLista")) {
                                 ${pago ? "Desfazer" : "✓ Pagar"}
 
                             </button>
-                        ` : ""}
+                        ` : it.quitaçãoCartao ? `<button class="border rounded-lg p-2 text-red-600" data-reverter-fat="${esc(it.id)}">Estornar pagamento</button>` : it.virtual && !it.quitadaVisual ? `<button type="button" class="border rounded-lg p-2" data-pagar-fatura="${esc(it.cartaoId)}" data-fatura-mes="${it.faturaMes}">Pagar fatura</button>` : ""}
 
                     </div>
 
@@ -3064,17 +3202,27 @@ function fecharModalDia() {
   ocultarModal($("modalDia"));
 }
 
+function rf02Atualizar(){const t=document.querySelector('input[name=tipo]:checked')?.value;const c=destinoPorNome($('conta')?.value);const el=$('rf02Pagamento');if(!el)return;const ativo=t==='gasto'&&c?.tipo!=='cartao'&&$('data').value<=dataHoje();el.style.display=ativo?'flex':'none';$('rf02Pago').disabled=!ativo;}
+$('f').addEventListener('change',rf02Atualizar);
+function abrirNovoMG(){
+ const f=$('f'); if(f.closest('dialog'))return;
+ const marcador=document.createComment('formulario original');f.before(marcador);
+ const d=document.createElement('dialog');d.className='mg-dialog rounded-2xl bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white p-4 w-[min(95vw,680px)] max-h-[90vh] overflow-auto';
+ const b=document.createElement('button');b.type='button';b.textContent='Fechar ×';b.className='mb-2 border rounded-lg px-3 py-2';d.append(b,f);document.body.append(d);b.onclick=()=>d.close();d.addEventListener('close',()=>{marcador.replaceWith(f);d.remove();},{once:true});d.showModal();$('rf02Pago').checked=true;rf02Atualizar();
+}
+function fecharNovoMG(){const d=$('f').closest('dialog');if(d?.open)d.close();}
 function abrirLancamentoRapido(tipo, dataIso) {
   fecharModalDia();
-  mudarVisao("transacoes");
+  abrirNovoMG();
   const radio = document.querySelector(`input[name=tipo][value="${tipo}"]`);
   if (radio) {
     radio.checked = true;
     popularSelectsCategorias();
+    popularSelectsContas();
     atualizarDespesaParcelaUI();
   }
-  if ($("data") && dataIso) $("data").value = dataIso;
-  setTimeout(() => $("desc")?.focus(), 50);
+  if ($("data") && dataIso) $("data").value = dataIso; rf02Atualizar();
+  $("desc")?.focus();
 }
 
 $("btnFecharModalDia")?.addEventListener("click", fecharModalDia);
@@ -3088,15 +3236,19 @@ $("btnLancarDespesaDia")?.addEventListener("click", () => abrirLancamentoRapido(
 $("btnLancarGanhoDia")?.addEventListener("click", () => abrirLancamentoRapido("ganho", diaModalAtual));
 
 function abrirModalEdicao(id) {
-  const item = gastos.find(x => String(x.id) === String(id));
-  if (!item) return;
+  const base = gastos.find(x => String(x.id) === String(id));
+  if (!base) return;
+  const ref=$("mes")?.value||mesAtual(); const item=base.fixo?(itensDoMes(ref).find(x=>String(x.id)===String(id))||base):base;
   $("editId").value = item.id;
   $("editDesc").value = item.desc || "";
   $("editValor").value = String(item.valor || 0).replace(".", ",");
-  $("editData").value = item.data || dataHoje();
+  $("editData").value = item.dv || item.data || dataHoje();
+  $("editId").dataset.mes=ref; document.querySelector('input[name="editEscopo"][value="este"]').checked=true;
   const listaCat = item.tipo === "ganho" ? customCats.ganho : customCats.gasto;
   $("editCat").innerHTML = listaCat.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
   if (listaCat.includes(item.cat)) $("editCat").value = item.cat;
+  popularSelectsContas();
+  if(!Array.from($("editConta").options).some(o=>o.value===item.conta)) $("editConta").add(new Option(item.conta,item.conta));
   $("editConta").value = item.conta || "Conta Principal";
   if ($("editEscopoBox")) $("editEscopoBox").hidden = !(item.fixo || item.parcelaTotal > 1);
   mostrarModal($("modalEdit"));
@@ -3118,12 +3270,27 @@ $("formEditModal")?.addEventListener("submit", e => {
   const novoVal = Math.abs(parseValorBR($("editValor").value));
   if (novoVal <= 0) return;
 
+  const original=gastos[idx], ref=$("editId").dataset.mes||$("mes").value, atual=original.fixo?(itensDoMes(ref).find(x=>String(x.id)===id)||original):original, anterior=cartaoDe(atual);
+  const destinoEdit=$('editConta').value===atual.conta&&anterior?anterior:destinoPorNome($('editConta').value);
+  if(original.estornosCompra?.length)return avisarMG('Compra com estorno registrado: preserve o histórico.');
+  if(original.quitaçãoCartao)return avisarMG('Use o histórico da fatura para estornar pagamentos.');
+  if(destinoEdit?.tipo==='cartao'&&(destinoEdit!==anterior||novoVal>atual.valor)&&!validarLimiteCompra(destinoEdit,destinoEdit===anterior?novoVal-atual.valor:novoVal))return;
+  if(destinoEdit?.nome!==gastos[idx].conta&&(destinoEdit?.cancelado||destinoEdit?.arquivado||(gastos[idx].tipo!=="gasto"&&destinoEdit?.tipo==="cartao")))return avisarMG("Destino inválido.");
   prepararDesfazer();
+  if(original.fixo){
+    const campos={desc:($("editDesc").value||atual.desc).trim().slice(0,60),valor:Math.round(novoVal*100)/100,cat:$("editCat").value||atual.cat,conta:$("editConta").value||atual.conta,cartaoId:destinoEdit?.tipo==='cartao'?destinoEdit.id:null};
+    if($("editData").value!==atual.dv){avisarMG('Para alterar a data de uma recorrência, exclua a ocorrência e cadastre outra na data desejada.');return;}
+    if(document.querySelector('input[name="editEscopo"]:checked')?.value==='proximos'){original.edicoesFuturas=(original.edicoesFuturas||[]).filter(x=>x.mes!==ref);original.edicoesFuturas.push({mes:ref,campos});if(original.edicoesMensais)delete original.edicoesMensais[ref];}else{const data=atual.dv; const novo={...atual,...campos,id:'oc-'+(globalThis.crypto?.randomUUID?.()||Date.now()+'-'+Math.random()),data,fixo:false,recorrenciaOrigem:original.id,pagamentos:original.pagamentos?.[data]?{[data]:original.pagamentos[data]}:{}}; delete novo.edicoesMensais;delete novo.edicoesFuturas;delete novo.reajustes;delete novo.dv;delete novo.faturaMesCompra;novo.compraEm=data;novo.nomeCartaoHistorico=atual.nomeCartaoHistorico||atual.conta;excluidos.push(`${original.id}@${data}`);gastos.push(novo);}
+    fecharModalEdicao();salvar();renderTudo();mostrarDesfazer('Recorrência atualizada.');return;
+  }
   gastos[idx].desc = ($("editDesc").value || "").trim().slice(0, 60) || gastos[idx].desc;
   gastos[idx].valor = Math.round(novoVal * 100) / 100;
+  const dataAnteriorRF02=gastos[idx].data;
   gastos[idx].data = $("editData").value || gastos[idx].data;
+  if(original.regraPagamentoRF02&&dataAnteriorRF02!==original.data){const pag=original.pagamentos?.[dataAnteriorRF02];if(pag){delete original.pagamentos[dataAnteriorRF02];if(original.data<=dataHoje())original.pagamentos[original.data]=pag;}}
   gastos[idx].cat = $("editCat").value || gastos[idx].cat;
   gastos[idx].conta = $("editConta").value || gastos[idx].conta;
+  if(destinoEdit?.tipo==='cartao'){if(original.regraPagamentoRF02){delete original.regraPagamentoRF02;delete original.pagamentos;}gastos[idx].cartaoId=destinoEdit.id;if(destinoEdit!==anterior)gastos[idx].nomeCartaoHistorico=destinoEdit.nome;}else{delete gastos[idx].cartaoId;delete gastos[idx].nomeCartaoHistorico;delete gastos[idx].faturaMesCompra;}
 
   fecharModalEdicao();
   salvar();
@@ -3193,6 +3360,7 @@ function iniciarTokenClient() {
         atualizarSyncUI("Cache local", null, "bg-amber-500");
         return;
       }
+      driveLiberado = false;
       driveAccessToken = resp.access_token;
       try { localStorage.setItem(GOOGLE_FLAG, "1"); } catch (e) {}
       if ($("bGoogleLogin")) $("bGoogleLogin").hidden = true;
@@ -3218,6 +3386,8 @@ $("bGoogleLogout")?.addEventListener("click", () => {
     try { window.google.accounts.oauth2.revoke(driveAccessToken); } catch (e) {}
   }
   driveAccessToken = null;
+  driveLiberado = false;
+  clearTimeout(syncTimer);
   try { localStorage.removeItem(GOOGLE_FLAG); } catch (e) {}
   if ($("bGoogleLogin")) $("bGoogleLogin").hidden = false;
   if ($("bGoogleLogout")) $("bGoogleLogout").hidden = true;
@@ -3235,9 +3405,9 @@ document.querySelectorAll(".btn-voltar-aba").forEach(btn => {
   btn.addEventListener("click", voltarVisao);
 });
 $("btnOpenModal")?.addEventListener("click", () => {
-  mudarVisao("transacoes");
+  abrirNovoMG();
   if ($("data") && !$("data").value) $("data").value = dataHoje();
-  setTimeout(() => $("desc")?.focus(), 50);
+  $("desc")?.focus();
 });
 $("btnOpenMobile")?.addEventListener("click", () => {
   $("sidebar")?.classList.remove("-translate-x-full");
@@ -3256,6 +3426,9 @@ $("btnCollapseSidebar")?.addEventListener("click", () => {
   if (!sb) return;
   const recolhido = sb.classList.toggle("w-20");
   sb.classList.toggle("w-64", !recolhido);
+  $("btnCollapseSidebar").setAttribute("aria-expanded", String(!recolhido));
+  $("btnCollapseSidebar").setAttribute("aria-label", recolhido ? "Expandir menu" : "Recolher menu");
+  $("btnCollapseSidebar").title = recolhido ? "Expandir menu" : "Recolher menu";
   document.querySelectorAll(".sidebar-label").forEach(el => el.classList.toggle("hidden", recolhido));
 });
 $("btnPrevMonth")?.addEventListener("click", () => {
@@ -3270,7 +3443,9 @@ $("mes")?.addEventListener("change", () => {
 });
 $("btnTogglePrivacy")?.addEventListener("click", () => {
   ocultarValores = !ocultarValores;
+  $("btnTogglePrivacy").setAttribute("aria-pressed", String(ocultarValores));
   renderTudo();
+  mgGlobalFeedback($("eyeIcon"));
 });
 $("btnLimparDia")?.addEventListener("click", () => {
   diaSelecionadoFiltro = null;
@@ -3298,12 +3473,15 @@ document.querySelectorAll("input[name=tipo]").forEach(r => {
 });
 $("cat")?.addEventListener("change", atualizarCampoNovaTagLancamento);
 $("conta")?.addEventListener("change", atualizarCicloCartaoLancamentoUI);
+$("data")?.addEventListener("change", atualizarCicloCartaoLancamentoUI);
 $("despParcelas")?.addEventListener("input", atualizarDespesaParcelaUI);
 $("despDividirTotal")?.addEventListener("change", atualizarDespesaParcelaUI);
 $("valor")?.addEventListener("input", atualizarDespesaParcelaUI);
 $("fixo")?.addEventListener("change", () => {
-  if ($("durBox")) $("durBox").hidden = !$("fixo").checked;
+  if ($("fixo").checked) $("despParcelas").value = "1";
+  atualizarDespesaParcelaUI();
 });
+$("durQtd")?.addEventListener("input",()=>$("durTipo").dispatchEvent(new Event("change")));
 $("durTipo")?.addEventListener("change", () => {
   const tipoD = $("durTipo").value;
   if ($("durQtd")) $("durQtd").hidden = tipoD === "perpetuo";
@@ -3323,6 +3501,9 @@ $("f")?.addEventListener("submit", e => {
   const dataStr = $("data")?.value || dataHoje();
   const contaNome = $("conta")?.value || "Conta Principal";
   let catNome = $("cat")?.value || "Outros";
+  const destino=destinoPorNome(contaNome);
+  if(!destino||destino.cancelado||destino.arquivado||(tipo!=="gasto"&&destino.tipo==="cartao"))return avisarMG("Selecione uma conta válida para este lançamento.");
+  if(!Number.isFinite(valBruto))return avisarMG("Valor inválido.");
 
   if (!descBruta) {
     if ($("formErroInline")) $("formErroInline").textContent = "Informe uma descrição para o lançamento.";
@@ -3335,6 +3516,8 @@ $("f")?.addEventListener("submit", e => {
     return;
   }
 
+  const qtdLimite=tipo==='gasto'?Math.max(1,parseInt($('despParcelas')?.value||'1',10)||1):1;
+  if(tipo==='gasto'&&!validarLimiteCompra(destino,Math.round(valBruto*100)/100*(qtdLimite>1&&!$('despDividirTotal')?.checked?qtdLimite:1)))return;
   if (catNome === "__nova__") {
     const nt = ($("novaTagLancamento")?.value || "").trim();
     catNome = nt || "Outros";
@@ -3359,7 +3542,7 @@ $("f")?.addEventListener("submit", e => {
       ganhosFuturos.push({
         id: "fut-" + Date.now() + "-" + i + "-" + Math.random().toString(36).slice(2, 5),
         desc: futParcelas > 1 ? `${descBruta} (${i + 1}/${futParcelas})` : descBruta,
-        valor: Math.round(valParcela * 100) / 100,
+        valor: divFut ? (Math.floor(Math.round(valBruto*100)/futParcelas)+(i<Math.round(valBruto*100)%futParcelas?1:0))/100 : Math.round(valParcela*100)/100,
         cat: catNome,
         conta: contaNome,
         data: dtParcela
@@ -3369,20 +3552,22 @@ $("f")?.addEventListener("submit", e => {
     if ($("desc")) $("desc").value = "";
     if ($("valor")) $("valor").value = "";
     renderTudo();
-    mostrarDesfazer("Ganho futuro agendado.");
+    fecharNovoMG(); mostrarDesfazer("Ganho futuro agendado.");
     return;
   }
 
-  const ehFixo = Boolean($("fixo")?.checked);
+  const ehFixo = Boolean($("fixo")?.checked) && (tipo !== "gasto" || Number($("despParcelas")?.value || 1) <= 1);
   const durTipo = $("durTipo")?.value || "perpetuo";
   const durQtd = Math.max(1, parseInt($("durQtd")?.value || "12", 10) || 12);
   const parcelas = tipo === "gasto" ? Math.max(1, parseInt($("despParcelas")?.value || "1", 10) || 1) : 1;
   const dividirTotal = $("despDividirTotal")?.checked !== false;
   const valUnit = parcelas > 1 && dividirTotal ? valBruto / parcelas : valBruto;
 
+  const cartaoNovo=destino.tipo==="cartao"?destino:null;
+  const inicioNovos=gastos.length; const grupoCompra=globalThis.crypto?.randomUUID?.()||Date.now()+"-"+Math.random();
   if (ehFixo) {
     gastos.push({
-      id: "fix-" + Date.now() + "-" + Math.random().toString(36).slice(2, 5),
+      id: "fix-" + (globalThis.crypto?.randomUUID?.() || Date.now()+"-"+Math.random().toString(36).slice(2)),
       desc: descBruta,
       valor: Math.round(valBruto * 100) / 100,
       tipo,
@@ -3404,7 +3589,7 @@ $("f")?.addEventListener("submit", e => {
       gastos.push({
         id: "p-" + Date.now() + "-" + i + "-" + Math.random().toString(36).slice(2, 5),
         desc: `${descBruta} (${i + 1}/${parcelas})`,
-        valor: Math.round(valUnit * 100) / 100,
+        valor: dividirTotal ? (Math.floor(Math.round(valBruto*100)/parcelas)+(i<Math.round(valBruto*100)%parcelas?1:0))/100 : Math.round(valUnit*100)/100,
         tipo,
         cat: catNome,
         conta: contaNome,
@@ -3426,14 +3611,16 @@ $("f")?.addEventListener("submit", e => {
     });
   }
 
-  salvar();
+  for(const g of gastos.slice(inicioNovos)){g.statusNovo=true; if(!cartaoNovo){g.regraPagamentoRF02=true; if(g.data<=dataHoje()&&(tipo==='ganho'||$('rf02Pago').checked)){g.pagamentos={[g.data]:{pago:true,confirmadoEm:new Date().toISOString()}};}} if(cartaoNovo){g.cartaoId=cartaoNovo.id;g.nomeCartaoHistorico=cartaoNovo.nome;g.cicloNovo=true; g.compraEm=dataStr;g.grupoCompra=grupoCompra; if(!g.fixo){const base=mesFatura({data:dataStr,cicloNovo:true},cartaoNovo); const [y,m]=g.data.slice(0,7).split("-").map(Number),[a,b]=dataStr.slice(0,7).split("-").map(Number);g.faturaMesCompra=deslocarMes(base,(y-a)*12+m-b);}}}
+  if(!salvar()) return;
   if ($("desc")) $("desc").value = "";
   if ($("valor")) $("valor").value = "";
   if ($("despParcelas")) $("despParcelas").value = "1";
+  $("fixo").checked=false;
   if ($("novaTagLancamento")) { $("novaTagLancamento").value = ""; $("novaTagLancamento").hidden = true; }
   atualizarDespesaParcelaUI();
   renderTudo();
-  mostrarDesfazer("Lançamento adicionado com sucesso.");
+  fecharNovoMG(); mostrarDesfazer("Lançamento adicionado com sucesso.");
 });
 
 // Delegação de eventos para calendário, histórico, transações, futuros, contas e tags
@@ -3484,15 +3671,17 @@ document.addEventListener("click", e => {
     if (ac === "edit") abrirModalEdicao(tid);
     else if (ac === "clone") {
       prepararDesfazer();
+      const origem=gastos[idx];if(origem.quitaçãoCartao)return avisarMG("Pagamento de fatura não pode ser duplicado.");if(!validarLimiteCompra(cartaoDe(origem),origem.valor))return;
       const copia = { ...gastos[idx], id: "tx-" + Date.now() + "-" + Math.random().toString(36).slice(2, 5), fixo: false };
       gastos.push(copia);
       salvar(); renderTudo(); mostrarDesfazer("Lançamento duplicado.");
     } else if (ac === "delete") {
+      if(gastos[idx].quitaçãoCartao)return avisarMG("Use Estornar pagamento no histórico da fatura.");
       if (pendenteExclusao === String(tid)) {
         prepararDesfazer();
         const item = gastos[idx];
         if (item.fixo && $("mes")?.value) {
-          const dtRef = `${$("mes").value}-${String(item.data || "").slice(8, 10) || "01"}`;
+          const dtRef = diaCiclo($("mes").value,Number(item.data.slice(8)));
           excluidos.push(`${item.id}@${dtRef}`);
         } else {
           gastos.splice(idx, 1);
@@ -3526,39 +3715,8 @@ document.addEventListener("click", e => {
     salvar(); popularSelectsContas(); renderTudo(); mostrarDesfazer("Conta removida.");
     return;
   }
-  const pagarFatBtn = e.target.closest("[data-pagar-fatura]");
-  if (pagarFatBtn) {
-    const cartaoNome = pagarFatBtn.getAttribute("data-pagar-fatura");
-    const valFat = Math.abs(Number(pagarFatBtn.getAttribute("data-fatura-valor") || 0));
-    const selOrig = document.querySelector(`[data-pagar-origem="${CSS.escape(cartaoNome)}"]`);
-    const contaOrig = selOrig?.value || "Conta Principal";
-    const mes = $("mes")?.value || mesAtual();
-    if (valFat > 0) {
-      prepararDesfazer();
-      gastos.push({
-        id: "fat-" + Date.now(),
-        desc: `Pagamento fatura ${cartaoNome} (${mes})`,
-        valor: Math.round(valFat * 100) / 100,
-        tipo: "gasto",
-        cat: "Fatura Cartão",
-        conta: contaOrig,
-        data: `${mes}-01`,
-                fixo: false,
-        pagamentos: {
-            [`${mes}-01`]: {
-                pago: true,
-                confirmadoEm: new Date().toISOString()
-            }
-        }
-      });
-      gastos.forEach(g => {
-        if (g.conta === cartaoNome && g.tipo === "gasto" && String(g.data || "").slice(0, 7) === mes) {
-          g.faturaPagaCartao = true;
-        }
-      });
-      salvar(); renderTudo(); mostrarDesfazer(`Fatura de ${brl(valFat)} paga pela ${contaOrig}.`);
-    }
-  }
+  const pagarFatBtn=e.target.closest("[data-pagar-fatura]"); if(pagarFatBtn){registrarFatura(pagarFatBtn.dataset.pagarFatura,pagarFatBtn.dataset.faturaMes);return;}
+
 });
 
 // Filtros e ações em lote na tabela de transações
@@ -3604,6 +3762,8 @@ $("btnLoteAplicarConta")?.addEventListener("click", () => {
   const nc = $("loteNovaConta")?.value;
   if (!nc || !selecionadosLote.size) return;
   prepararDesfazer();
+  const alvo=destinoPorNome(nc), selecionados=gastos.filter(g=>selecionadosLote.has(String(g.id)));
+  if(selecionados.some(g=>g.quitaçãoCartao||cartaoDe(g))||alvo?.tipo==='cartao')return avisarMG('Para preservar faturas, altere compras de cartão individualmente.');
   gastos.forEach(g => { if (selecionadosLote.has(String(g.id))) g.conta = nc; });
   selecionadosLote.clear();
   salvar(); renderTudo(); mostrarDesfazer("Conta aplicada aos selecionados.");
@@ -3611,6 +3771,7 @@ $("btnLoteAplicarConta")?.addEventListener("click", () => {
 $("btnLoteExcluir")?.addEventListener("click", () => {
   if (!selecionadosLote.size) return;
   prepararDesfazer();
+  if(gastos.some(g=>selecionadosLote.has(String(g.id))&&g.quitaçãoCartao))return avisarMG("Estorne pagamentos pelo histórico da fatura.");
   gastos = gastos.filter(g => !selecionadosLote.has(String(g.id)));
   selecionadosLote.clear();
   salvar(); renderTudo(); mostrarDesfazer("Lançamentos selecionados excluídos.");
@@ -3637,6 +3798,8 @@ $("formNovaConta")?.addEventListener("submit", e => {
   const nome = ($("novaContaNome")?.value || "").trim();
   if (!nome) return;
   const tipo = $("novaContaTipo")?.value || "conta";
+  if(contasLista.some(c=>c.nome.toLowerCase()===nome.toLowerCase()&&!(tipo==='cartao'&&c.tipo==='cartao'&&c.cancelado)))return avisarMG("Nome já cadastrado.");
+  vincularCartoesLegados();
   prepararDesfazer();
   contasLista.push({
     id: "acc-" + Date.now(),
@@ -3651,6 +3814,7 @@ $("formNovaConta")?.addEventListener("submit", e => {
   popularSelectsContas();
   renderContas();
   setStatus(`Conta/cartão "${nome}" criado.`);
+  selecionarAbaFinanceiraMG(tipo === "cartao" ? "cartoes" : "contas");
 });
 $("contasGrid")?.addEventListener("change", e => {
   const inp = e.target.closest("[data-conta-saldo-id]");
@@ -3671,9 +3835,9 @@ $("faturasCartoesGrid")?.addEventListener("change", e => {
   const campo = inp.getAttribute("data-cartao-campo");
   const c = contasLista.find(x => x.id === cid);
   if (c && campo) {
-    c[campo] = Math.min(31, Math.max(1, parseInt(inp.value || "10", 10) || 10));
+    if(campo==="limite") c.limite=Math.max(0,Number(inp.value)||0); else if(campo==="cor") c.cor=inp.value; else c[campo] = Math.min(31, Math.max(1, parseInt(inp.value || "10", 10) || 10));
     salvar();
-    popularSelectsContas();
+    popularSelectsContas(); renderTudo();
   }
 });
 $("formNovaTag")?.addEventListener("submit", e => {
@@ -3695,33 +3859,565 @@ $("formNovaTag")?.addEventListener("submit", e => {
 $("btnAnoAnterior")?.addEventListener("click", () => { anoRelatorioAtual--; renderRelatorioAnual(); });
 $("btnAnoProximo")?.addEventListener("click", () => { anoRelatorioAtual++; renderRelatorioAnual(); });
 
-// Backup JSON e Exportação CSV
-$("bBkp")?.addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify({ gastos, ganhosFuturos, customCats, metasOrcamento, contasLista, excluidos }, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `meus-gastos-backup-${dataHoje()}.json`;
-  a.click();
-});
+/* =====================================================
+   SISTEMA DE BACKUP E PROTEÇÃO DE DADOS
+   ===================================================== */
+
+const BACKUP_SCHEMA_VERSION = 1;
+
+function gerarBackupCompleto() {
+
+    return {
+        aplicativo: "Meus Gastos",
+
+        schemaVersion: BACKUP_SCHEMA_VERSION,
+
+        exportadoEm: new Date().toISOString(),
+
+        gastos,
+
+        ganhosFuturos,
+
+        customCats,
+
+        metasOrcamento,
+
+        contasLista,
+
+        excluidos,
+
+        configEm,
+
+        preferencias: {
+            tema: document.documentElement
+                .classList.contains("dark")
+                ? "dark"
+                : "light",
+            animacoes: document.documentElement.dataset.motion
+        }
+    };
+}
+
+function baixarBackupCompleto() {
+
+    try {
+
+        const backup = gerarBackupCompleto();
+
+        const blob = new Blob(
+            [JSON.stringify(backup, null, 2)],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+
+        const timestamp = new Date()
+            .toISOString()
+            .replace(/[:.]/g, "-");
+
+        a.href = url;
+
+        a.download =
+            `meus-gastos-backup-${timestamp}.json`;
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
+
+        setStatus("Backup JSON gerado.");
+
+    } catch (erro) {
+
+        console.error("Erro ao gerar backup:", erro);
+
+        setStatus("Não foi possível gerar o backup.");
+
+    }
+}
+
+$("bBkp")?.addEventListener(
+    "click",
+    baixarBackupCompleto
+);
+
+/* FIM DO SISTEMA DE BACKUP */
+/* =====================================================
+   VALIDAÇÃO DE BACKUP JSON
+   ===================================================== */
+
+/* =====================================================
+   VALIDAÇÃO INDIVIDUAL DOS REGISTROS FINANCEIROS
+   ===================================================== */
+
+function validarRegistrosFinanceiros(dados) {
+
+    const objetoValido = valor =>
+        valor !== null &&
+        typeof valor === "object" &&
+        !Array.isArray(valor);
+
+    const textoValido = valor =>
+        typeof valor === "string" &&
+        valor.trim().length > 0;
+
+    const dataValida = data => {
+
+        if (
+            typeof data !== "string" ||
+            !/^\d{4}-\d{2}-\d{2}$/.test(data)
+        ) {
+            return false;
+        }
+
+        const dt = new Date(data + "T00:00:00Z");
+
+        return (
+            Number.isFinite(dt.getTime()) &&
+            dt.toISOString().slice(0, 10) === data
+        );
+    };
+
+    function validarLancamentos(lista, nome, futuro) {
+
+        const ids = new Set();
+
+        lista.forEach((item, indice) => {
+
+            const erro = mensagem => {
+                throw new Error(
+                    `${nome}, registro ${indice + 1}: ${mensagem}`
+                );
+            };
+
+            if (!objetoValido(item)) {
+                erro("Registro inválido.");
+            }
+
+            if (
+                !textoValido(item.id) &&
+                !Number.isSafeInteger(item.id)
+            ) {
+                erro("Identificador inválido.");
+            }
+
+            const id = String(item.id);
+
+            if (ids.has(id)) {
+                erro("Identificador duplicado.");
+            }
+
+            ids.add(id);
+
+            if (!textoValido(item.desc)) {
+                erro("Descrição inválida.");
+            }
+
+            if (
+                !Number.isFinite(item.valor) ||
+                item.valor < 0
+            ) {
+                erro("Valor financeiro inválido.");
+            }
+
+            if (!dataValida(item.data)) {
+                erro("Data inválida.");
+            }
+
+            if (
+                !futuro &&
+                !["gasto", "ganho"].includes(item.tipo)
+            ) {
+                erro("Tipo de movimentação inválido.");
+            }
+
+            if (
+                item.fixo !== undefined &&
+                typeof item.fixo !== "boolean"
+            ) {
+                erro("Recorrência inválida.");
+            }
+
+            if (item.pagamentos !== undefined) {
+
+                if (!objetoValido(item.pagamentos)) {
+                    erro("Estrutura de pagamentos inválida.");
+                }
+
+                for (const [data, pagamento] of
+                    Object.entries(item.pagamentos)) {
+
+                    if (
+                        !dataValida(data) ||
+                        !objetoValido(pagamento) ||
+                        typeof pagamento.pago !== "boolean"
+                    ) {
+                        erro("Flag de pagamento inválida.");
+                    }
+
+                    if (
+                        pagamento.confirmadoEm !== undefined &&
+                        (
+                            typeof pagamento.confirmadoEm !== "string" ||
+                            !Number.isFinite(
+                                Date.parse(pagamento.confirmadoEm)
+                            )
+                        )
+                    ) {
+                        erro("Data de confirmação inválida.");
+                    }
+                }
+            }
+        });
+    }
+
+    validarLancamentos(
+        dados.gastos,
+        "Transações",
+        false
+    );
+
+    validarLancamentos(
+        dados.ganhosFuturos,
+        "Ganhos futuros",
+        true
+    );
+
+    
+        return true;
+}
+
+/* FIM DA VALIDAÇÃO INDIVIDUAL */
+
+/* FIM DA VALIDAÇÃO DE BACKUP */
+
+
+// Validação complementar — contas, categorias e orçamento.
+function validarConfiguracoesBackup(dados) {
+  const texto = v => typeof v === "string" && v.trim().length > 0;
+  const dia = v => Number.isInteger(v) && v >= 1 && v <= 31;
+  const ids = new Set();
+  for (const c of dados.contasLista) {
+    if (!c || typeof c !== "object" || Array.isArray(c) ||
+        !(texto(c.id) || Number.isSafeInteger(c.id)) || !texto(c.nome) ||
+        !["conta", "cartao"].includes(c.tipo) || !Number.isFinite(c.saldoInicial)) {
+      throw new Error("Conta ou cartão inválido.");
+    }
+    if (ids.has(String(c.id))) throw new Error("ID de conta duplicado.");
+    ids.add(String(c.id));
+    if (c.tipo === "cartao" && (!dia(c.fechamento) || !dia(c.vencimento))) {
+      throw new Error("Ciclo de cartão inválido: " + c.nome);
+    }
+  }
+  for (const tipo of ["gasto", "ganho"]) {
+    if (!dados.customCats[tipo].every(texto)) throw new Error("Categoria inválida.");
+  }
+  for (const [cat, valor] of Object.entries(dados.metasOrcamento)) {
+    if (!texto(cat) || ["__proto__", "constructor", "prototype"].includes(cat) ||
+        !Number.isFinite(valor) || valor < 0) throw new Error("Meta de orçamento inválida.");
+  }
+  if (!dados.excluidos.every(texto)) throw new Error("Exclusão inválida.");
+  if (dados.preferencias !== undefined && (!dados.preferencias ||
+      !["dark", "light"].includes(dados.preferencias.tema))) throw new Error("Tema inválido.");
+  if(dados.preferencias?.animacoes !== undefined && !MG_MOTION_MODES.includes(dados.preferencias.animacoes)) throw new Error("Modo de animação inválido.");
+}
+
+function validarBackup(dados) {
+
+    const objetoValido = valor =>
+        valor !== null &&
+        typeof valor === "object" &&
+        !Array.isArray(valor);
+
+    if (!objetoValido(dados)) {
+        throw new Error("Estrutura JSON inválida.");
+    }
+
+    if (
+        dados.aplicativo !== undefined &&
+        dados.aplicativo !== "Meus Gastos"
+    ) {
+        throw new Error("Backup de outro aplicativo.");
+    }
+
+    // Backups antigos não possuem schemaVersion.
+    const versao = dados.schemaVersion ?? 0;
+
+    if (
+        !Number.isInteger(versao) ||
+        versao < 0 ||
+        versao > BACKUP_SCHEMA_VERSION
+    ) {
+        throw new Error("Versão de backup incompatível.");
+    }
+
+    const camposArray = [
+        "gastos",
+        "ganhosFuturos",
+        "contasLista",
+        "excluidos"
+    ];
+
+    for (const campo of camposArray) {
+
+        if (!Array.isArray(dados[campo])) {
+            throw new Error(
+                `Campo ausente ou inválido: ${campo}`
+            );
+        }
+    }
+
+    const camposObjeto = [
+        "customCats",
+        "metasOrcamento"
+    ];
+
+    for (const campo of camposObjeto) {
+
+        if (!objetoValido(dados[campo])) {
+            throw new Error(
+                `Campo ausente ou inválido: ${campo}`
+            );
+        }
+    }
+
+    if (
+        !Array.isArray(dados.customCats.gasto) ||
+        !Array.isArray(dados.customCats.ganho)
+    ) {
+        throw new Error("Categorias inválidas.");
+    }
+
+    if (
+        dados.configEm !== undefined &&
+        (
+            !Number.isFinite(dados.configEm) ||
+            dados.configEm < 0
+        )
+    ) {
+        
+        throw new Error("Configuração inválida.");
+    }
+
+    validarRegistrosFinanceiros(dados);
+    validarConfiguracoesBackup(dados);
+
+    return true;
+}
+
+/* FIM DA VALIDAÇÃO DE BACKUP */
+
+/* =====================================================
+   BACKUP PREVENTIVO AUTOMÁTICO
+   ===================================================== */
+
+const BACKUP_PREVENTIVO_KEY =
+    "meus_gastos_backup_preventivo_v1";
+
+function criarBackupPreventivo(motivo = "Antes da restauração") {
+
+    try {
+
+        const backup = gerarBackupCompleto();
+
+        backup.motivo = motivo;
+
+        const conteudo = JSON.stringify(backup);
+
+        localStorage.setItem(
+            BACKUP_PREVENTIVO_KEY,
+            conteudo
+        );
+
+        const verificacao = localStorage.getItem(
+            BACKUP_PREVENTIVO_KEY
+        );
+
+        if (verificacao !== conteudo) {
+            throw new Error(
+                "Falha na verificação do backup."
+            );
+        }
+
+        console.info(
+            "Backup preventivo criado com sucesso."
+        );
+
+        return true;
+
+    } catch (erro) {
+
+        console.error(
+            "Erro no backup preventivo:",
+            erro
+        );
+
+        return false;
+    }
+}
+
+/* FIM DO BACKUP PREVENTIVO */
+
+/* =====================================================
+   RECUPERAÇÃO DO BACKUP PREVENTIVO
+   ===================================================== */
+
+function recuperarBackupPreventivo() {
+
+    try {
+
+        const conteudo = localStorage.getItem(
+            BACKUP_PREVENTIVO_KEY
+        );
+
+        if (!conteudo) {
+
+            avisarMG(
+                "Nenhum backup preventivo disponível."
+            );
+
+            return;
+        }
+
+        const dados = JSON.parse(conteudo);
+
+        const blob = new Blob(
+            [JSON.stringify(dados, null, 2)],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+
+        const timestamp = new Date()
+            .toISOString()
+            .replace(/[:.]/g, "-");
+
+        a.href = url;
+
+        a.download =
+            `meus-gastos-preventivo-${timestamp}.json`;
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
+
+        setStatus(
+            "Backup preventivo exportado com sucesso."
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao recuperar backup preventivo:",
+            erro
+        );
+
+        setStatus(
+            "Falha ao recuperar backup preventivo."
+        );
+    }
+}
+
+$("bRecuperarPreventivo")?.addEventListener(
+    "click",
+    recuperarBackupPreventivo
+);
+
+/* FIM DA RECUPERAÇÃO DO BACKUP PREVENTIVO */
+
 $("bRes")?.addEventListener("click", () => $("fRes")?.click());
 $("fRes")?.addEventListener("change", e => {
   const arq = e.target.files?.[0];
   if (!arq) return;
   const leitor = new FileReader();
-  leitor.onload = () => {
+  leitor.onload = async () => {
     try {
       const dados = JSON.parse(String(leitor.result || "{}"));
+
+      validarBackup(dados);
+      if (driveAccessToken) throw new Error("Desconecte o Google Drive antes de restaurar um backup local.");
+
+/* CONFIRMAÇÃO DE RESTAURAÇÃO */
+
+const mensagemRestauracao = [
+    "ATENÇÃO: RESTAURAÇÃO DE BACKUP",
+    "",
+    "Dados do arquivo selecionado:",
+    "",
+    `Transações: ${dados.gastos.length}`,
+    `Ganhos futuros: ${dados.ganhosFuturos.length}`,
+    `Contas e cartões: ${dados.contasLista.length}`,
+    `Versão: ${dados.schemaVersion ?? 0}`,
+    "",
+    "Os dados atuais serão substituídos.",
+    "",
+    "Deseja continuar?"
+].join("\n");
+
+if (!await confirmarMG(mensagemRestauracao)) {
+
+    setStatus("Restauração cancelada.");
+
+    return;
+}
+
+/* FIM DA CONFIRMAÇÃO */
+
+/* PROTEÇÃO ANTES DA RESTAURAÇÃO */
+
+if (!criarBackupPreventivo()) {
+
+    setStatus(
+        "Restauração bloqueada: falha no backup preventivo."
+    );
+
+    avisarMG(
+        "Não foi possível criar uma cópia de segurança. " +
+        "Seus dados atuais foram preservados."
+    );
+
+    return;
+}
+
+/* FIM DA PROTEÇÃO */
+
       prepararDesfazer();
-      if (Array.isArray(dados.gastos)) gastos = dados.gastos;
-      if (Array.isArray(dados.ganhosFuturos)) ganhosFuturos = dados.ganhosFuturos;
-      if (dados.customCats) customCats = dados.customCats;
-      if (dados.metasOrcamento) metasOrcamento = dados.metasOrcamento;
-      if (Array.isArray(dados.contasLista)) contasLista = dados.contasLista;
-      if (Array.isArray(dados.excluidos)) excluidos = dados.excluidos;
-      salvar(); popularSelectsCategorias(); popularSelectsContas(); renderTudo();
-      mostrarDesfazer("Backup restaurado.");
+      const novo = {...dados, configEm: Date.now()};
+      const entradas = entradasFinanceiras(novo);
+      if (novo.preferencias) entradas.push([THEME_KEY, novo.preferencias.tema]);
+      if(novo.preferencias?.animacoes !== undefined) entradas.push([MG_MOTION_KEY,novo.preferencias.animacoes]);
+      gravarLocalVerificado(entradas);
+      if(novo.preferencias?.animacoes !== undefined) mgMotionApply(novo.preferencias.animacoes);
+      gastos = novo.gastos;
+      ganhosFuturos = novo.ganhosFuturos;
+      customCats = novo.customCats;
+      metasOrcamento = novo.metasOrcamento;
+      contasLista = novo.contasLista;
+      excluidos = novo.excluidos;
+      configEm = novo.configEm;
+      cacheSaldo.clear();
+      if (novo.preferencias) aplicarTema(novo.preferencias.tema === "dark");
+      popularSelectsCategorias(); popularSelectsContas(); renderTudo();
+      mostrarDesfazer("Backup restaurado localmente.");
     } catch (err) {
-      setStatus("Arquivo JSON inválido.");
+      console.error(err);
+      setStatus("Restauração interrompida: " + err.message);
+      avisarMG("Restauração interrompida: " + err.message);
     }
   };
   leitor.readAsText(arq);
@@ -4883,6 +5579,7 @@ $("impTabelaPreview")?.addEventListener("input", e => {
 });
 function executarConfirmacaoImportacao() {
   const btnConf = $("btnConfirmarImportacao");
+  const oldG=gastos.slice(), oldCats=JSON.parse(JSON.stringify(customCats));
   try {
     if ($("impErroBox")) { $("impErroBox").hidden = true; $("impErroBox").textContent = ""; }
     const ignorarDup = Boolean($("impIgnorarDuplicados")?.checked);
@@ -4905,6 +5602,9 @@ function executarConfirmacaoImportacao() {
       return;
     }
 
+    if(selecionados.some(it=>destinoPorNome(it.conta||contaDestinoPadrao)?.tipo==='cartao')){avisarMG('Importação direta para cartão temporariamente indisponível nesta versão de teste. Cadastre as compras individualmente para validar o limite.');return;}
+    if(selecionados.some(it=>{const c=destinoPorNome(it.conta||contaDestinoPadrao);return !c||c.cancelado||c.arquivado||c.referenciaSaldo;})) throw Error("Use a importação individual para contas com saldo de referência ou destinos indisponíveis.");
+    if(!criarBackupPreventivo("Antes da importação")) throw Error("Importação bloqueada: falha no backup preventivo.");
     if (btnConf) btnConf.disabled = true;
     prepararDesfazer();
     let adicionados = 0;
@@ -4924,7 +5624,7 @@ function executarConfirmacaoImportacao() {
 
       if (ignorarDup) {
         const jaExiste = gastos.some(g =>
-          g.data === dataValida &&
+          g.data === dataValida && g.tipo === tipoValido && (g.contaId ? g.contaId === destinoPorNome(it.conta||contaDestinoPadrao)?.id : g.conta === (it.conta||contaDestinoPadrao)) &&
           Math.abs(Number(g.valor || 0) - valorValido) < 0.005 &&
           String(g.desc || "").trim().toLowerCase() === descValida.toLowerCase()
         );
@@ -4945,6 +5645,7 @@ function executarConfirmacaoImportacao() {
         tipo: tipoValido,
         cat: tagFinal,
         conta: it.conta || contaDestinoPadrao,
+        contaId: destinoPorNome(it.conta||contaDestinoPadrao)?.id,
         meio: it.meio || detectarMeioMovimentacao(descValida, tipoValido),
         data: dataValida,
         fixo: false
@@ -4962,7 +5663,7 @@ function executarConfirmacaoImportacao() {
       diaSelecionadoFiltro = null;
     }
 
-    salvar();
+    if(!salvar()){gastos=oldG;customCats=oldCats;cacheSaldo.clear();throw Error("Falha ao salvar; importação revertida.");}
     popularSelectsCategorias();
     itensImportacaoPendentes = [];
     if ($("impPreviewContainer")) $("impPreviewContainer").hidden = true;
@@ -5035,12 +5736,163 @@ $("sideBtnZerar")?.addEventListener("click", () => {
   mostrarDesfazer("Painel zerado.");
 });
 
+
+function botaoEstornoMG(it){if(!cartaoDe(it)||it.virtual||it.quitaçãoCartao||it.quitadaVisual||it.valor<=0)return '';const g=gastos.find(x=>x.id===it.id);if(!g)return '';return `<button type="button" class="px-2 py-1 rounded-lg border border-red-300 text-red-600 dark:text-red-300 font-semibold" data-estorno-compra="${esc(it.id)}" data-ocorrencia="${esc(g.fixo?(it.dv||it.data):g.data)}">Estornar compra</button>`;}
+function sucessoMG(msg){const old=document.getElementById('mg-sucesso');old?.remove();const el=document.createElement('div');el.id='mg-sucesso';el.setAttribute('role','status');el.style.cssText='position:fixed;top:80px;right:16px;z-index:9999;max-width:calc(100vw - 32px);width:350px;padding:16px;border-radius:14px;border:1px solid #22c55e;border-left:5px solid #16a34a;box-shadow:0 8px 28px #0003;display:flex;gap:12px;align-items:center;';const dark=document.documentElement.classList.contains('dark');el.style.background=dark?'#14291e':'#f0fdf4';el.style.color=dark?'#dcfce7':'#14532d';el.innerHTML='<span style="font-size:24px">✓</span><strong style="flex:1;font-size:14px"></strong><button type="button" aria-label="Fechar notificação" style="font-size:22px">×</button>';el.querySelector('strong').textContent=msg;el.querySelector('button').onclick=()=>el.remove();document.body.append(el);setTimeout(()=>el.remove(),5000);}
+function formularioEstornoMG(titulo,max,grupo,explica,total=max){return new Promise(resolve=>{const d=document.createElement('dialog');d.className='mg-dialog rounded-2xl p-5 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white';d.style.width='min(92vw,460px)';d.innerHTML=`<form class="space-y-3"><h2 class="text-xl font-bold">${esc(titulo)}</h2><p>${esc(explica)}</p>${grupo?'<label class="block">Escopo<select name="escopo" class="w-full border rounded p-2 bg-transparent"><option value="parcela">Esta parcela</option><option value="grupo">Toda a compra parcelada</option></select></label>':''}<label class="block">Tipo<select name="tipo" class="w-full border rounded p-2 bg-transparent"><option value="total">Total</option><option value="parcial">Parcial</option></select></label><p data-max></p><label class="block">Valor (R$)<input name="valor" type="number" min="0.01" step="0.01" required class="w-full border rounded p-2 bg-transparent"></label><label class="block">Motivo<input name="motivo" required maxlength="160" value="Correção de lançamento" class="w-full border rounded p-2 bg-transparent"></label><div class="flex justify-end gap-2"><button type="button" data-cancel class="border rounded p-2">Cancelar</button><button class="bg-amber-400 text-black rounded p-2 font-bold">Continuar</button></div></form>`;document.body.append(d);const f=d.querySelector('form'),lim=()=>f.elements.escopo?.value==='grupo'?total:max;let result=null;const update=()=>{const n=lim();f.elements.valor.max=n;f.elements.valor.value=n.toFixed(2);f.elements.valor.readOnly=f.elements.tipo.value==='total';d.querySelector('[data-max]').textContent='Disponível para estorno: '+brl(n);};f.elements.tipo.onchange=update;if(f.elements.escopo)f.elements.escopo.onchange=update;update();f.onsubmit=e=>{e.preventDefault();const v=Number(f.elements.valor.value);if(!(v>0&&v<=lim()))return;result={valor:v,grupo:f.elements.escopo?.value==='grupo',motivo:f.elements.motivo.value.trim()};d.close();};d.querySelector('[data-cancel]').onclick=()=>d.close();d.addEventListener('close',()=>{d.remove();resolve(result);},{once:true});d.showModal();});}
+
 // Inicialização obrigatória da interface ao carregar o script
+function cartaoDe(g){if(g.quitaçãoCartao)return undefined;return g.cartaoId?contasLista.find(c=>c.tipo==='cartao'&&String(c.id)===String(g.cartaoId)):contasLista.find(c=>c.tipo==='cartao'&&c.nome===g.conta);}
+function situacao(g,d){if(g.statusVirtual)return g.statusVirtual;if(g.quitaçãoCartao||g.faturaPagaCartao)return 'Pago';const p=g.pagamentos?.[d];if(p?.pago===true)return 'Pago';if(p?.pago===false||g.statusNovo)return d<dataHoje()?'Vencido':'Pendente';return 'Não classificado';}
+function corStatus(s){return ({Pago:'text-emerald-600',Pendente:'text-amber-600',Vencido:'text-rose-600','Não classificado':'text-zinc-500'})[s]||'text-zinc-500';}
+function diaCiclo(m,d){const [y,n]=m.split('-').map(Number);return m+'-'+String(Math.min(Number(d)||1,new Date(y,n,0).getDate())).padStart(2,'0');}
+function mesFatura(g,c){const d=g.dv||g.data,m=d.slice(0,7);if(g.faturaMesCompra)return g.faturaMesCompra;if(!g.cicloNovo)return m;return deslocarMes(m,(Number(d.slice(8))>Number(c.fechamento)?1:0)+(Number(c.vencimento)<=Number(c.fechamento)?1:0));}
+function fatura(c,m){const compras=[-2,-1,0].flatMap(k=>itensDoMes(deslocarMes(m,k))).filter(g=>g.tipo==='gasto'&&!g.quitaçãoCartao&&cartaoDe(g)===c&&mesFatura(g,c)===m);const total=compras.reduce((a,g)=>a+Math.round(g.valor*100),0)/100;const pagamentos=gastos.filter(g=>g.quitaçãoCartao&&g.cartaoId===c.id&&g.faturaMes===m);const legado=compras.filter(g=>g.faturaPagaCartao).reduce((a,g)=>a+Math.round(g.valor*100)+(g.estornosCompra||[]).filter(e=>e.ocorrencia===(g.dv||g.data)).reduce((s,e)=>s+Math.round(e.valor*100),0),0)/100;const pago=Math.round((legado+pagamentos.reduce((a,g)=>a+(g.estornadoEm?0:g.valor),0))*100)/100;return {compras,total,pago,restante:Math.max(0,Math.round((total-pago)*100)/100),credito:Math.max(0,Math.round((pago-total)*100)/100),pagamentos,data:diaCiclo(m,c.vencimento)};}
+function fluxoMes(m){const out=itensDoMes(m).filter(g=>!cartaoDe(g)||g.tipo!=='gasto');for(const c of contasLista.filter(c=>c.tipo==='cartao')){const f=fatura(c,m);if(f.restante>0)out.push({id:'virtual-'+c.id,desc:'Fatura '+c.nome,conta:c.nome,cat:'Fatura Cartão',tipo:'gasto',valor:f.restante,data:f.data,dv:f.data,virtual:true,cartaoId:c.id,faturaMes:m,statusVirtual:f.data<dataHoje()?'Vencido':'Pendente'}); }return out;}
+function calendarioItens(m){const out=fluxoMes(m);const grupos=new Map();for(const g of gastos){if(g.estornadoEm||!cartaoDe(g)||g.fixo||!(g.compraEm||g.data)||(g.compraEm||g.data).slice(0,7)!==m)continue;const key=g.grupoCompra||(g.parcelaTotal>1?g.id.replace(/-\d+-[^-]+$/,''):g.id);const liquido=itensDoMes(g.data.slice(0,7)).find(x=>x.id===g.id)?.valor??g.valor;const old=grupos.get(key);if(old)old.valor+=liquido;else grupos.set(key,{...g,valor:liquido,desc:g.desc.replace(/ \(\d+\/\d+\)$/,''),dv:g.compraEm||g.data,compraVisual:true,statusVirtual:'Compra no crédito'});}out.push(...grupos.values());for(const g of itensDoMes(m).filter(g=>g.fixo&&cartaoDe(g)))out.push({...g,compraVisual:true,statusVirtual:'Compra no crédito'});for(const c of contasLista.filter(c=>c.tipo==='cartao')){const f=fatura(c,m);if(f.total>0&&!f.restante)out.push({id:'quitada-'+c.id,desc:'Fatura '+c.nome,conta:c.nome,tipo:'gasto',valor:f.total,dv:f.data,data:f.data,quitadaVisual:true,statusVirtual:'Quitada'});}return out;}
+function calStatus(lista,futuro){let html='';for(const g of lista.filter(g=>g.tipo==='ganho'))html+=`<div class="text-emerald-600 text-[10px]">+${brl(g.valor)}<br>Recebido</div>`;for(const g of lista.filter(g=>g.tipo==='gasto')){const st=situacao(g,g.dv||g.data);html+=`<div class="text-[11px] leading-tight break-words ${corStatus(st)}">${esc(g.desc)}${g.compraVisual?'<br>'+esc(g.nomeCartaoHistorico||g.conta):''}<br><strong class="${st==='Pago'?'text-red-600':''}">${g.compraVisual||g.quitadaVisual?'':'−'}${brl(g.valor)}</strong><br>${st==='Pago'?'✓ ':''}${st}</div>`;}if(futuro)html+=`<div class="text-emerald-600 border border-dashed text-[10px]">+${brl(futuro)} Futuro</div>`;if(lista.some(g=>g.tipo==='gasto')&&lista.filter(g=>g.tipo==='gasto').every(g=>situacao(g,g.dv||g.data)==='Pago'))html+='<div class="text-emerald-600 text-[10px]">✓ Dia quitado</div>';return html;}
+function renderPagamentos(){
+ if(!$('pagLista'))return;
+ const m=$('mes').value||mesAtual(), all=fluxoMes(m).filter(g=>g.tipo==='gasto'&&!g.virtual&&!g.quitaçãoCartao);
+ const invoices=contasLista.filter(c=>c.tipo==='cartao').map(c=>({c,f:fatura(c,m)})).filter(({f})=>f.compras.length||f.pagamentos.length||f.total||f.pago);
+ const states=['Pago','Pendente','Vencido','Não classificado'];
+ const due=f=>f.data<dataHoje()?'Vencido':'Pendente';
+ const totals=Object.fromEntries(states.map(st=>[st,all.filter(g=>situacao(g,g.dv||g.data)===st).reduce((a,g)=>a+g.valor,0)]));
+ for(const {f} of invoices){totals.Pago+=f.pago;totals[due(f)]+=f.restante;}
+ $('pagResumo').innerHTML='<p class="text-xs mb-2">Totais por mês de vencimento da fatura; saídas efetivas por data de pagamento no calendário.</p><div class="grid grid-cols-2 lg:grid-cols-4 gap-3">'+states.map(st=>`<div data-pag-total="${st}" class="border rounded-xl p-4 ${corStatus(st)}">${st}<div class="text-xl font-bold">${brl(totals[st])}</div></div>`).join('')+'</div>';
+ const filtro=$('pagFiltro').value,busca=$('pagBusca').value.toLowerCase();
+ const matches=(...v)=>v.join(' ').toLowerCase().includes(busca);
+ const rows=all.filter(g=>(filtro==='Todos'||situacao(g,g.dv||g.data)===filtro)&&matches(g.desc,g.conta,g.cat)).map(g=>{const d=g.dv||g.data,st=situacao(g,d);return {d,html:`<div class="border rounded-xl p-3 mb-2 flex flex-wrap items-center gap-3"><input type="checkbox" data-pag-check="${esc(g.id)}" data-dia="${d}"><div class="flex-1"><b>${esc(g.desc)}</b><div class="text-xs">${dataBR(d)} · ${esc(g.conta)} · ${esc(g.cat)}</div></div><b>${brl(g.valor)}</b><span class="${corStatus(st)}">${st}</span><button class="border rounded-lg p-2" data-pag-acao="${esc(g.id)}" data-dia="${d}">${st==='Pago'?'Desfazer':'Confirmar'}</button></div>`};});
+ for(const {c,f} of invoices){const st=f.restante?due(f):f.pago?'Pago':'Estornada';if(!matches('Fatura',c.nome,'Fatura Cartão')||!(filtro==='Todos'||filtro==='Pago'&&f.pago>0||filtro===due(f)&&f.restante>0))continue;
+ rows.push({d:f.data,html:`<div data-pag-fatura="${esc(c.id)}" class="border rounded-xl p-3 mb-2 space-y-2"><div class="flex flex-wrap justify-between gap-2"><b>Fatura ${esc(c.nome)} ${c.cancelado?'(cancelado)':''}</b><span class="${corStatus(st)}">${f.restante&&f.pago?'Parcial · ':''}${st}</span></div><div class="text-xs">Vencimento: ${dataBR(f.data)}</div><div class="flex flex-wrap gap-4"><span>Total: <b>${brl(f.total)}</b></span><span>Pago: <b>${brl(f.pago)}</b></span><span>Restante: <b>${brl(f.restante)}</b></span></div>${f.credito?`<p>Crédito: ${brl(f.credito)}</p>`:''}${f.restante?`<button class="border rounded-lg p-2" data-pagar-fatura="${esc(c.id)}" data-fatura-mes="${m}">Pagar fatura</button>`:''}${f.pagamentos.map(g=>`<div class="text-xs">${dataBR(g.data)} · ${brl(g.valor)} · ${esc(g.conta)} ${g.estornadoEm?'Estornado':`<button class="underline text-red-600" data-reverter-fat="${esc(g.id)}">Estornar pagamento</button>`}</div>`).join('')}</div>`});}
+ $('pagLista').innerHTML=rows.sort((a,b)=>a.d.localeCompare(b.d)).map(r=>r.html).join('')||'Nenhuma despesa.';
+}
+function coresCartaoMG(c){const hex=(v,d)=>/^#[0-9a-f]{6}$/i.test(v||'')?v:d;return {cor:hex(c.cor,'#6528a0'),cor2:hex(c.cor2,'#18181b'),angulo:Number.isFinite(Number(c.angulo))?Math.max(0,Math.min(360,Number(c.angulo))):135};}
+function gradienteCartaoMG(c){const a=coresCartaoMG(c);return `linear-gradient(rgba(0,0,0,.58),rgba(0,0,0,.58)),linear-gradient(${a.angulo}deg,${a.cor},${a.cor2})`;}
+const modelosCartaoMG={Nubank:['#820ad1','#250040'],Itaú:['#003399','#ec7000'],Inter:['#ff7a00','#a63c00'],Santander:['#ec0000','#780000'],Black:['#374151','#09090b'],C6:['#64748b','#111827'],BTG:['#004b87','#071c35'],BB:['#f9dd16','#d4a900'],Personalizado:['#0d9488','#134e4a']};
+function renderCartoesNovos(m,opts){
+ const el=$('faturasCartoesGrid');if(!el)return;
+ const todos=contasLista.filter(c=>c.tipo==='cartao'); const status=c=>c.cancelado?'Cancelados':c.arquivado?'Bloqueados':'Ativos';
+ $('cartaoAbas').innerHTML=['Ativos','Bloqueados','Cancelados'].map(a=>`<button type="button" data-card-aba="${a}" class="border rounded-lg px-3 py-2 ${abaCartao===a?'bg-amber-400 text-black font-bold':''}">${a} (${todos.filter(c=>status(c)===a).length})</button>`).join('');
+ const cards=todos.filter(c=>status(c)===abaCartao);
+ const oldCounters=mgCounterSnapshot(el);
+ el.innerHTML=cards.map(c=>{const f=fatura(c,m), futuros=Array.from({length:12},(_,i)=>({m:deslocarMes(m,i),f:fatura(c,deslocarMes(m,i))}));
+ const comprometido=compromissoCartao(c),lim=Number(c.limite)||0, pct=lim?comprometido/lim*100:0;
+ const cor=/^#[0-9a-f]{6}$/i.test(c.cor||'')?c.cor:'#6528a0';
+ return `<article class="min-w-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-4 shadow-sm space-y-4">
+ <div class="rounded-2xl p-5 text-white shadow-lg space-y-3" data-card-gradient style="background:${gradienteCartaoMG(c)}">
+ <div class="flex justify-between items-center gap-2"><b class="text-lg break-all">${esc(c.nome)}${c.cancelado?' (cancelado)':c.arquivado?(c.tipo==='cartao'?' (bloqueado)':' (arquivado)'):''}</b><span aria-hidden="true">▰</span><details class="relative"><summary class="cursor-pointer list-none text-2xl" aria-label="Opções do cartão">⋮</summary><div class="absolute right-0 z-20 w-40 bg-white text-zinc-900 rounded-xl shadow-xl p-2 text-sm"><button type="button" class="block w-full text-left p-2" data-editar-card="${esc(c.id)}">Editar cartão</button>${!c.cancelado?`<button type="button" class="block w-full text-left p-2" data-bloquear-card="${esc(c.id)}">${c.arquivado?'Desbloquear':'Bloquear'}</button><button type="button" class="block w-full text-left p-2" data-cancelar-card="${esc(c.id)}">Cancelar cartão</button>`:''}<button type="button" class="block w-full text-left p-2 text-red-600" data-excluir-card="${esc(c.id)}">Excluir</button></div></details></div>
+ <div class="text-xs opacity-80">Limite disponível estimado</div><div data-mg-counter="cartao-${esc(c.id)}" class="text-3xl font-extrabold tabular-nums">${lim?brl(lim-comprometido):'Não informado'}</div>
+ <div class="h-2 rounded-full bg-white/25 overflow-hidden"><div class="h-full rounded-full bg-white" style="width:${Math.min(100,Math.max(0,pct))}%"></div></div><div class="flex justify-between text-xs gap-2"><span>Comprometido: ${brl(comprometido)}</span><span>${lim?pct.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—'}</span></div>
+ <div class="border-t border-white/30 pt-3 grid grid-cols-2 gap-3"><div><div class="text-xs opacity-80">Limite total</div><b>${lim?brl(lim):'Não informado'}</b></div><div><div class="text-xs opacity-80">Fatura de ${nomeMes(m)}</div><b>${brl(f.total)}</b></div></div>
+ <div class="grid grid-cols-2 text-sm gap-2"><div>Fechamento <b>dia ${c.fechamento}</b></div><div>Vencimento <b>dia ${c.vencimento}</b></div></div></div>
+ <div class="rounded-xl bg-zinc-100 dark:bg-zinc-800 p-3"><b>Fatura ${nomeMes(m)} · ${dataBR(f.data)}</b><div class="grid grid-cols-3 gap-2 mt-2 text-xs"><div>Total<br><b>${brl(f.total)}</b></div><div>Pago<br><b class="text-emerald-600">${brl(f.pago)}</b></div><div>Restante<br><b class="text-amber-600">${brl(f.restante)}</b></div></div></div>
+ ${f.credito?`<p class="text-emerald-600 font-bold">Crédito a favor nesta fatura: ${brl(f.credito)} (conciliação manual)</p>`:''}${f.restante?`<select class="border rounded p-2 bg-transparent" data-pagar-origem="${esc(c.id)}">${opts}</select> <button class="bg-amber-400 text-black rounded p-2" data-pagar-fatura="${esc(c.id)}">Registrar pagamento</button>`:''}${!c.cancelado&&!c.arquivado?`<button type="button" class="border rounded p-2" data-importar-fatura-mg="${esc(c.id)}">Importar fatura</button>`:""}<details open><summary class="font-bold">Compras da fatura — estornar compra</summary>${f.compras.map(g=>`<div class="text-xs py-1">${esc(g.desc)} · ${esc(g.nomeCartaoHistorico||g.conta)} · ${brl(g.valor)} ${botaoEstornoMG(g)} ${(g.estornosCompra||[]).filter(e=>e.ocorrencia===(g.dv||g.data)).map(e=>`<span class="text-emerald-600">Estornado ${brl(e.valor)} em ${dataBR(e.data.slice(0,10))}</span>`).join(" ")}</div>`).join('')}</details><details><summary>Próximas 12 faturas</summary>${futuros.map(x=>`<div class="text-xs py-1">${nomeMes(x.m)} · ${brl(x.f.restante)}</div>`).join('')}</details><details open><summary class="font-bold">Histórico de pagamentos / Estorno</summary>${f.pagamentos.map(g=>`<div>${dataBR(g.data)} · ${brl(g.valor)} ${g.estornadoEm?`<span>Estornado em ${dataBR(g.estornadoEm.slice(0,10))}</span>`:`<button class="underline text-red-600" data-reverter-fat="${esc(g.id)}">Estornar pagamento</button>`}</div>`).join('')}</details>${lim&&comprometido/lim>=.85?'<div class="text-amber-600">Atenção: limite comprometido acima de 85%.</div>':''}${f.restante&&f.data<dataHoje()?'<div class="text-rose-600">Fatura vencida</div>':''}</article>`}).join('')||'<div class="col-span-full text-center border border-dashed rounded-2xl p-8"><b>Nenhum cartão cadastrado</b><p class="text-sm mt-2">Cadastre seu primeiro cartão no formulário acima.</p></div>';
+mgCounterRestore(el,oldCounters);
+}
+function editarCartao(id){const c=contasLista.find(x=>String(x.id)===id);if(!c)return;const dlg=document.createElement('dialog');dlg.className='rounded-2xl p-6 w-[min(92vw,540px)] max-h-[90vh] overflow-auto bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white shadow-xl';dlg.innerHTML=`<form class="space-y-3"><h2 class="text-xl font-bold">Editar cartão</h2><label class="block">Nome<input name="nome" required class="w-full border rounded-lg p-2 bg-transparent" value="${esc(c.nome)}"></label><label class="block">Limite (R$)<input name="limite" type="number" min="0" step="0.01" class="w-full border rounded-lg p-2 bg-transparent" value="${Number(c.limite)||0}"></label><div class="grid grid-cols-2 gap-2"><label>Fechamento<input name="fechamento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.fechamento||10}"></label><label>Vencimento<input name="vencimento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.vencimento||17}"></label></div><label class="block">Modelo de cores<select name="modelo" class="w-full border rounded-lg p-2"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${n}</option>`).join('')}</select></label><div class="grid grid-cols-2 gap-2"><label>Cor inicial <input name="cor" type="color" value="${coresCartaoMG(c).cor}"></label><label>Cor final <input name="cor2" type="color" value="${coresCartaoMG(c).cor2}"></label></div><label class="block">Ângulo (graus)<input name="angulo" type="number" min="0" max="360" required value="${coresCartaoMG(c).angulo}" class="w-full border rounded-lg p-2 bg-transparent"></label><button type="button" data-inverter class="border rounded-lg p-2">Inverter cores</button><div data-preview class="rounded-xl p-4 text-white font-bold"></div><div class="flex justify-end gap-2"><button type="button" data-cancel class="border rounded-lg p-2">Cancelar</button><button class="bg-amber-400 text-black rounded-lg p-2">Salvar</button></div></form>`;document.body.append(dlg);const form=dlg.querySelector('form'),v=()=>Object.fromEntries(new FormData(form));const preview=()=>{const a=v(),el=dlg.querySelector('[data-preview]');el.style.background=gradienteCartaoMG(a);el.textContent=a.nome+' · Limite '+brl(Number(a.limite)||0)+' · Fechamento '+a.fechamento+' · Vencimento '+a.vencimento;};form.addEventListener('input',preview);form.elements.modelo.addEventListener('change',()=>{const m=modelosCartaoMG[form.elements.modelo.value];if(m){[form.elements.cor.value,form.elements.cor2.value]=m;preview();}});dlg.querySelector('[data-inverter]').onclick=()=>{[form.elements.cor.value,form.elements.cor2.value]=[form.elements.cor2.value,form.elements.cor.value];preview();};preview();dlg.querySelector('[data-cancel]').onclick=()=>dlg.close();dlg.addEventListener('close',()=>dlg.remove());form.onsubmit=e=>{e.preventDefault();const a=v(),nome=a.nome.trim();if(!nome||contasLista.some(x=>x!==c&&x.nome.toLowerCase()===nome.toLowerCase()&&!(x.tipo==='cartao'&&x.cancelado)))return avisarMG('Nome inválido ou duplicado.');vincularCartoesLegados();prepararDesfazer();const antigo=c.nome;for(const g of gastos){if(cartaoDe(g)===c){g.cartaoId=c.id;g.nomeCartaoHistorico ||= g.conta||antigo;}}Object.assign(c,{nome,limite:Number(a.limite)||0,fechamento:Number(a.fechamento),vencimento:Number(a.vencimento),...coresCartaoMG(a)});if(salvar()){dlg.close();popularSelectsContas();renderTudo();}};dlg.showModal();}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-editar-card],[data-bloquear-card],[data-excluir-card]');if(!b)return;const id=b.dataset.editarCard||b.dataset.bloquearCard||b.dataset.excluirCard,c=contasLista.find(x=>String(x.id)===id);if(!c)return;if(b.dataset.editarCard)return editarCartao(id);if(c.cancelado&&!b.dataset.excluirCard)return;if(b.dataset.excluirCard){if([...gastos,...ganhosFuturos].some(g=>cartaoDe(g)===c||String(g.cartaoId)===id))return avisarMG('Cartão com histórico: mantenha o registro para preservar os dados.');if(!c.cancelado)return avisarMG('Cancele o cartão antes de excluir.');if((await perguntarMG('Digite EXCLUIR para confirmar'))!=='EXCLUIR')return;prepararDesfazer();contasLista=contasLista.filter(x=>x!==c);}else{if(!c.arquivado&&!await confirmarMG('Bloquear cartão? Novas compras serão impedidas. Faturas e histórico serão preservados.'))return;prepararDesfazer();const anterior=c.arquivado;c.arquivado=!c.arquivado;if(!salvar()){c.arquivado=anterior;return;}popularSelectsContas();renderTudo();return;}if(salvar()){popularSelectsContas();renderTudo();}});
+
+function registrarFatura(id,mes){
+ const c=contasLista.find(x=>String(x.id)===String(id));if(!c)return;
+ const m=mes||$('mes').value||mesAtual(), f=fatura(c,m);if(!f.restante)return;
+ if(document.querySelector('#dialogPagamentoFatura'))return;
+ const dlg=document.createElement('dialog');dlg.id='dialogPagamentoFatura';dlg.className='rounded-2xl p-5 w-[min(92vw,440px)] bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white';
+ dlg.innerHTML=`<form class="space-y-3"><h2 class="font-bold text-lg">Pagar fatura ${esc(c.nome)}</h2><p>${nomeMes(m)} · Restante ${brl(f.restante)}</p><label class="block">Conta de origem<select required name="origem" class="w-full border rounded p-2 bg-transparent">${contasLista.filter(x=>x.tipo!=='cartao'&&!x.arquivado&&!x.cancelado).map(x=>`<option value="${esc(x.nome)}">${esc(x.nome)}</option>`).join('')}</select></label><label class="block">Valor pago (R$)<input required name="valor" inputmode="decimal" value="${f.restante.toFixed(2).replace('.',',')}" class="w-full border rounded p-2 bg-transparent"></label><label class="block">Data efetiva<input required type="date" name="data" value="${dataHoje()}" max="${dataHoje()}" class="w-full border rounded p-2 bg-transparent"></label><div class="flex gap-2"><button type="button" data-fechar class="border rounded p-2">Cancelar</button><button class="bg-amber-400 text-black rounded p-2">Confirmar pagamento</button></div></form>`;
+ document.body.append(dlg);dlg.querySelector('[data-fechar]').onclick=()=>dlg.close();dlg.addEventListener('close',()=>dlg.remove());
+ dlg.querySelector('form').onsubmit=e=>{e.preventDefault();const a=Object.fromEntries(new FormData(e.target)),v=Math.round(parseValorBR(a.valor)*100)/100,d=a.data;if(!(v>0&&v<=fatura(c,m).restante))return avisarMG('Valor inválido.');if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!Number.isFinite(Date.parse(d))||new Date(d).toISOString().slice(0,10)!==d||d>dataHoje())return avisarMG('Data inválida.');if(!contasLista.some(x=>x.nome===a.origem&&x.tipo!=='cartao'))return avisarMG('Conta inválida.');prepararDesfazer();const registro={id:'fat-'+Date.now()+'-'+Math.random().toString(36).slice(2),desc:'Fatura '+c.nome,valor:v,tipo:'gasto',cat:'Fatura Cartão',conta:a.origem,data:d,fixo:false,quitaçãoCartao:true,cartaoId:c.id,faturaMes:m,pagamentos:{[d]:{pago:true,confirmadoEm:new Date().toISOString()}}};gastos.push(registro);if(salvar()){dlg.close();renderTudo();if(diaModalAtual)abrirModalDia(diaModalAtual);mostrarDesfazer('Pagamento registrado.');}else gastos=gastos.filter(x=>x!==registro);};dlg.showModal();
+}
+$('pagFiltro')?.addEventListener('change',renderPagamentos);$('pagBusca')?.addEventListener('input',renderPagamentos);$('pagLista')?.addEventListener('click',e=>{const b=e.target.closest('[data-pag-acao]');if(b)alternarPagamento(b.dataset.pagAcao,b.dataset.dia);});$('pagLote')?.addEventListener('click',async ()=>{const checks=[...document.querySelectorAll('[data-pag-check]:checked')];if(!checks.length||!await confirmarMG('Confirmar pagamentos selecionados?'))return;prepararDesfazer();for(const b of checks){const g=gastos.find(x=>String(x.id)===b.dataset.pagCheck);if(g&&!cartaoDe(g)){g.pagamentos||={};g.pagamentos[b.dataset.dia]={pago:true,confirmadoEm:new Date().toISOString()};}}if(salvar()){renderTudo();mostrarDesfazer('Pagamentos confirmados.');}});document.addEventListener('click',async e=>{const b=e.target.closest('[data-reverter-fat]');if(!b)return;const g=gastos.find(g=>g.quitaçãoCartao&&String(g.id)===b.dataset.reverterFat&&!g.estornadoEm);if(!g)return;const escolha=await formularioEstornoMG('Estornar pagamento',g.valor,false,'Reabre a dívida e devolve o valor à conta bancária.');if(!escolha)return;const v=escolha.valor;if(!(v>0&&v<=g.valor))return avisarMG('Valor inválido.');if(!await confirmarMG('Estornar '+brl(v)+' para '+g.conta+'?'))return;if(g.estornadoEm||v>g.valor)return;prepararDesfazer();const antes=g.valor;let registro;if(v===g.valor)g.estornadoEm=new Date().toISOString();else{registro={...g,id:'est-'+(globalThis.crypto?.randomUUID?.()||Date.now()+'-'+Math.random()),valor:v,estornadoEm:new Date().toISOString(),pagamentoOrigem:g.id};g.valor=Math.round((g.valor-v)*100)/100;gastos.push(registro);}if(salvar()){renderTudo();if(diaModalAtual&&$('modalDia').style.display==='flex')abrirModalDia(diaModalAtual);mostrarDesfazer('Pagamento estornado.');}else{g.valor=antes;delete g.estornadoEm;if(registro)gastos=gastos.filter(x=>x!==registro);}});
+// Estorno de compra: redução da obrigação sem reverter o pagamento. Crédito excedente fica explícito na fatura.
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-estorno-compra]');if(!b)return;const g=gastos.find(x=>String(x.id)===b.dataset.estornoCompra);if(!g||!cartaoDe(g)||g.quitaçãoCartao)return;const d=b.dataset.ocorrencia;const alvos=()=>{const grupo=g.grupoCompra&&!g.fixo?gastos.filter(x=>x.grupoCompra===g.grupoCompra&&cartaoDe(x)===cartaoDe(g)&&!x.fixo):[g];return grupo.map(x=>{const dia=x===g&&g.fixo?d:x.data;const it=itensDoMes(dia.slice(0,7)).find(y=>y.id===x.id);return {g:x,dia,cent:Math.round((it?.valor||0)*100)};}).filter(x=>x.cent>0);};const todos=alvos(),individual=todos.find(x=>x.g===g);if(!individual&&!todos.length)return;const soma=todos.reduce((a,x)=>a+x.cent,0);const escolha=await formularioEstornoMG('Estornar compra', (individual?.cent||0)/100,todos.length>1,'Reduz a compra ou gera crédito na fatura. Não devolve dinheiro à conta bancária.',soma/100);if(!escolha)return;const cent=Math.round(escolha.valor*100);const atuais=alvos().filter(x=>escolha.grupo||x.g===g);if(cent<=0||cent>atuais.reduce((a,x)=>a+x.cent,0))return avisarMG('Valor indisponível para estorno.');if(!await confirmarMG('Registrar estorno de compra de '+brl(cent/100)+'?'))return;const finais=alvos().filter(x=>escolha.grupo||x.g===g);if(cent>finais.reduce((a,x)=>a+x.cent,0))return avisarMG('Valores alterados. Tente novamente.');prepararDesfazer();let restante=cent;const backups=finais.map(x=>[x.g,x.g.estornosCompra?.slice()]);for(const x of finais.sort((a,b)=>a.dia.localeCompare(b.dia))){const v=Math.min(restante,x.cent);if(!v)continue;x.g.estornosCompra||=[];x.g.estornosCompra.push({valor:v/100,data:new Date().toISOString(),ocorrencia:x.dia,motivo:escolha.motivo});restante-=v;}if(salvar()){renderTudo();if(diaModalAtual&&$('modalDia').style.display==='flex')abrirModalDia(diaModalAtual);mostrarDesfazer('Estorno de compra registrado.');}else for(const [x,old] of backups){if(old)x.estornosCompra=old;else delete x.estornosCompra;}});
+
+let abaCartao='Ativos';
+function dataBR(d){return String(d||'').split('-').reverse().join('/');}
+function nomeMes(m){const [y,n]=m.split('-').map(Number);return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(y,n-1,1));}
+function compromissoCartao(c){
+ const compras=gastos.filter(g=>g.tipo==='gasto'&&!g.quitaçãoCartao&&cartaoDe(g)===c);const meses=new Set();
+ for(const g of compras){if(!g.fixo){meses.add(mesFatura(g,c));continue;}const inicio=g.data.slice(0,7);const dur=g.durTipo==='meses'?Number(g.durQtd)||12:g.durTipo==='anos'?(Number(g.durQtd)||1)*12:Infinity;const hoje=mesAtual();const [y,m]=hoje.split('-').map(Number),[a,b]=inicio.split('-').map(Number);const decorridos=Math.max(0,(y-a)*12+m-b+1);const n=Math.min(dur,decorridos);for(let i=0;i<n;i++){const ref=deslocarMes(inicio,i);meses.add(mesFatura({...g,dv:diaCiclo(ref,Number(g.data.slice(8)))},c));}}
+ return Math.round([...meses].reduce((a,m)=>a+fatura(c,m).restante,0)*100)/100;
+}
+document.addEventListener('click',async e=>{const aba=e.target.closest('[data-card-aba]');if(aba){abaCartao=aba.dataset.cardAba;renderContas();return;}const b=e.target.closest('[data-cancelar-card]');if(!b)return;const c=contasLista.find(x=>String(x.id)===b.dataset.cancelarCard);if(!c||c.cancelado||!await confirmarMG('Cancelar cartão permanentemente? Não será possível desbloqueá-lo. Histórico e obrigações serão mantidos.'))return;prepararDesfazer();c.cancelado=true;c.canceladoEm=dataHoje();if(salvar()){popularSelectsContas();renderTudo();}});
+$('novoCartaoDireto').onclick=()=>{$('novaContaTipo').value='cartao';$('novaContaTipo').dispatchEvent(new Event('change'));$('novaContaNome').focus();$('formNovaConta').scrollIntoView({block:'center'});};
+let donutFrame=0;
+function animarDonut(total){
+ cancelAnimationFrame(donutFrame);donutFrame=0;
+ const svg=$('donutSvg'),center=$('donutCenterTotal');if(!svg||!center)return;
+ center.textContent=brl(total);
+ const segs=[...svg.querySelectorAll('.donut-segment')].map(el=>({el,dash:el.getAttribute('stroke-dasharray'),len:Number(el.getAttribute('stroke-dasharray').split(' ')[0]),offset:-Number(el.getAttribute('stroke-dashoffset'))}));
+ if(mgMotionReduced()||ocultarValores||!segs.length||!svg.getClientRects().length)return;
+ const circ=2*Math.PI*Number(segs[0].el.getAttribute('r'));
+ const duration=({suave:250,premium:650,imersivo:1200})[document.documentElement.dataset.motion]||650;
+ const start=performance.now();
+ for(const {el} of segs)el.setAttribute('stroke-dasharray',`0 ${circ}`);
+ const tick=now=>{const p=mgMotionReduced()||ocultarValores?1:Math.min(1,(now-start)/duration);const eased=1-Math.pow(1-p,3);for(const {el,dash,len,offset} of segs){if(p===1){el.setAttribute('stroke-dasharray',dash);continue;}const visible=Math.max(0,Math.min(len,eased*circ-offset));el.setAttribute('stroke-dasharray',`${visible} ${circ-visible}`);}if(p<1)donutFrame=requestAnimationFrame(tick);else donutFrame=0;};
+ donutFrame=requestAnimationFrame(tick);
+}
+// Migração não destrutiva: mantém os dados históricos e suas datas.
+try{const k='meus-gastos-storage-schema';if(localStorage.getItem(k)!=='2'){const raw=Object.fromEntries([KEY,FUTUROS_KEY,TAGS_KEY,META_KEY,CONTAS_KEY,EXCL_KEY,CFGEM_KEY].map(k=>[k,localStorage.getItem(k)]));const backup=JSON.stringify(raw);gravarLocalVerificado([['meus-gastos-migracao-v2-original',backup],[k,'2']]);}}catch(e){console.error(e);driveLiberado=false;avisarMG('Não foi possível criar backup de migração. Exporte seus dados antes de continuar.');}
+
+vincularCartoesLegados();
 popularSelectsCategorias();
 popularSelectsContas();
 atualizarDespesaParcelaUI();
 atualizarBotoesVoltar();
 renderTudo();
+function abrirCadastroCartaoMG(existing){
+ if(document.querySelector('#cadastroCartaoMG'))return;
+ const d=document.createElement('dialog');d.id='cadastroCartaoMG';d.className='rounded-2xl p-5 w-[min(95vw,760px)] max-h-[90vh] overflow-auto bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white';
+ d.innerHTML=`<form class="space-y-3"><h2 class="font-bold text-xl">${existing?'Importar fatura':'Novo cartão'}</h2><div ${existing?'hidden':''}><label>Nome <input name="nome" required value="${esc(existing?.nome||'')}" class="border rounded p-2 w-full"></label><div class="mg-grid"><label>Limite (R$) <input name="limite" type="number" min="0" step="0.01" required value="${existing?.limite||0}"></label><label> Fechamento <input name="fechamento" type="number" min="1" max="31" required value="${existing?.fechamento||10}"></label><label> Vencimento <input name="vencimento" type="number" min="1" max="31" required value="${existing?.vencimento||17}"></label></div><label>Modelo de cores<select name="modelo"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${esc(n)}</option>`).join('')}</select></label><div class="mg-grid"><label>Cor inicial<input name="cor" type="color" value="#6528a0"></label><label>Cor final<input name="cor2" type="color" value="#18181b"></label><label>Ângulo (graus)<input name="angulo" type="number" min="0" max="360" value="135"></label></div><div><button type="button" data-inverter>Inverter</button></div><div data-previa class="rounded-xl p-5 text-white"></div></div><label>Mês da fatura <input name="mes" type="month" required value="${$('mes').value||mesAtual()}"></label><label class="block">Fatura opcional (PDF, OFX, CSV, XLSX)<input name="arquivo" type="file" accept=".pdf,.ofx,.csv,.xlsx" class="block"></label><p class="text-xs">Revise os valores e datas. Marque somente compras; pagamentos, créditos e estornos não são importados como compras. Para parcelas, informe a parcela atual e o total; serão incluídas a atual e as futuras.</p><div data-erro role="alert"></div><div data-linhas></div><div class="mg-actions"><button type="button" data-cancelar>Cancelar</button><button type="submit">Confirmar</button></div></form>`;
+ document.body.append(d);const f=d.querySelector('form'),e=f.elements,err=d.querySelector('[data-erro]'),list=d.querySelector('[data-linhas]'),submit=f.querySelector('[type=submit]');let rows=[],seq=0,failed=false;
+ const preview=()=>{const p=d.querySelector('[data-previa]');p.style.background=gradienteCartaoMG({cor:e.cor.value,cor2:e.cor2.value,angulo:e.angulo.value});p.textContent=(e.nome.value||'Novo cartão')+' · Limite '+brl(Number(e.limite.value)||0);};f.addEventListener('input',preview);e.modelo.onchange=()=>{const a=modelosCartaoMG[e.modelo.value];if(a){e.cor.value=a[0];e.cor2.value=a[1];preview();}};d.querySelector('[data-inverter]').onclick=()=>{[e.cor.value,e.cor2.value]=[e.cor2.value,e.cor.value];preview();};preview();
+ e.arquivo.onchange=async()=>{const token=++seq;rows=[];list.innerHTML='';err.textContent='';failed=false;const file=e.arquivo.files[0];if(!file){submit.disabled=false;return;}submit.disabled=true;try{const buf=await file.arrayBuffer(),n=file.name.toLowerCase(),year=Number(e.mes.value.slice(0,4));let a;if(n.endsWith('.xlsx'))a=await parseXLSXBuffer(buf,year);else if(n.endsWith('.ofx'))a=parseOFXTexto(decodificarTexto(buf));else if(n.endsWith('.pdf')){const p=await lerPDFExtrato(buf);a=p.linhas?extrairItensDePDFPosicional(p.linhas,year):[];if(!a.length)a=extrairItensDeTextoExtrato(p.texto,year);}else if(n.endsWith('.csv'))a=parseCSVTexto(decodificarTexto(buf),year);else throw Error('Formato inválido');if(token!==seq||!d.open)return;if(!a.length)throw Error('Nenhuma linha reconhecida');rows=a;list.innerHTML=a.map((r,i)=>{const m=String(r.desc).match(/\b(\d{1,2})\s*\/\s*(\d{1,2})\b/);return `<div data-row="${i}" class="border rounded p-2"><label><input type="checkbox" data-use ${r.tipo==='gasto'&&!/pagamento|estorno|crédito|saldo/i.test(r.desc)?'checked':''}> Importar compra</label> <input data-date type="date" value="${esc(r.data)}"> <input data-desc value="${esc(r.desc)}" class="border rounded"> <input data-value type="number" min="0.01" step="0.01" value="${Number(r.valor)}"> <label>Parcela <input data-part type="number" min="1" max="120" value="${m?Number(m[1]):1}"></label><label> de <input data-total type="number" min="1" max="120" value="${m?Number(m[2]):1}"></label></div>`;}).join('');}catch(x){if(token===seq){failed=true;err.textContent=x.message;}}finally{if(token===seq)submit.disabled=failed;}};
+ d.querySelector('[data-cancelar]').onclick=()=>d.close();d.addEventListener('close',()=>{seq++;d.remove();});
+ f.onsubmit=ev=>{ev.preventDefault();err.textContent='';if(failed||submit.disabled)return;const nome=e.nome.value.trim(),m=e.mes.value;const c=existing||{id:'acc-'+crypto.randomUUID(),nome,tipo:'cartao',saldoInicial:0,limite:Number(e.limite.value),fechamento:Number(e.fechamento.value),vencimento:Number(e.vencimento.value),cor:e.cor.value,cor2:e.cor2.value,angulo:Number(e.angulo.value)};if(!nome||(!existing&&contasLista.some(x=>!x.cancelado&&x.nome.toLowerCase()===nome.toLowerCase()))){err.textContent='Nome inválido ou já cadastrado';return;}if(existing&&(existing.cancelado||existing.arquivado)){err.textContent='Cartão indisponível';return;}const novos=[],key=g=>[g.cartaoId,g.faturaMesCompra||mesFatura(g,c),g.compraEm||g.data,String(g.desc).replace(/ \(\d+\/\d+\)$/,'').trim().toLowerCase(),Math.round(g.valor*100)].join('|');const seen=new Set(gastos.filter(g=>cartaoDe(g)===c&&!g.quitaçãoCartao).map(key));let dup=0;for(const row of list.querySelectorAll('[data-row]')){if(!row.querySelector('[data-use]').checked)continue;const val=s=>row.querySelector(s).value,dt=val('[data-date]'),desc=val('[data-desc]').trim().replace(/\s*\(?\d{1,2}\s*\/\s*\d{1,2}\)?\s*$/,''),v=Number(val('[data-value]')),p=Number(val('[data-part]')),t=Number(val('[data-total]'));if(!/^\d{4}-\d{2}-\d{2}$/.test(dt)||!desc||!Number.isFinite(v)||v<=0||!Number.isInteger(p)||!Number.isInteger(t)||p<1||t<p||t>120){err.textContent='Revise os campos das compras';return;}const grupo=crypto.randomUUID();for(let j=p;j<=t;j++){const fm=deslocarMes(m,j-p),data=diaCiclo(fm,Number(dt.slice(8)));const g={id:'imp-'+crypto.randomUUID(),desc:desc+(t>1?` (${j}/${t})`:''),valor:Math.round(v*100)/100,tipo:'gasto',cat:'Outros',conta:c.nome,cartaoId:c.id,nomeCartaoHistorico:c.nome,data,compraEm:dt,grupoCompra:grupo,parcelaTotal:t,parcelaAtual:j,faturaMesCompra:fm,cicloNovo:true,statusNovo:true,fixo:false};const k=key(g);if(seen.has(k)){dup++;continue;}seen.add(k);novos.push(g);}}if(existing&&!novos.length){err.textContent='Nenhuma compra nova; duplicidades: '+dup;return;}if((existing?compromissoCartao(c):0)+novos.reduce((s,g)=>s+g.valor,0)>c.limite){err.textContent='Compras excedem o limite informado';return;}if(novos.length&&!criarBackupPreventivo("Antes da importação")){err.textContent="Importação bloqueada: falha no backup preventivo.";return;}prepararDesfazer();const oldG=gastos.slice(),oldC=contasLista.slice();if(!existing)contasLista.push(c);gastos.push(...novos);if(!salvar()){gastos=oldG;contasLista=oldC;cacheSaldo.clear();err.textContent='Falha ao salvar';return;}d.close();popularSelectsContas();renderTudo();mostrarDesfazer('Cartão salvo. Compras: '+novos.length+'; duplicidades: '+dup);};d.showModal();
+}
+$('novoCartaoDireto').onclick=()=>abrirCadastroCartaoMG();
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-importar-fatura-mg]');if(b){const c=contasLista.find(x=>x.id===b.dataset.importarFaturaMg);if(c&&!c.cancelado&&!c.arquivado)abrirCadastroCartaoMG(c);}});
+function movimentosSaldoMG(c){const novos=gastos.filter(g=>g.regraPagamentoRF02&&g.fixo);const ocorrencias=[];for(const g of novos){let m=g.data.slice(0,7);const fim=dataHoje().slice(0,7);for(let i=0;m<=fim&&i<12000;i++,m=deslocarMes(m,1)){ocorrencias.push(...itensDoMes(m).filter(x=>x.id===g.id).map(x=>({...x,data:x.dv})));}}return [...gastos.filter(g=>!(g.regraPagamentoRF02&&g.fixo)),...ocorrencias].filter(g=>(!g.regraPagamentoRF02||(g.data<=dataHoje()&&estaPago(g,g.data)))&&!g.estornadoEm&&(g.contaId?g.contaId===c.id:(g.conta||'Conta Principal')===c.nome)&&(!c.referenciaSaldo||(g.data>c.referenciaSaldo.slice(0,10)||g.data===c.referenciaSaldo.slice(0,10)&&g.impactaReferencia!==false)));}
+function abrirContaMG(existing){
+ if($('cadastroContaMG'))return;const d=document.createElement('dialog');d.id='cadastroContaMG';const now=new Date(),local=new Date(now-now.getTimezoneOffset()*60000).toISOString().slice(0,16);const modelos={...modelosCartaoMG,Caixa:['#0077C8','#003B71'],Bradesco:['#CC092F','#78001C']};
+ d.innerHTML=`<form><h2 class="text-xl font-bold">${existing?'Importar extrato':'Nova conta'}</h2><div ${existing?'hidden':''}><label>Nome<input name="nome" required maxlength="32" value="${esc(existing?.nome||'')}"></label><div class="mg-grid"><label>Tipo<select name="subtipo">${['Conta corrente','Conta digital','Poupança','Investimento','Dinheiro'].map(x=>`<option>${x}</option>`).join('')}</select></label><label>Saldo atual (R$)<input name="saldo" type="number" step="0.01" required value="${existing?.saldoInicial||0}"></label></div><label>Referência do saldo<input name="referencia" type="datetime-local" required value="${esc(existing?.referenciaSaldo||local)}"></label><label>Modelo<select name="modelo"><option value="">Personalizado</option>${Object.keys(modelos).map(x=>`<option>${esc(x)}</option>`).join('')}</select></label><div class="mg-grid"><label>Cor inicial<input name="cor" type="color" value="#004b87"></label><label>Cor final<input name="cor2" type="color" value="#071c35"></label><label>Ângulo<input name="angulo" type="number" min="0" max="360" value="135"></label></div><button type="button" data-inverter>Inverter cores</button><div data-previa></div></div><label>Extrato opcional (PDF, OFX, CSV, XLSX)<input name="arquivo" type="file" accept=".pdf,.ofx,.csv,.xlsx"></label><p class="text-sm">Movimentos anteriores à referência são históricos. Na mesma data, escolha se já estão incluídos no saldo. Revise transferências e pagamentos de cartão para evitar duplicidade.</p><div data-erro role="alert"></div><div data-linhas></div><div class="mg-actions"><button type="button" data-cancelar>Cancelar</button><button type="submit">Confirmar</button></div></form>`;
+ document.body.append(d);const f=d.querySelector('form'),e=f.elements,err=d.querySelector('[data-erro]'),list=d.querySelector('[data-linhas]'),submit=f.querySelector('[type=submit]');let seq=0;const preview=()=>{const p=d.querySelector('[data-previa]');p.style.background=gradienteCartaoMG({cor:e.cor.value,cor2:e.cor2.value,angulo:e.angulo.value});p.textContent=(e.nome.value||'Nova conta')+' · '+brl(Number(e.saldo.value)||0);};f.addEventListener('input',preview);e.modelo.onchange=()=>{if(modelos[e.modelo.value]){[e.cor.value,e.cor2.value]=modelos[e.modelo.value];preview();}};d.querySelector('[data-inverter]').onclick=()=>{[e.cor.value,e.cor2.value]=[e.cor2.value,e.cor.value];preview();};preview();d.querySelector('[data-cancelar]').onclick=()=>d.close();d.onclose=()=>{seq++;d.remove();};
+ e.arquivo.onchange=async()=>{const token=++seq;list.innerHTML='';err.textContent='';submit.disabled=true;const file=e.arquivo.files[0];if(!file){submit.disabled=false;return;}try{const buf=await file.arrayBuffer(),n=file.name.toLowerCase(),year=Number(e.referencia.value.slice(0,4));let a;if(n.endsWith('.ofx'))a=parseOFXTexto(decodificarTexto(buf));else if(n.endsWith('.csv'))a=parseCSVTexto(decodificarTexto(buf),year);else if(n.endsWith('.xlsx'))a=await parseXLSXBuffer(buf,year);else if(n.endsWith('.pdf')){const p=await lerPDFExtrato(buf);a=p.linhas?extrairItensDePDFPosicional(p.linhas,year):[];if(!a.length)a=extrairItensDeTextoExtrato(p.texto,year);}else throw Error('Formato inválido');if(token!==seq)return;if(!a.length)throw Error('Nenhuma movimentação reconhecida');list.innerHTML=a.map(r=>`<div data-row class="border rounded-lg p-3"><label><input type="checkbox" data-use ${/transfer|pagamento.*fatura|pagamento.*cart[aã]o/i.test(r.desc)?'':'checked'}> Importar</label><div class="mg-grid"><label>Data<input data-date type="date" value="${esc(r.data)}"></label><label>Valor<input data-value type="number" step="0.01" min="0.01" value="${Number(r.valor)}"></label><label>Tipo<select data-tipo><option value="ganho" ${r.tipo==='ganho'?'selected':''}>Receita</option><option value="gasto" ${r.tipo==='gasto'?'selected':''}>Despesa</option></select></label></div><label>Descrição<input data-desc value="${esc(r.desc)}"></label><label>Se na data de referência<select data-impacto><option value="">Escolha</option><option value="historico">Já incluído no saldo</option><option value="novo">Posterior ao saldo</option></select></label></div>`).join('');submit.disabled=false;}catch(x){if(token===seq)err.textContent=x.message;}};
+ f.onsubmit=ev=>{ev.preventDefault();if(submit.disabled)return;err.textContent='';const nome=e.nome.value.trim(),ref=existing?.referenciaSaldo||(!existing?e.referencia.value:null);if(!nome||(!existing&&contasLista.some(c=>c.nome.toLowerCase()===nome.toLowerCase()&&!c.cancelado))){err.textContent='Nome inválido ou duplicado';return;}const c=existing||{id:'acc-'+crypto.randomUUID(),nome,tipo:'conta',subtipo:e.subtipo.value,saldoInicial:Number(e.saldo.value),referenciaSaldo:ref,cor:e.cor.value,cor2:e.cor2.value,angulo:Number(e.angulo.value)};const key=g=>[g.data,g.tipo,Math.round(Number(g.valor)*100),String(g.desc).trim().toLowerCase()].join('|');const seen=new Set(gastos.filter(g=>g.contaId===c.id||g.conta===c.nome).map(key));const novos=[];let dup=0;for(const r of list.querySelectorAll('[data-row]')){if(!r.querySelector('[data-use]').checked)continue;const v=k=>r.querySelector(k).value,data=v('[data-date]'),desc=v('[data-desc]').trim(),valor=Number(v('[data-value]')),tipo=v('[data-tipo]'),impacto=v('[data-impacto]');if(!data||!desc||!Number.isFinite(valor)||valor<=0){err.textContent='Revise os dados';return;}if(ref&&data===ref.slice(0,10)&&!impacto){err.textContent='Informe se o movimento da data de referência já está no saldo';return;}const g={id:'imp-'+crypto.randomUUID(),conta:c.nome,contaId:c.id,data,desc,valor,tipo,cat:'Outros',fixo:false,impactaReferencia:!ref||data>ref.slice(0,10)||data===ref.slice(0,10)&&impacto==='novo',pagamentos:{[data]:{pago:true,confirmadoEm:new Date().toISOString()}}};if(seen.has(key(g))){dup++;continue;}seen.add(key(g));novos.push(g);}if(existing&&!novos.length){err.textContent='Nenhum movimento novo; duplicidades: '+dup;return;}if(novos.length&&!criarBackupPreventivo("Antes da importação")){err.textContent="Importação bloqueada: falha no backup preventivo.";return;}prepararDesfazer();const oldG=gastos.slice(),oldC=contasLista.slice();if(!existing)contasLista.push(c);gastos.push(...novos);if(!salvar()){gastos=oldG;contasLista=oldC;cacheSaldo.clear();err.textContent='Falha ao salvar';return;}d.close();popularSelectsContas();renderTudo();mostrarDesfazer('Conta salva. Movimentos: '+novos.length+'; duplicidades: '+dup);};d.showModal();}
+$('novaContaIntegrada').onclick=()=>abrirContaMG();document.addEventListener('click',ev=>{const b=ev.target.closest('[data-extrato-mg]');if(b){const c=contasLista.find(x=>x.id===b.dataset.extratoMg);if(c)abrirContaMG(c);}});
+
+for(const [id,tipo] of [['mgTabContas','contas'],['mgTabCartoes','cartoes']]){
+ const b=$(id);b.addEventListener('click',()=>selecionarAbaFinanceiraMG(tipo));
+ b.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const next=e.key==='Home'?'contas':e.key==='End'?'cartoes':tipo==='contas'?'cartoes':'contas';selecionarAbaFinanceiraMG(next);$(next==='contas'?'mgTabContas':'mgTabCartoes').focus();}});
+}
+selecionarAbaFinanceiraMG('cartoes');
+</script>
+<script>
+mgMotionApply(mgMotionRead());
+document.getElementById('mgMotionMode').addEventListener('change',e=>{const v=e.target.value;if(!MG_MOTION_MODES.includes(v))return;try{localStorage.setItem(MG_MOTION_KEY,v);mgMotionApply(v);document.getElementById('mgMotionStatus').textContent='Preferência salva.';}catch(err){mgMotionApply(document.documentElement.dataset.motion);document.getElementById('mgMotionStatus').textContent='Não foi possível salvar a preferência.';}});
+</script><script id="mgPageMotionJS">
+(()=>{
+ const list=document.querySelector('#view-contas [role="tablist"]');if(!list)return;
+ const marker=document.createElement('span');marker.id='mgTabMotionIndicator';marker.setAttribute('aria-hidden','true');list.prepend(marker);
+ function align(){const tab=list.querySelector('[aria-selected="true"]');if(!tab||!list.getClientRects().length)return;marker.style.width=tab.offsetWidth+'px';marker.style.height=tab.offsetHeight+'px';marker.style.transform=`translate(${tab.offsetLeft}px,${tab.offsetTop}px)`;list.classList.add('mg-indicator-ready');}
+ new MutationObserver(align).observe(list,{subtree:true,attributes:true,attributeFilter:['aria-selected']});
+ new MutationObserver(align).observe(document.getElementById('view-contas'),{attributes:true,attributeFilter:['class']});
+ if(typeof ResizeObserver!=='undefined')new ResizeObserver(align).observe(list);
+ window.addEventListener('resize',align);align();
+})();
+</script>
+<script id="mgCardMotionJS">
+(()=>{
+ const grid=document.getElementById('faturasCartoesGrid');if(!grid)return;
+ const selector='[data-card-gradient]';let active=null;
+ const reset=el=>{if(!el)return;for(const p of ['--mg-rx','--mg-ry','--mg-shine-x','--mg-shine-y','--mg-shine'])el.style.removeProperty(p);if(active===el)active=null;};
+ const enabled=()=>!mgMotionReduced()&&matchMedia('(hover:hover) and (pointer:fine)').matches&&['premium','imersivo'].includes(document.documentElement.dataset.motion);
+ grid.addEventListener('pointermove',e=>{const el=e.target.closest(selector);if(!el||!enabled()||e.pointerType!=='mouse'||e.target.closest('button,summary,details,input,select,a')||el.matches(':focus-within')||el.querySelector('details[open]')){reset(active);return;}if(active!==el){reset(active);active=el;}const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));const max=document.documentElement.dataset.motion==='imersivo'?5:2;el.style.setProperty('--mg-rx',((.5-y)*2*max).toFixed(2)+'deg');el.style.setProperty('--mg-ry',((x-.5)*2*max).toFixed(2)+'deg');el.style.setProperty('--mg-shine-x',x*100+'%');el.style.setProperty('--mg-shine-y',y*100+'%');el.style.setProperty('--mg-shine',max===5?'1':'.55');});
+ grid.addEventListener('pointerout',e=>{if(active&&!active.contains(e.relatedTarget))reset(active);});
+ for(const event of ['pointerdown','pointercancel','focusin'])grid.addEventListener(event,()=>reset(active));
+ document.getElementById('mgMotionMode')?.addEventListener('change',()=>reset(active));
+ matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>reset(active));
+ window.addEventListener('blur',()=>reset(active));
+})();
 </script>
 </body>
 </html>
