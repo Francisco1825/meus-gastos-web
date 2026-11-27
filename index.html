@@ -742,6 +742,38 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
 @media(prefers-reduced-motion:reduce){html[data-motion] :is(dialog,#modalDia)::backdrop{animation:none!important;transition:none!important}}
 @media(hover:none),(pointer:coarse){html[data-motion] #syncDot[data-sync-state="busy"]{animation:none!important}}
 </style>
+<style id="mgMobileFoundationCSS">
+/* Explicit desktop breakpoint for the mobile menu controls. */
+@media (min-width:1024px){
+  #mgHeader #btnOpenMobile, #sidebar #btnCloseMobile, #mobileBackdrop {display:none!important;}
+}
+
+/* B01: responsive foundation; desktop and financial scripts unchanged. */
+@media (max-width:1023px){
+  body > .flex-1 {min-width:0;max-width:100%;}
+  main, main .view-section, main .view-section > *, main .grid > *, main .flex > * {min-width:0;}
+  main .view-section {max-width:100%;overflow-wrap:anywhere;}
+  main .overflow-x-auto {max-width:100%;overscroll-behavior-x:contain;}
+  #sidebar {max-width:calc(100vw - 24px);height:100vh;height:100dvh;}
+  #statusBanner > span {min-width:0;overflow-wrap:anywhere;}
+  #mgHeader .mg-head-top,#mgHeader .mg-head-bottom {flex-wrap:wrap;}
+  #mgHeader .mg-head-actions {flex-wrap:wrap;max-width:100%;}
+  #mgHeader .mg-head-period {flex-wrap:wrap;max-width:100%;}
+  #mgHeader .mg-head-page {min-width:0;overflow-wrap:anywhere;}
+  main img, main svg {max-width:100%;}
+}
+@media (max-width:767px){
+  main {padding:12px!important;}
+  main .view-section > * + * {margin-top:12px!important;}
+  #statusBanner {padding-inline:12px;}
+  #mgHeader {padding-inline:10px;}
+  #mgHeader .mg-head-top {justify-content:flex-start;}
+  #mgHeader .mg-head-actions {margin-left:auto;}
+  #mgHeader .mg-head-period {margin-left:0;}
+  #mgHeader #btnOpenMobile,#mgHeader #btnTogglePrivacy,#mgHeader #btnToggleTheme {min-height:40px;min-width:40px;}
+  #statusMsg.mg-undo-temporario {bottom:max(12px,env(safe-area-inset-bottom));right:12px;max-width:calc(100vw - 24px);}
+}
+</style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
 
