@@ -834,6 +834,26 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
 html[data-motion="desativado"] #mgMobileNav button{transition:none!important}
 @media(prefers-reduced-motion:reduce){#mgMobileNav button{transition:none!important}}
 </style>
+<style id="mgMobileDashboardCSS">
+/* B04: presentation only, preserve all financial values and existing charts. */
+@media (max-width:767px){
+ #view-inicio > .grid:has(#kpiResultado){grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+ #view-inicio > .grid:has(#kpiResultado)>div{padding:12px;min-width:0;border-top:2px solid var(--mg-kpi-accent);}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(1){--mg-kpi-accent:#d4a72c;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(2){--mg-kpi-accent:#10b981;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(3){--mg-kpi-accent:#ef4444;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(4){--mg-kpi-accent:#60a5fa;}
+ #view-inicio > .grid:has(#kpiResultado)>div>div:first-child{flex-direction:column;align-items:flex-start;gap:4px;min-height:48px;margin-bottom:6px;}
+ #view-inicio > .grid:has(#kpiResultado)>div>div:first-child>span{max-width:100%;white-space:normal;overflow-wrap:anywhere;}
+ #view-inicio :is(#kpiResultado,#kpiReceitas,#kpiDespesas,#kpiSaldoConta){font-size:clamp(16px,4.8vw,23px);line-height:1.25;overflow-wrap:anywhere;}
+ #view-inicio :is(#kpiResultadoMeta,#kpiReceitasQtd,#kpiDespesasQtd,#kpiSaldoProjetado){font-size:11px;line-height:1.4;overflow-wrap:anywhere;}
+ #view-inicio .grid:has(>div #donutSvg)>div:has(#donutSvg){padding:14px;min-width:0;}
+ #view-inicio div:has(>#donutSvg){width:min(100%,210px);height:auto;aspect-ratio:1;}
+ #view-inicio div:has(>div>#tabDonutDespesas){flex-wrap:wrap;}
+ #view-inicio :is(#tabDonutDespesas,#tabDonutReceitas){min-height:44px;}
+ #view-inicio #historicoChart{gap:4px;}
+}
+</style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
 
