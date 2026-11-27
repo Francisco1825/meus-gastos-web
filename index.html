@@ -889,6 +889,63 @@ html[data-motion="desativado"] #mgMobileNav button{transition:none!important}
  #formEditModal{margin:auto;max-height:calc(100dvh - 16px);overflow:auto}
 }
 </style>
+<style id="mgMobileCalendarCSS">
+@media(max-width:767px){
+ #view-inicio .grid > div:has(#calendarioGrid){padding:10px;min-width:0}
+ #calendarioGrid,#view-inicio .grid-cols-7:has(+ #calendarioGrid){grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+ #view-inicio .grid-cols-7:has(+ #calendarioGrid){font-size:10px;letter-spacing:0}
+ #calendarioGrid > button{min-height:64px;padding:3px;gap:3px;border-radius:8px;overflow-wrap:anywhere;overflow:visible}
+ #calendarioGrid > button > span{font-size:12px;line-height:1.4}
+ #calendarioGrid > button > div > div{font-size:10px;line-height:1.25;overflow-wrap:anywhere;word-break:normal}
+ #calendarioGrid > button > div strong{font-size:10px;overflow-wrap:anywhere}
+ #calendarioGrid > div{height:auto;min-height:64px;border-radius:8px}
+ #calendarioGrid > button[aria-current="date"] > span{background:#f5b82e;color:#18181b;border-radius:5px;padding:0 3px}
+ #calendarioGrid > button:focus-visible{outline:2px solid #d97706;outline-offset:-2px}
+ html.dark #calendarioGrid .text-emerald-600{color:#6ee7b7}
+ html.dark #calendarioGrid .text-red-600,html.dark #calendarioGrid .text-rose-600{color:#fda4af}
+ html.dark #calendarioGrid .text-amber-600{color:#fcd34d}
+ html.dark #calendarioGrid .text-zinc-500{color:#d4d4d8}
+ #calTotalSaidas,#calTotalGanhos{font-size:18px;overflow-wrap:anywhere}
+ #modalDia{padding:10px;z-index:50}
+ #modalDiaCard{padding:14px;max-height:calc(100dvh - 20px);overflow-y:auto;min-width:0}
+ #modalDiaCard button{min-height:44px;min-width:44px;white-space:normal}
+ #modalDiaLista > div{flex-wrap:wrap;gap:8px;overflow-wrap:anywhere}
+ #modalDiaLista > div > div{min-width:0;max-width:100%}
+ #modalDiaCard > div:last-child > div{flex:1 1 100%}
+ #modalDiaCard > div:last-child > div > button{flex:1 1 120px}
+}
+</style>
+<style id="mgMobileCalendarRev01CSS">
+.mg-cal-compact,.mg-cal-legend-extra{display:none}
+@media(max-width:767px){
+ /* Keep the header in normal flow on the dashboard so it cannot cover the calendar. */
+ body:has(#view-inicio:not(.hidden)) #mgHeader{position:relative;top:auto}
+ #view-inicio .grid > div:has(#calendarioGrid){padding:12px; border-color:#cbd5e1;box-shadow:0 3px 12px #0f172a0c}
+ html.dark #view-inicio .grid > div:has(#calendarioGrid){border-color:#3f3f46;box-shadow:none}
+ #calendarioGrid{gap:4px;grid-auto-rows:64px}
+ #calendarioGrid > button,#calendarioGrid > div{height:64px;min-height:64px;max-height:64px;overflow:hidden}
+ #calendarioGrid > button{align-items:center;justify-content:center;gap:5px;background:#f8fafc;border-color:#cbd5e1;padding:2px}
+ html.dark #calendarioGrid > button{background:#27272a;border-color:#52525b}
+ #calendarioGrid > button > span:first-child{font-size:14px;color:#27272a}
+ html.dark #calendarioGrid > button > span:first-child{color:#fafafa}
+ #calendarioGrid > button[aria-current="date"]{background:#fbbf24;border-color:#b45309}
+ html.dark #calendarioGrid > button[aria-current="date"]{background:#fbbf24;border-color:#b45309}
+ #calendarioGrid > button[aria-current="date"] > span:first-child{background:transparent;color:#18181b}
+ #calendarioGrid > button > div:not(.mg-cal-compact){display:none}
+ #calendarioGrid > button > .mg-cal-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;align-items:center;justify-items:center;width:100%;max-width:36px;min-height:20px;line-height:1;font-size:11px;font-weight:800}
+ .mg-cal-compact > span{font-size:11px;line-height:10px}
+ .mg-cal-income,.mg-cal-paid{color:#047857}.mg-cal-expense,.mg-cal-overdue{color:#b91c1c}.mg-cal-future{color:#047857}.mg-cal-pending{color:#92400e}.mg-cal-unknown{color:#475569}
+ html.dark .mg-cal-income,html.dark .mg-cal-paid,html.dark .mg-cal-future{color:#6ee7b7}
+ html.dark .mg-cal-expense,html.dark .mg-cal-overdue{color:#fda4af}html.dark .mg-cal-pending{color:#fcd34d}html.dark .mg-cal-unknown{color:#d4d4d8}
+ html.dark #calendarioGrid > button[aria-current="date"] .mg-cal-compact > span{color:#18181b}
+ .mg-cal-legend-extra{display:flex;flex-wrap:wrap;gap:5px 10px;font-size:11px;font-weight:600;margin:8px 0;color:#475569}
+ html.dark .mg-cal-legend-extra{color:#d4d4d8}
+ #calTitulo{font-size:16px}#calSubtitulo,#calDiasComSaida{font-size:12px;color:#475569}
+ html.dark #calSubtitulo,html.dark #calDiasComSaida{color:#d4d4d8}
+ #calTotalSaidas{color:#b91c1c}#calTotalGanhos{color:#047857}
+ html.dark #calTotalSaidas{color:#fda4af}html.dark #calTotalGanhos{color:#6ee7b7}
+}
+</style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
 
@@ -1182,6 +1239,7 @@ html[data-motion="desativado"] #mgMobileNav button{transition:none!important}
               </div>
 
               <div id="calendarioGrid" class="grid grid-cols-7 gap-1.5"></div>
+              <div class="mg-cal-legend-extra"><span>✓ Quitado</span><span>! Vencido</span><span>◷ Pendente</span><span>? Não classificado</span></div>
             </div>
 
             <div class="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800 grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
@@ -2866,10 +2924,25 @@ function renderInicio() {
       const iso = `${anoStr}-${mesStr}-${String(dia).padStart(2, "0")}`;
       const info = mapaDia[iso] || { ganho: 0, gasto: 0, futuro: 0 };
       const selecionado = diaSelecionadoFiltro === iso;
+      const eventosDia = eventosCalendario.filter(x=>(x.dv||x.data)===iso);
+      const despesasDia = eventosDia.filter(x=>x.tipo==='gasto');
+      const estadosDia = despesasDia.map(x=>situacao(x,x.dv||x.data));
+      const marcasDia = [
+        [eventosDia.some(x=>x.tipo==='ganho'),'mg-cal-income','●','Receita'],
+        [despesasDia.length>0,'mg-cal-expense','●','Despesa'],
+        [!!info.futuro,'mg-cal-future','◌','Futuro'],
+        [estadosDia.length>0&&estadosDia.every(x=>x==='Pago'),'mg-cal-paid','✓','Dia quitado'],
+        [estadosDia.includes('Vencido'),'mg-cal-overdue','!','Vencido'],
+        [estadosDia.includes('Pendente'),'mg-cal-pending','◷','Pendente'],
+        [estadosDia.includes('Não classificado'),'mg-cal-unknown','?','Não classificado']
+      ].filter(x=>x[0]);
+      const compactoDia = marcasDia.map(x=>`<span class="${x[1]}" title="${x[3]}">${x[2]}</span>`).join('');
+
       celulas.push(`
-        <button type="button" data-cal-date="${iso}" class="min-h-[92px] p-1.5 rounded-xl border text-left flex flex-col gap-1 transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
+        <button type="button" data-cal-date="${iso}" ${iso === dataHoje() ? 'aria-current="date"' : ''} class="min-h-[92px] p-1.5 rounded-xl border text-left flex flex-col gap-1 transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
           <span class="text-[11px] font-bold tabular-nums text-zinc-700 dark:text-zinc-200">${dia}</span>
-          <div class="space-y-1 leading-tight w-full">${calStatus(eventosCalendario.filter(x=>(x.dv||x.data)===iso),info.futuro)}</div>
+          <div class="space-y-1 leading-tight w-full">${calStatus(eventosDia,info.futuro)}</div>
+          <div class="mg-cal-compact" aria-label="${marcasDia.map(x=>x[3]).join(', ')}">${compactoDia}</div>
         </button>
       `);
     }
