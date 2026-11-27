@@ -774,6 +774,49 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
   #statusMsg.mg-undo-temporario {bottom:max(12px,env(safe-area-inset-bottom));right:12px;max-width:calc(100vw - 24px);}
 }
 </style>
+<style id="mgMobileHeaderCSS">
+/* B02: mobile header only; existing controls and handlers retained. */
+@media (max-width:1023px) {
+ #mgHeader {padding:10px 12px; background:#fff; border-bottom:1px solid #e4e4e7;}
+ html.dark #mgHeader {background:#111113;border-color:#3f3f46;}
+ #mgHeader .mg-head-top {display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:6px;align-items:center;}
+ #mgHeader .mg-brand {margin:0;min-width:0;gap:6px;}
+ #mgHeader .mg-brand strong {font-size:14px;line-height:1.2;overflow-wrap:normal;}
+ #mgHeader .mg-brand small,#mgHeader .mg-wallet {display:none;}
+ #mgHeader .mg-head-actions {margin:0;gap:4px;flex-wrap:nowrap;}
+ #mgHeader :is(#btnOpenMobile,#btnTogglePrivacy,#btnToggleTheme,#bGoogleLogin,#bGoogleLogout) {min-width:44px;min-height:44px;padding:6px;display:flex;align-items:center;justify-content:center;border-radius:12px;}
+ #mgHeader #btnToggleTheme {font-size:0;}
+ #mgHeader #btnToggleTheme::before {font-size:19px;margin:0;}
+ #mgHeader #bGoogleLogin span {display:none;}
+ #mgHeader .mg-sync {gap:4px;}
+ #mgHeader .mg-sync>div {border:0;background:transparent;padding:0;gap:4px;}
+ #mgHeader #syncStatus {font-size:10px;max-width:72px;white-space:normal;overflow-wrap:anywhere;}
+ #mgHeader .mg-head-bottom {display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:8px;padding-top:8px;}
+ #mgHeader #mgPageTitle {font-size:17px;line-height:1.25;}
+ #mgHeader #mgPageSubtitle {display:none;}
+ #mgHeader .mg-head-period {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:0;width:100%;}
+ #mgHeader .mg-head-period>div {min-width:0;justify-content:space-between;padding:2px 4px;gap:2px;}
+ #mgHeader #mes {flex:1;min-width:0;width:0;max-width:none;font-size:14px;min-height:40px;}
+ #mgHeader :is(#btnPrevMonth,#btnNextMonth) {min-width:44px;min-height:44px;display:grid;place-items:center;padding:4px;}
+ #mgHeader #btnOpenModal {min-height:48px;padding:8px 12px;border-radius:12px;gap:6px;background:#f5b82e;color:#18181b;}
+ #mgHeader #btnOpenModal span {font-size:12px;}
+}
+@media (max-width:480px) {
+ #mgHeader .mg-head-top {grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:4px;}
+ #mgHeader .mg-head-actions {display:contents;}
+ #mgHeader .mg-brand {grid-column:2;grid-row:1;}
+ #mgHeader .mg-brand strong {font-size:16px;}
+ #mgHeader #btnTogglePrivacy {grid-column:3;grid-row:1;}
+ #mgHeader #btnToggleTheme {grid-column:4;grid-row:1;}
+ #mgHeader .mg-sync {grid-column:1 / -1;grid-row:2;justify-content:space-between;}
+ #mgHeader #syncStatus {max-width:none;font-size:12px;}
+ #mgHeader #bGoogleLogin span.lg\:hidden {display:inline;}
+ #mgHeader #bGoogleLogin {gap:6px;}
+}
+@media (max-width:1023px) {
+ #mgHeader [hidden] {display:none!important;}
+}
+</style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
 
