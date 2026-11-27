@@ -742,6 +742,266 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
 @media(prefers-reduced-motion:reduce){html[data-motion] :is(dialog,#modalDia)::backdrop{animation:none!important;transition:none!important}}
 @media(hover:none),(pointer:coarse){html[data-motion] #syncDot[data-sync-state="busy"]{animation:none!important}}
 </style>
+<style id="mgMobileFoundationCSS">
+/* Explicit desktop breakpoint for the mobile menu controls. */
+@media (min-width:1024px){
+  #mgHeader #btnOpenMobile, #sidebar #btnCloseMobile, #mobileBackdrop {display:none!important;}
+}
+
+/* B01: responsive foundation; desktop and financial scripts unchanged. */
+@media (max-width:1023px){
+  body > .flex-1 {min-width:0;max-width:100%;}
+  main, main .view-section, main .view-section > *, main .grid > *, main .flex > * {min-width:0;}
+  main .view-section {max-width:100%;overflow-wrap:anywhere;}
+  main .overflow-x-auto {max-width:100%;overscroll-behavior-x:contain;}
+  #sidebar {max-width:calc(100vw - 24px);height:100vh;height:100dvh;}
+  #statusBanner > span {min-width:0;overflow-wrap:anywhere;}
+  #mgHeader .mg-head-top,#mgHeader .mg-head-bottom {flex-wrap:wrap;}
+  #mgHeader .mg-head-actions {flex-wrap:wrap;max-width:100%;}
+  #mgHeader .mg-head-period {flex-wrap:wrap;max-width:100%;}
+  #mgHeader .mg-head-page {min-width:0;overflow-wrap:anywhere;}
+  main img, main svg {max-width:100%;}
+}
+@media (max-width:767px){
+  main {padding:12px!important;}
+  main .view-section > * + * {margin-top:12px!important;}
+  #statusBanner {padding-inline:12px;}
+  #mgHeader {padding-inline:10px;}
+  #mgHeader .mg-head-top {justify-content:flex-start;}
+  #mgHeader .mg-head-actions {margin-left:auto;}
+  #mgHeader .mg-head-period {margin-left:0;}
+  #mgHeader #btnOpenMobile,#mgHeader #btnTogglePrivacy,#mgHeader #btnToggleTheme {min-height:40px;min-width:40px;}
+  #statusMsg.mg-undo-temporario {bottom:max(12px,env(safe-area-inset-bottom));right:12px;max-width:calc(100vw - 24px);}
+}
+</style>
+<style id="mgMobileHeaderCSS">
+/* B02: mobile header only; existing controls and handlers retained. */
+@media (max-width:1023px) {
+ #mgHeader {padding:10px 12px; background:#fff; border-bottom:1px solid #e4e4e7;}
+ html.dark #mgHeader {background:#111113;border-color:#3f3f46;}
+ #mgHeader .mg-head-top {display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:6px;align-items:center;}
+ #mgHeader .mg-brand {margin:0;min-width:0;gap:6px;}
+ #mgHeader .mg-brand strong {font-size:14px;line-height:1.2;overflow-wrap:normal;}
+ #mgHeader .mg-brand small,#mgHeader .mg-wallet {display:none;}
+ #mgHeader .mg-head-actions {margin:0;gap:4px;flex-wrap:nowrap;}
+ #mgHeader :is(#btnOpenMobile,#btnTogglePrivacy,#btnToggleTheme,#bGoogleLogin,#bGoogleLogout) {min-width:44px;min-height:44px;padding:6px;display:flex;align-items:center;justify-content:center;border-radius:12px;}
+ #mgHeader #btnToggleTheme {font-size:0;}
+ #mgHeader #btnToggleTheme::before {font-size:19px;margin:0;}
+ #mgHeader #bGoogleLogin span {display:none;}
+ #mgHeader .mg-sync {gap:4px;}
+ #mgHeader .mg-sync>div {border:0;background:transparent;padding:0;gap:4px;}
+ #mgHeader #syncStatus {font-size:10px;max-width:72px;white-space:normal;overflow-wrap:anywhere;}
+ #mgHeader .mg-head-bottom {display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:8px;padding-top:8px;}
+ #mgHeader #mgPageTitle {font-size:17px;line-height:1.25;}
+ #mgHeader #mgPageSubtitle {display:none;}
+ #mgHeader .mg-head-period {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:0;width:100%;}
+ #mgHeader .mg-head-period>div {min-width:0;justify-content:space-between;padding:2px 4px;gap:2px;}
+ #mgHeader #mes {flex:1;min-width:0;width:0;max-width:none;font-size:14px;min-height:40px;}
+ #mgHeader :is(#btnPrevMonth,#btnNextMonth) {min-width:44px;min-height:44px;display:grid;place-items:center;padding:4px;}
+ #mgHeader #btnOpenModal {min-height:48px;padding:8px 12px;border-radius:12px;gap:6px;background:#f5b82e;color:#18181b;}
+ #mgHeader #btnOpenModal span {font-size:12px;}
+}
+@media (max-width:480px) {
+ #mgHeader .mg-head-top {grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:4px;}
+ #mgHeader .mg-head-actions {display:contents;}
+ #mgHeader .mg-brand {grid-column:2;grid-row:1;}
+ #mgHeader .mg-brand strong {font-size:16px;}
+ #mgHeader #btnTogglePrivacy {grid-column:3;grid-row:1;}
+ #mgHeader #btnToggleTheme {grid-column:4;grid-row:1;}
+ #mgHeader .mg-sync {grid-column:1 / -1;grid-row:2;justify-content:space-between;}
+ #mgHeader #syncStatus {max-width:none;font-size:12px;}
+ #mgHeader #bGoogleLogin span.lg\:hidden {display:inline;}
+ #mgHeader #bGoogleLogin {gap:6px;}
+}
+@media (max-width:1023px) {
+ #mgHeader [hidden] {display:none!important;}
+}
+</style>
+<style id="mgMobilePaymentsCSS">
+#view-pagamentos :is(input,select,button):focus-visible {
+  outline:2px solid #b45309;
+  outline-offset:2px;
+}
+html.dark #view-pagamentos :is(input,select,button):focus-visible {outline-color:#fbbf24;}
+@media (max-width:1023px) {
+  #view-pagamentos :is(.mg-pag-controls,.mg-pag-summary,.mg-pag-expense,.mg-pag-invoice,.mg-pag-values) {
+    display:grid;
+    min-width:0;
+    gap:10px;
+    overflow-wrap:anywhere;
+  }
+  #view-pagamentos :is(.mg-pag-controls,.mg-pag-summary) {grid-template-columns:repeat(2,minmax(0,1fr));}
+  #view-pagamentos .mg-pag-controls #pagLote {grid-column:1/-1;}
+  #view-pagamentos .mg-pag-controls > * {min-width:0;max-width:100%;box-sizing:border-box;}
+  #view-pagamentos :is(select,button,#pagBusca) {min-height:44px;}
+  #view-pagamentos [data-pag-total] {min-width:0;padding:12px;}
+  #view-pagamentos .mg-pag-expense {grid-template-columns:auto minmax(0,1fr) auto;align-items:center;}
+  #view-pagamentos .mg-pag-meta {min-width:0;}
+  #view-pagamentos .mg-pag-expense [data-pag-acao] {grid-column:2/-1;justify-self:stretch;}
+  #view-pagamentos .mg-pag-expense .mg-pag-state {grid-column:2/-1;}
+  #view-pagamentos [data-pag-check] {width:20px;height:20px;margin:0;}
+  #view-pagamentos .mg-pag-values {grid-template-columns:repeat(3,minmax(0,1fr));}
+  #view-pagamentos .mg-pag-values strong {display:block;}
+  #view-pagamentos .mg-pag-invoice [data-reverter-fat] {display:inline-flex;align-items:center;}
+}
+</style>
+<style id="mgMobileNavCSS">
+#mgMobileNav{display:none}
+@media (max-width:1023px){
+ #mgMobileNav{position:fixed;inset:auto 0 0;z-index:25;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #e4e4e7;box-shadow:0 -4px 20px #0001;color:#52525b;box-sizing:border-box}
+ html.dark #mgMobileNav{background:#111113;border-color:#3f3f46;color:#a1a1aa}
+ #mgMobileNav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:60px;border-radius:12px;font-size:10px;line-height:1.2;color:inherit;background:transparent;transition:color 150ms ease,background-color 150ms ease}
+ #mgMobileNav button[aria-current="page"]{color:#92400e;background:#fef3c7;font-weight:700}
+ html.dark #mgMobileNav button[aria-current="page"]{color:#fbbf24;background:#292216}
+ #mgMobileNav svg{width:23px;height:23px;flex:none}
+ #mgMobileNav .mg-nav-plus{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#f5b82e;color:#18181b}
+ #mgMobileNav button:focus-visible{outline:2px solid #d97706;outline-offset:-2px}
+ main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
+ #statusMsg.mg-undo-temporario{bottom:calc(88px + env(safe-area-inset-bottom,0px))!important}
+}
+html[data-motion="desativado"] #mgMobileNav button{transition:none!important}
+@media(prefers-reduced-motion:reduce){#mgMobileNav button{transition:none!important}}
+</style>
+<style id="mgMobileDashboardCSS">
+/* B04: presentation only, preserve all financial values and existing charts. */
+@media (max-width:767px){
+ #view-inicio > .grid:has(#kpiResultado){grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+ #view-inicio > .grid:has(#kpiResultado)>div{padding:12px;min-width:0;border-top:2px solid var(--mg-kpi-accent);}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(1){--mg-kpi-accent:#d4a72c;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(2){--mg-kpi-accent:#10b981;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(3){--mg-kpi-accent:#ef4444;}
+ #view-inicio > .grid:has(#kpiResultado)>div:nth-child(4){--mg-kpi-accent:#60a5fa;}
+ #view-inicio > .grid:has(#kpiResultado)>div>div:first-child{flex-direction:column;align-items:flex-start;gap:4px;min-height:48px;margin-bottom:6px;}
+ #view-inicio > .grid:has(#kpiResultado)>div>div:first-child>span{max-width:100%;white-space:normal;overflow-wrap:anywhere;}
+ #view-inicio :is(#kpiResultado,#kpiReceitas,#kpiDespesas,#kpiSaldoConta){font-size:clamp(16px,4.8vw,23px);line-height:1.25;overflow-wrap:anywhere;}
+ #view-inicio :is(#kpiResultadoMeta,#kpiReceitasQtd,#kpiDespesasQtd,#kpiSaldoProjetado){font-size:11px;line-height:1.4;overflow-wrap:anywhere;}
+ #view-inicio .grid:has(>div #donutSvg)>div:has(#donutSvg){padding:14px;min-width:0;}
+ #view-inicio div:has(>#donutSvg){width:min(100%,210px);height:auto;aspect-ratio:1;}
+ #view-inicio div:has(>div>#tabDonutDespesas){flex-wrap:wrap;}
+ #view-inicio :is(#tabDonutDespesas,#tabDonutReceitas){min-height:44px;}
+ #view-inicio #historicoChart{gap:4px;}
+}
+</style>
+<style id="mgMobileTransactionsCSS">
+@media (max-width:767px){
+ #view-transacoes .btn-voltar-aba{white-space:nowrap;flex-shrink:0;min-height:44px}
+ #view-transacoes :is(#filtroBusca,#filtroTipo,#filtroCat,#filtroConta){min-height:44px;min-width:0;width:100%;font-size:16px}
+ #view-transacoes div:has(> #filtroBusca){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;width:100%}
+ #filtroBusca,#filtroConta{grid-column:1/-1}
+ #view-transacoes table:has(#tabelaTransacoes){display:block;width:100%}
+ #view-transacoes table:has(#tabelaTransacoes) thead{display:block}
+ #view-transacoes table:has(#tabelaTransacoes) thead tr{display:flex;align-items:center}
+ #view-transacoes table:has(#tabelaTransacoes) th:not(:first-child){display:none}
+ #view-transacoes table:has(#tabelaTransacoes) th:first-child{width:auto;min-height:44px;display:flex;align-items:center;gap:8px}
+ #view-transacoes table:has(#tabelaTransacoes) th:first-child::after{content:"Selecionar todos";text-transform:none}
+ #tabelaTransacoes{display:block;padding:8px}
+ #tabelaTransacoes tr{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,auto);gap:6px 8px;padding:12px 8px;margin-bottom:8px;border:1px solid #e4e4e7;border-radius:14px;background:#fafafa}
+ html.dark #tabelaTransacoes tr{background:#18181b;border-color:#3f3f46}
+ #tabelaTransacoes td{padding:0;min-width:0;white-space:normal;overflow-wrap:anywhere}
+ #tabelaTransacoes td:nth-child(1){grid-column:1;grid-row:1/3;align-self:center}
+ #tabelaTransacoes td:nth-child(2){grid-column:2/-1;grid-row:1;color:#71717a}
+ #tabelaTransacoes td:nth-child(3){grid-column:2;grid-row:2}
+ #tabelaTransacoes td:nth-child(4){grid-column:2;grid-row:3}
+ #tabelaTransacoes td:nth-child(5){grid-column:2/-1;grid-row:4}
+ #tabelaTransacoes td:nth-child(6){grid-column:3;grid-row:2/4;align-self:center;font-size:14px;max-width:38vw}
+ #tabelaTransacoes td:nth-child(7){grid-column:1/-1;grid-row:5;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;border-top:1px solid #a1a1aa33;padding-top:6px}
+ #tabelaTransacoes td[colspan]{grid-column:1/-1;grid-row:auto;padding:12px}
+ #tabelaTransacoes button,#listaFuturosTransacoes button,#barraLote button{min-height:44px;min-width:44px}
+ #listaFuturosTransacoes .flex{flex-wrap:wrap}
+ #f,#formEditModal{padding:12px!important;min-width:0}
+ #f :is(input:not([type=checkbox]):not([type=radio]),select),#formEditModal :is(input:not([type=checkbox]):not([type=hidden]),select){min-width:0;max-width:100%;font-size:16px;min-height:44px}
+ #f [role=radiogroup] label span{min-height:44px;display:flex;align-items:center;padding-inline:9px}
+ #f #bAdd{width:100%;min-height:48px}
+ dialog:has(> #f){max-width:calc(100vw - 16px);max-height:85vh;max-height:85dvh;overflow:auto;padding:10px!important}
+ #modalEdit{overflow-y:auto;padding:8px;align-items:flex-start}
+ #formEditModal{margin:auto;max-height:calc(100dvh - 16px);overflow:auto}
+}
+</style>
+<style id="mgMobileCalendarCSS">
+@media(max-width:767px){
+ #view-inicio .grid > div:has(#calendarioGrid){padding:10px;min-width:0}
+ #calendarioGrid,#view-inicio .grid-cols-7:has(+ #calendarioGrid){grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+ #view-inicio .grid-cols-7:has(+ #calendarioGrid){font-size:10px;letter-spacing:0}
+ #calendarioGrid > button{min-height:64px;padding:3px;gap:3px;border-radius:8px;overflow-wrap:anywhere;overflow:visible}
+ #calendarioGrid > button > span{font-size:12px;line-height:1.4}
+ #calendarioGrid > button > div > div{font-size:10px;line-height:1.25;overflow-wrap:anywhere;word-break:normal}
+ #calendarioGrid > button > div strong{font-size:10px;overflow-wrap:anywhere}
+ #calendarioGrid > div{height:auto;min-height:64px;border-radius:8px}
+ #calendarioGrid > button[aria-current="date"] > span{background:#f5b82e;color:#18181b;border-radius:5px;padding:0 3px}
+ #calendarioGrid > button:focus-visible{outline:2px solid #d97706;outline-offset:-2px}
+ html.dark #calendarioGrid .text-emerald-600{color:#6ee7b7}
+ html.dark #calendarioGrid .text-red-600,html.dark #calendarioGrid .text-rose-600{color:#fda4af}
+ html.dark #calendarioGrid .text-amber-600{color:#fcd34d}
+ html.dark #calendarioGrid .text-zinc-500{color:#d4d4d8}
+ #calTotalSaidas,#calTotalGanhos{font-size:18px;overflow-wrap:anywhere}
+ #modalDia{padding:10px;z-index:50}
+ #modalDiaCard{padding:14px;max-height:calc(100dvh - 20px);overflow-y:auto;min-width:0}
+ #modalDiaCard button{min-height:44px;min-width:44px;white-space:normal}
+ #modalDiaLista > div{flex-wrap:wrap;gap:8px;overflow-wrap:anywhere}
+ #modalDiaLista > div > div{min-width:0;max-width:100%}
+ #modalDiaCard > div:last-child > div{flex:1 1 100%}
+ #modalDiaCard > div:last-child > div > button{flex:1 1 120px}
+}
+</style>
+<style id="mgMobileCalendarRev01CSS">
+.mg-cal-compact,.mg-cal-legend-extra{display:none}
+@media(max-width:767px){
+ /* Keep the header in normal flow on the dashboard so it cannot cover the calendar. */
+ body:has(#view-inicio:not(.hidden)) #mgHeader{position:relative;top:auto}
+ #view-inicio .grid > div:has(#calendarioGrid){padding:12px; border-color:#cbd5e1;box-shadow:0 3px 12px #0f172a0c}
+ html.dark #view-inicio .grid > div:has(#calendarioGrid){border-color:#3f3f46;box-shadow:none}
+ #calendarioGrid{gap:4px;grid-auto-rows:64px}
+ #calendarioGrid > button,#calendarioGrid > div{height:64px;min-height:64px;max-height:64px;overflow:hidden}
+ #calendarioGrid > button{align-items:center;justify-content:center;gap:5px;background:#f8fafc;border-color:#cbd5e1;padding:2px}
+ html.dark #calendarioGrid > button{background:#27272a;border-color:#52525b}
+ #calendarioGrid > button > span:first-child{font-size:14px;color:#27272a}
+ html.dark #calendarioGrid > button > span:first-child{color:#fafafa}
+ #calendarioGrid > button[aria-current="date"]{background:#fbbf24;border-color:#b45309}
+ html.dark #calendarioGrid > button[aria-current="date"]{background:#fbbf24;border-color:#b45309}
+ #calendarioGrid > button[aria-current="date"] > span:first-child{background:transparent;color:#18181b}
+ #calendarioGrid > button > div:not(.mg-cal-compact){display:none}
+ #calendarioGrid > button > .mg-cal-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;align-items:center;justify-items:center;width:100%;max-width:36px;min-height:20px;line-height:1;font-size:11px;font-weight:800}
+ .mg-cal-compact > span{font-size:11px;line-height:10px}
+ .mg-cal-income,.mg-cal-paid{color:#047857}.mg-cal-expense,.mg-cal-overdue{color:#b91c1c}.mg-cal-future{color:#047857}.mg-cal-pending{color:#92400e}.mg-cal-unknown{color:#475569}
+ html.dark .mg-cal-income,html.dark .mg-cal-paid,html.dark .mg-cal-future{color:#6ee7b7}
+ html.dark .mg-cal-expense,html.dark .mg-cal-overdue{color:#fda4af}html.dark .mg-cal-pending{color:#fcd34d}html.dark .mg-cal-unknown{color:#d4d4d8}
+ html.dark #calendarioGrid > button[aria-current="date"] .mg-cal-compact > span{color:#18181b}
+ .mg-cal-legend-extra{display:flex;flex-wrap:wrap;gap:5px 10px;font-size:11px;font-weight:600;margin:8px 0;color:#475569}
+ html.dark .mg-cal-legend-extra{color:#d4d4d8}
+ #calTitulo{font-size:16px}#calSubtitulo,#calDiasComSaida{font-size:12px;color:#475569}
+ html.dark #calSubtitulo,html.dark #calDiasComSaida{color:#d4d4d8}
+ #calTotalSaidas{color:#b91c1c}#calTotalGanhos{color:#047857}
+ html.dark #calTotalSaidas{color:#fda4af}html.dark #calTotalGanhos{color:#6ee7b7}
+}
+</style>
+<style id="mgMobileBankingCSS">
+.mg-bank-face{border:1px solid #ffffff45;border-radius:22px!important;box-shadow:0 12px 28px #0004,inset 0 1px 0 #ffffff50!important;color:white;position:relative;isolation:isolate;min-width:0;overflow-wrap:anywhere}
+.mg-bank-face::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:repeating-radial-gradient(ellipse at 110% -30%,transparent 0 19px,#ffffff12 20px 21px,transparent 22px 32px)}
+.mg-bank-face[data-finish="carbon"]::after{background:repeating-linear-gradient(135deg,#ffffff08 0 2px,transparent 2px 6px)}
+.mg-bank-face[data-finish="metal"]::after{background:repeating-linear-gradient(0deg,#ffffff0b 0 1px,transparent 1px 4px),linear-gradient(115deg,transparent 30%,#ffffff25 48%,transparent 65%)}
+.mg-bank-face[data-finish="glass"]::after{background:linear-gradient(135deg,#ffffff30,transparent 55%),radial-gradient(ellipse at 90% 0%,#ffffff30,transparent 60%)}
+.mg-bank-chip{display:inline-block;width:36px;height:27px;border-radius:6px;background:linear-gradient(135deg,#fff1bd,#a58a48 55%,#f3d88d);border:1px solid #f8e4a5;position:relative;flex:none}
+.mg-bank-chip:before{content:"";position:absolute;inset:7px 0;border-block:1px solid #75602e}.mg-bank-chip:after{content:"";position:absolute;inset:0 11px;border-inline:1px solid #75602e}
+.mg-bank-brand{font-weight:900;font-style:italic;letter-spacing:.04em;font-size:15px}.mg-bank-status{font-size:11px;border:1px solid #ffffff55;border-radius:20px;padding:4px 8px;white-space:nowrap}
+.mg-bank-face .mg-bank-progress{background:linear-gradient(90deg,#b78b31,#ffe5a0)}
+#view-contas .btn-voltar-aba{white-space:nowrap;flex-shrink:0;min-height:44px}
+#contasGrid>div{border-radius:20px;box-shadow:0 5px 18px #00000012}#contasGrid [data-mg-counter]{padding:16px;border-radius:14px;background:#e9eef5;color:#172b46}html.dark #contasGrid [data-mg-counter]{background:#253247;color:#e6efff}
+:is(#cadastroCartaoMG,#cadastroContaMG,.mg-bank-edit) label{display:block;font-weight:600;font-size:13px;margin:8px 0;min-width:0}
+:is(#cadastroCartaoMG,#cadastroContaMG,.mg-bank-edit) :is(input:not([type=checkbox]),select){display:block;width:100%;min-width:0;min-height:44px;border:1px solid #a1a1aa;border-radius:10px;padding:9px;margin-top:5px;background:#fafafa;color:#18181b;box-sizing:border-box}
+html.dark :is(#cadastroCartaoMG,#cadastroContaMG,.mg-bank-edit) :is(input:not([type=checkbox]),select){background:#27272a;color:#fafafa;border-color:#71717a;color-scheme:dark}
+:is(#cadastroCartaoMG,#cadastroContaMG,.mg-bank-edit) input[type=color]{padding:4px;min-height:48px}
+#cadastroCartaoMG [data-previa],.mg-bank-edit [data-preview]{display:block;min-height:150px;padding:18px}
+.mg-bank-preview-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.mg-bank-preview-value{font-size:24px;font-weight:800;margin-top:5px}
+@media(max-width:767px){#view-contas #cartaoAbas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#cartaoAbas button{padding:8px 3px;font-size:11px;min-height:44px}#faturasCartoesGrid>article{padding:10px}#faturasCartoesGrid .mg-bank-face{padding:15px}#faturasCartoesGrid .mg-bank-face [data-mg-counter]{font-size:clamp(20px,6vw,30px)}#faturasCartoesGrid select{max-width:100%}#view-contas :is(#novoCartaoDireto,#novaContaIntegrada){width:100%;min-height:44px}:is(#cadastroCartaoMG,#cadastroContaMG,.mg-bank-edit){padding:16px!important;max-width:94vw;max-height:88dvh} :is(#cadastroCartaoMG,#cadastroContaMG) .mg-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
+</style>
+<style id="mgBankRev01">
+.mg-bank-face{display:grid!important;gap:9px!important;padding:17px!important;min-height:0!important;aspect-ratio:1.62;align-content:space-between;overflow:visible!important;text-shadow:0 1px 3px #0008;box-shadow:0 8px 20px #0003,inset 0 1px 0 #ffffff55!important}
+.mg-bank-face>*{margin:0!important;min-width:0}.mg-bank-face>div:first-child{justify-content:flex-start}.mg-bank-face>div:first-child>b{font-size:clamp(17px,5vw,23px);flex:1;overflow-wrap:anywhere}.mg-bank-face details{z-index:5}.mg-bank-face details summary{min-width:28px;text-align:center}.mg-bank-face details button{text-shadow:none}
+.mg-bank-face::after,.mg-bank-face[data-finish="metal"]::after{background:repeating-radial-gradient(ellipse at 120% -65%,transparent 0 15px,#ffffff16 16px 17px,transparent 18px 25px),linear-gradient(125deg,transparent 20%,#ffffff18 47%,transparent 68%)}
+.mg-bank-face[data-finish="carbon"]::after{background:repeating-linear-gradient(135deg,#ffffff07 0 2px,transparent 2px 7px),radial-gradient(ellipse at 100% 0%,#ffffff18,transparent 65%)}
+.mg-bank-chiprow{display:flex;align-items:center;gap:8px}.mg-bank-contact{font-size:18px;letter-spacing:-2px;opacity:.8}.mg-bank-chip{background:linear-gradient(135deg,#fff3c5,#b29b64 48%,#f9dda0);width:35px;height:26px}.mg-bank-label{font-size:11px;line-height:1.25;color:#fff;opacity:.86}.mg-bank-amount{font-size:clamp(21px,7vw,30px)!important;line-height:1.15}.mg-bank-meter{display:grid;gap:4px}.mg-bank-meter .h-2{height:5px}.mg-bank-bottom{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:8px;align-items:end;font-size:14px;line-height:1.25}.mg-bank-brand:empty{display:none}.mg-bank-brand[data-brand="Mastercard"]{font-size:9px;font-style:normal;display:grid;justify-items:center;gap:2px}.mg-bank-brand[data-brand="Mastercard"]:before{content:"";width:39px;height:23px;background:radial-gradient(circle at 32% 50%,#eb001b 0 11px,transparent 12px),radial-gradient(circle at 68% 50%,#f79e1b 0 11px,transparent 12px)}.mg-bank-extra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:13px;overflow-wrap:anywhere}.mg-bank-extra .text-xs{font-size:11px}.mg-bank-face[data-finish="classic"]::after{background:none}
+@media(max-width:380px){.mg-bank-face{padding:13px!important;gap:7px!important}.mg-bank-bottom{font-size:12px;gap:5px}.mg-bank-label{font-size:10px}.mg-bank-extra{font-size:12px}}
+</style>
 </head>
 <body class="min-h-screen flex overflow-x-hidden bg-[#f7f8fa] text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors">
 
@@ -1035,6 +1295,7 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
               </div>
 
               <div id="calendarioGrid" class="grid grid-cols-7 gap-1.5"></div>
+              <div class="mg-cal-legend-extra"><span>✓ Quitado</span><span>! Vencido</span><span>◷ Pendente</span><span>? Não classificado</span></div>
             </div>
 
             <div class="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800 grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
@@ -1364,7 +1625,18 @@ html[data-motion="desativado"] :is(dialog,#modalDia)::backdrop{animation:none!im
       </section>
 
       <!-- VISÃO 4: CONTAS & CARTÃO -->
-      <section id="view-pagamentos" class="view-section hidden space-y-4"><h1 class="text-xl font-bold">Controle de Pagamentos</h1><div id="pagResumo"></div><div class="flex flex-wrap gap-2"><select id="pagFiltro" class="rounded-lg border bg-transparent p-2"><option>Todos</option><option>Pago</option><option>Pendente</option><option>Vencido</option><option>Não classificado</option></select><input id="pagBusca" placeholder="Buscar conta, categoria ou descrição" class="rounded-lg border bg-transparent p-2 flex-1"><button id="pagLote" class="bg-amber-400 text-black rounded-lg px-3">Confirmar selecionados</button></div><div id="pagLista"></div></section>
+      <section id="view-pagamentos" class="view-section hidden space-y-4">
+        <h1 class="text-xl font-bold">Controle de Pagamentos</h1>
+        <div id="pagResumo"></div>
+        <div class="mg-pag-controls flex flex-wrap gap-2">
+          <select id="pagFiltro" aria-label="Filtrar por situação" class="rounded-lg border bg-transparent p-2">
+            <option>Todos</option><option>Pago</option><option>Pendente</option><option>Vencido</option><option>Não classificado</option>
+          </select>
+          <input id="pagBusca" type="search" aria-label="Buscar pagamentos" placeholder="Buscar conta, categoria ou descrição" class="rounded-lg border bg-transparent p-2 flex-1">
+          <button type="button" id="pagLote" class="bg-amber-400 text-black rounded-lg px-3">Confirmar selecionados</button>
+        </div>
+        <div id="pagLista"></div>
+      </section>
       <section id="view-contas" class="view-section hidden space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-3">
@@ -2719,10 +2991,25 @@ function renderInicio() {
       const iso = `${anoStr}-${mesStr}-${String(dia).padStart(2, "0")}`;
       const info = mapaDia[iso] || { ganho: 0, gasto: 0, futuro: 0 };
       const selecionado = diaSelecionadoFiltro === iso;
+      const eventosDia = eventosCalendario.filter(x=>(x.dv||x.data)===iso);
+      const despesasDia = eventosDia.filter(x=>x.tipo==='gasto');
+      const estadosDia = despesasDia.map(x=>situacao(x,x.dv||x.data));
+      const marcasDia = [
+        [eventosDia.some(x=>x.tipo==='ganho'),'mg-cal-income','●','Receita'],
+        [despesasDia.length>0,'mg-cal-expense','●','Despesa'],
+        [!!info.futuro,'mg-cal-future','◌','Futuro'],
+        [estadosDia.length>0&&estadosDia.every(x=>x==='Pago'),'mg-cal-paid','✓','Dia quitado'],
+        [estadosDia.includes('Vencido'),'mg-cal-overdue','!','Vencido'],
+        [estadosDia.includes('Pendente'),'mg-cal-pending','◷','Pendente'],
+        [estadosDia.includes('Não classificado'),'mg-cal-unknown','?','Não classificado']
+      ].filter(x=>x[0]);
+      const compactoDia = marcasDia.map(x=>`<span class="${x[1]}" title="${x[3]}">${x[2]}</span>`).join('');
+
       celulas.push(`
-        <button type="button" data-cal-date="${iso}" class="min-h-[92px] p-1.5 rounded-xl border text-left flex flex-col gap-1 transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
+        <button type="button" data-cal-date="${iso}" ${iso === dataHoje() ? 'aria-current="date"' : ''} class="min-h-[92px] p-1.5 rounded-xl border text-left flex flex-col gap-1 transition ${selecionado ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 ring-2 ring-amber-400" : "border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-white dark:bg-zinc-900"}">
           <span class="text-[11px] font-bold tabular-nums text-zinc-700 dark:text-zinc-200">${dia}</span>
-          <div class="space-y-1 leading-tight w-full">${calStatus(eventosCalendario.filter(x=>(x.dv||x.data)===iso),info.futuro)}</div>
+          <div class="space-y-1 leading-tight w-full">${calStatus(eventosDia,info.futuro)}</div>
+          <div class="mg-cal-compact" aria-label="${marcasDia.map(x=>x[3]).join(', ')}">${compactoDia}</div>
         </button>
       `);
     }
@@ -5759,16 +6046,28 @@ function renderPagamentos(){
  const due=f=>f.data<dataHoje()?'Vencido':'Pendente';
  const totals=Object.fromEntries(states.map(st=>[st,all.filter(g=>situacao(g,g.dv||g.data)===st).reduce((a,g)=>a+g.valor,0)]));
  for(const {f} of invoices){totals.Pago+=f.pago;totals[due(f)]+=f.restante;}
- $('pagResumo').innerHTML='<p class="text-xs mb-2">Totais por mês de vencimento da fatura; saídas efetivas por data de pagamento no calendário.</p><div class="grid grid-cols-2 lg:grid-cols-4 gap-3">'+states.map(st=>`<div data-pag-total="${st}" class="border rounded-xl p-4 ${corStatus(st)}">${st}<div class="text-xl font-bold">${brl(totals[st])}</div></div>`).join('')+'</div>';
+ $('pagResumo').innerHTML='<p class="text-xs mb-2">Totais por mês de vencimento da fatura; saídas efetivas por data de pagamento no calendário.</p><div class="mg-pag-summary grid grid-cols-2 lg:grid-cols-4 gap-3">'+states.map(st=>`<div data-pag-total="${st}" class="border rounded-xl p-4 ${corStatus(st)}">${st}<div class="text-xl font-bold">${brl(totals[st])}</div></div>`).join('')+'</div>';
  const filtro=$('pagFiltro').value,busca=$('pagBusca').value.toLowerCase();
  const matches=(...v)=>v.join(' ').toLowerCase().includes(busca);
- const rows=all.filter(g=>(filtro==='Todos'||situacao(g,g.dv||g.data)===filtro)&&matches(g.desc,g.conta,g.cat)).map(g=>{const d=g.dv||g.data,st=situacao(g,d);return {d,html:`<div class="border rounded-xl p-3 mb-2 flex flex-wrap items-center gap-3"><input type="checkbox" data-pag-check="${esc(g.id)}" data-dia="${d}"><div class="flex-1"><b>${esc(g.desc)}</b><div class="text-xs">${dataBR(d)} · ${esc(g.conta)} · ${esc(g.cat)}</div></div><b>${brl(g.valor)}</b><span class="${corStatus(st)}">${st}</span><button class="border rounded-lg p-2" data-pag-acao="${esc(g.id)}" data-dia="${d}">${st==='Pago'?'Desfazer':'Confirmar'}</button></div>`};});
+ const rows=all.filter(g=>(filtro==='Todos'||situacao(g,g.dv||g.data)===filtro)&&matches(g.desc,g.conta,g.cat)).map(g=>{
+  const d=g.dv||g.data,st=situacao(g,d),acao=st==='Pago'?'Desfazer':'Confirmar';
+  return {d,html:`<div class="mg-pag-expense border rounded-xl p-3 mb-2 flex flex-wrap items-center gap-3">
+    <input type="checkbox" aria-label="Selecionar ${esc(g.desc)} de ${dataBR(d)}" data-pag-check="${esc(g.id)}" data-dia="${d}">
+    <div class="mg-pag-meta flex-1"><b>${esc(g.desc)}</b><div class="text-xs">${dataBR(d)} · ${esc(g.conta)} · ${esc(g.cat)}</div></div>
+    <b>${brl(g.valor)}</b><span class="mg-pag-state ${corStatus(st)}">${st}</span>
+    <button type="button" class="border rounded-lg p-2" data-pag-acao="${esc(g.id)}" data-dia="${d}">${acao}</button>
+  </div>`};
+ });
  for(const {c,f} of invoices){const st=f.restante?due(f):f.pago?'Pago':'Estornada';if(!matches('Fatura',c.nome,'Fatura Cartão')||!(filtro==='Todos'||filtro==='Pago'&&f.pago>0||filtro===due(f)&&f.restante>0))continue;
- rows.push({d:f.data,html:`<div data-pag-fatura="${esc(c.id)}" class="border rounded-xl p-3 mb-2 space-y-2"><div class="flex flex-wrap justify-between gap-2"><b>Fatura ${esc(c.nome)} ${c.cancelado?'(cancelado)':''}</b><span class="${corStatus(st)}">${f.restante&&f.pago?'Parcial · ':''}${st}</span></div><div class="text-xs">Vencimento: ${dataBR(f.data)}</div><div class="flex flex-wrap gap-4"><span>Total: <b>${brl(f.total)}</b></span><span>Pago: <b>${brl(f.pago)}</b></span><span>Restante: <b>${brl(f.restante)}</b></span></div>${f.credito?`<p>Crédito: ${brl(f.credito)}</p>`:''}${f.restante?`<button class="border rounded-lg p-2" data-pagar-fatura="${esc(c.id)}" data-fatura-mes="${m}">Pagar fatura</button>`:''}${f.pagamentos.map(g=>`<div class="text-xs">${dataBR(g.data)} · ${brl(g.valor)} · ${esc(g.conta)} ${g.estornadoEm?'Estornado':`<button class="underline text-red-600" data-reverter-fat="${esc(g.id)}">Estornar pagamento</button>`}</div>`).join('')}</div>`});}
- $('pagLista').innerHTML=rows.sort((a,b)=>a.d.localeCompare(b.d)).map(r=>r.html).join('')||'Nenhuma despesa.';
+ rows.push({d:f.data,html:`<div data-pag-fatura="${esc(c.id)}" class="mg-pag-invoice border rounded-xl p-3 mb-2 space-y-2"><div class="flex flex-wrap justify-between gap-2"><b>Fatura ${esc(c.nome)} ${c.cancelado?'(cancelado)':''}</b><span class="${corStatus(st)}">${f.restante&&f.pago?'Parcial · ':''}${st}</span></div><div class="text-xs">Vencimento: ${dataBR(f.data)}</div><div class="mg-pag-values flex flex-wrap gap-4"><span>Total: <strong>${brl(f.total)}</strong></span><span>Pago: <strong>${brl(f.pago)}</strong></span><span>Restante: <strong>${brl(f.restante)}</strong></span></div>${f.credito?`<p>Crédito: ${brl(f.credito)}</p>`:''}${f.restante?`<button type="button" class="border rounded-lg p-2" data-pagar-fatura="${esc(c.id)}" data-fatura-mes="${m}">Pagar fatura</button>`:''}${f.pagamentos.map(g=>`<div class="text-xs">${dataBR(g.data)} · ${brl(g.valor)} · ${esc(g.conta)} ${g.estornadoEm?'Estornado':`<button type="button" class="underline text-red-600" data-reverter-fat="${esc(g.id)}">Estornar pagamento</button>`}</div>`).join('')}</div>`});}
+ $('pagLista').innerHTML=rows.sort((a,b)=>a.d.localeCompare(b.d)).map(r=>r.html).join('')||(filtro==='Todos'&&!busca?'Nenhuma despesa.':'Nenhum pagamento encontrado.');
 }
 function coresCartaoMG(c){const hex=(v,d)=>/^#[0-9a-f]{6}$/i.test(v||'')?v:d;return {cor:hex(c.cor,'#6528a0'),cor2:hex(c.cor2,'#18181b'),angulo:Number.isFinite(Number(c.angulo))?Math.max(0,Math.min(360,Number(c.angulo))):135};}
 function gradienteCartaoMG(c){const a=coresCartaoMG(c);return `linear-gradient(rgba(0,0,0,.58),rgba(0,0,0,.58)),linear-gradient(${a.angulo}deg,${a.cor},${a.cor2})`;}
+function estiloBancoMG(c){return {acabamento:['metal','carbon','glass','classic'].includes(c.acabamento)?c.acabamento:'metal',bandeira:['Visa','Mastercard','Elo','Amex','Outra'].includes(c.bandeira)?c.bandeira:''};}
+function fundoBancoMG(c){const a=coresCartaoMG(c);return `linear-gradient(120deg,#ffffff0c,#00000035),linear-gradient(${a.angulo}deg,${a.cor},${a.cor2})`;}
+function camposBancoMG(c={}){const a=estiloBancoMG(c);return `<div class="mg-grid"><label>Acabamento<select name="acabamento">${[['metal','Metálico'],['carbon','Carbono'],['glass','Glass'],['classic','Clássico']].map(([v,n])=>`<option value="${v}" ${a.acabamento===v?'selected':''}>${n}</option>`).join('')}</select></label><label>Bandeira<select name="bandeira">${['','Visa','Mastercard','Elo','Amex','Outra'].map(v=>`<option value="${v}" ${a.bandeira===v?'selected':''}>${v||'Não informada'}</option>`).join('')}</select></label></div>`;}
+function previaBancoMG(el,c){const a=estiloBancoMG(c);el.classList.add('mg-bank-face');el.dataset.finish=a.acabamento;el.style.background=fundoBancoMG(c);el.innerHTML=`<div class="mg-bank-preview-row"><b>${esc(c.nome||'Novo cartão')}</b></div><div class="mg-bank-chiprow"><span class="mg-bank-chip" aria-hidden="true"></span><span class="mg-bank-contact" aria-hidden="true">)))</span></div><div><div class="mg-bank-label">Limite total</div><div class="mg-bank-amount">${brl(Number(c.limite)||0)}</div></div><div class="mg-bank-bottom"><div><div class="mg-bank-label">Fechamento</div>Dia ${esc(String(c.fechamento||10))}</div><div><div class="mg-bank-label">Vencimento</div>Dia ${esc(String(c.vencimento||17))}</div><span class="mg-bank-brand" data-brand="${esc(a.bandeira)}">${esc(a.bandeira)}</span></div>`;}
 const modelosCartaoMG={Nubank:['#820ad1','#250040'],Itaú:['#003399','#ec7000'],Inter:['#ff7a00','#a63c00'],Santander:['#ec0000','#780000'],Black:['#374151','#09090b'],C6:['#64748b','#111827'],BTG:['#004b87','#071c35'],BB:['#f9dd16','#d4a900'],Personalizado:['#0d9488','#134e4a']};
 function renderCartoesNovos(m,opts){
  const el=$('faturasCartoesGrid');if(!el)return;
@@ -5780,17 +6079,18 @@ function renderCartoesNovos(m,opts){
  const comprometido=compromissoCartao(c),lim=Number(c.limite)||0, pct=lim?comprometido/lim*100:0;
  const cor=/^#[0-9a-f]{6}$/i.test(c.cor||'')?c.cor:'#6528a0';
  return `<article class="min-w-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-4 shadow-sm space-y-4">
- <div class="rounded-2xl p-5 text-white shadow-lg space-y-3" data-card-gradient style="background:${gradienteCartaoMG(c)}">
- <div class="flex justify-between items-center gap-2"><b class="text-lg break-all">${esc(c.nome)}${c.cancelado?' (cancelado)':c.arquivado?(c.tipo==='cartao'?' (bloqueado)':' (arquivado)'):''}</b><span aria-hidden="true">▰</span><details class="relative"><summary class="cursor-pointer list-none text-2xl" aria-label="Opções do cartão">⋮</summary><div class="absolute right-0 z-20 w-40 bg-white text-zinc-900 rounded-xl shadow-xl p-2 text-sm"><button type="button" class="block w-full text-left p-2" data-editar-card="${esc(c.id)}">Editar cartão</button>${!c.cancelado?`<button type="button" class="block w-full text-left p-2" data-bloquear-card="${esc(c.id)}">${c.arquivado?'Desbloquear':'Bloquear'}</button><button type="button" class="block w-full text-left p-2" data-cancelar-card="${esc(c.id)}">Cancelar cartão</button>`:''}<button type="button" class="block w-full text-left p-2 text-red-600" data-excluir-card="${esc(c.id)}">Excluir</button></div></details></div>
- <div class="text-xs opacity-80">Limite disponível estimado</div><div data-mg-counter="cartao-${esc(c.id)}" class="text-3xl font-extrabold tabular-nums">${lim?brl(lim-comprometido):'Não informado'}</div>
- <div class="h-2 rounded-full bg-white/25 overflow-hidden"><div class="h-full rounded-full bg-white" style="width:${Math.min(100,Math.max(0,pct))}%"></div></div><div class="flex justify-between text-xs gap-2"><span>Comprometido: ${brl(comprometido)}</span><span>${lim?pct.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—'}</span></div>
- <div class="border-t border-white/30 pt-3 grid grid-cols-2 gap-3"><div><div class="text-xs opacity-80">Limite total</div><b>${lim?brl(lim):'Não informado'}</b></div><div><div class="text-xs opacity-80">Fatura de ${nomeMes(m)}</div><b>${brl(f.total)}</b></div></div>
- <div class="grid grid-cols-2 text-sm gap-2"><div>Fechamento <b>dia ${c.fechamento}</b></div><div>Vencimento <b>dia ${c.vencimento}</b></div></div></div>
+ <div class="mg-bank-face rounded-2xl p-5 text-white shadow-lg space-y-3" data-card-gradient data-finish="${estiloBancoMG(c).acabamento}" style="background:${fundoBancoMG(c)}">
+ <div class="flex justify-between items-center gap-2"><b class="text-lg break-words">${esc(c.nome)}${c.cancelado?' (cancelado)':c.arquivado?(c.tipo==='cartao'?' (bloqueado)':' (arquivado)'):''}</b><span class="mg-bank-status">${c.cancelado?"Cancelado":c.arquivado?"Bloqueado":"Ativo"}</span><details class="relative"><summary class="cursor-pointer list-none text-2xl" aria-label="Opções do cartão">⋮</summary><div class="absolute right-0 z-20 w-40 bg-white text-zinc-900 rounded-xl shadow-xl p-2 text-sm"><button type="button" class="block w-full text-left p-2" data-editar-card="${esc(c.id)}">Editar cartão</button>${!c.cancelado?`<button type="button" class="block w-full text-left p-2" data-bloquear-card="${esc(c.id)}">${c.arquivado?'Desbloquear':'Bloquear'}</button><button type="button" class="block w-full text-left p-2" data-cancelar-card="${esc(c.id)}">Cancelar cartão</button>`:''}<button type="button" class="block w-full text-left p-2 text-red-600" data-excluir-card="${esc(c.id)}">Excluir</button></div></details></div>
+ <div class="mg-bank-chiprow"><span class="mg-bank-chip" aria-hidden="true"></span><span class="mg-bank-contact" aria-hidden="true">)))</span></div>
+ <div class="mg-bank-limit"><div class="mg-bank-label">Limite disponível estimado</div><div data-mg-counter="cartao-${esc(c.id)}" class="mg-bank-amount text-3xl font-extrabold tabular-nums">${lim?brl(lim-comprometido):'Não informado'}</div></div>
+ <div class="mg-bank-meter"><div class="h-2 rounded-full bg-white/25 overflow-hidden"><div class="mg-bank-progress h-full rounded-full" style="width:${Math.min(100,Math.max(0,pct))}%"></div></div><div class="mg-bank-label">${lim?pct.toLocaleString('pt-BR',{maximumFractionDigits:1})+'% do limite utilizado':'Limite não informado'}</div></div>
+ <div class="mg-bank-bottom"><div><div class="mg-bank-label">Fatura de ${nomeMes(m)}</div><b>${brl(f.total)}</b></div><div><div class="mg-bank-label">Vencimento</div><b>Dia ${c.vencimento}</b></div><span class="mg-bank-brand" data-brand="${esc(estiloBancoMG(c).bandeira)}">${esc(estiloBancoMG(c).bandeira)}</span></div></div>
+ <div class="mg-bank-extra rounded-xl bg-zinc-100 dark:bg-zinc-800 p-3"><div><div class="text-xs">Limite total</div><b>${lim?brl(lim):'Não informado'}</b></div><div><div class="text-xs">Comprometido</div><b>${brl(comprometido)}</b></div><div><div class="text-xs">Fechamento</div><b>Dia ${c.fechamento}</b></div></div>
  <div class="rounded-xl bg-zinc-100 dark:bg-zinc-800 p-3"><b>Fatura ${nomeMes(m)} · ${dataBR(f.data)}</b><div class="grid grid-cols-3 gap-2 mt-2 text-xs"><div>Total<br><b>${brl(f.total)}</b></div><div>Pago<br><b class="text-emerald-600">${brl(f.pago)}</b></div><div>Restante<br><b class="text-amber-600">${brl(f.restante)}</b></div></div></div>
  ${f.credito?`<p class="text-emerald-600 font-bold">Crédito a favor nesta fatura: ${brl(f.credito)} (conciliação manual)</p>`:''}${f.restante?`<select class="border rounded p-2 bg-transparent" data-pagar-origem="${esc(c.id)}">${opts}</select> <button class="bg-amber-400 text-black rounded p-2" data-pagar-fatura="${esc(c.id)}">Registrar pagamento</button>`:''}${!c.cancelado&&!c.arquivado?`<button type="button" class="border rounded p-2" data-importar-fatura-mg="${esc(c.id)}">Importar fatura</button>`:""}<details open><summary class="font-bold">Compras da fatura — estornar compra</summary>${f.compras.map(g=>`<div class="text-xs py-1">${esc(g.desc)} · ${esc(g.nomeCartaoHistorico||g.conta)} · ${brl(g.valor)} ${botaoEstornoMG(g)} ${(g.estornosCompra||[]).filter(e=>e.ocorrencia===(g.dv||g.data)).map(e=>`<span class="text-emerald-600">Estornado ${brl(e.valor)} em ${dataBR(e.data.slice(0,10))}</span>`).join(" ")}</div>`).join('')}</details><details><summary>Próximas 12 faturas</summary>${futuros.map(x=>`<div class="text-xs py-1">${nomeMes(x.m)} · ${brl(x.f.restante)}</div>`).join('')}</details><details open><summary class="font-bold">Histórico de pagamentos / Estorno</summary>${f.pagamentos.map(g=>`<div>${dataBR(g.data)} · ${brl(g.valor)} ${g.estornadoEm?`<span>Estornado em ${dataBR(g.estornadoEm.slice(0,10))}</span>`:`<button class="underline text-red-600" data-reverter-fat="${esc(g.id)}">Estornar pagamento</button>`}</div>`).join('')}</details>${lim&&comprometido/lim>=.85?'<div class="text-amber-600">Atenção: limite comprometido acima de 85%.</div>':''}${f.restante&&f.data<dataHoje()?'<div class="text-rose-600">Fatura vencida</div>':''}</article>`}).join('')||'<div class="col-span-full text-center border border-dashed rounded-2xl p-8"><b>Nenhum cartão cadastrado</b><p class="text-sm mt-2">Cadastre seu primeiro cartão no formulário acima.</p></div>';
 mgCounterRestore(el,oldCounters);
 }
-function editarCartao(id){const c=contasLista.find(x=>String(x.id)===id);if(!c)return;const dlg=document.createElement('dialog');dlg.className='rounded-2xl p-6 w-[min(92vw,540px)] max-h-[90vh] overflow-auto bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white shadow-xl';dlg.innerHTML=`<form class="space-y-3"><h2 class="text-xl font-bold">Editar cartão</h2><label class="block">Nome<input name="nome" required class="w-full border rounded-lg p-2 bg-transparent" value="${esc(c.nome)}"></label><label class="block">Limite (R$)<input name="limite" type="number" min="0" step="0.01" class="w-full border rounded-lg p-2 bg-transparent" value="${Number(c.limite)||0}"></label><div class="grid grid-cols-2 gap-2"><label>Fechamento<input name="fechamento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.fechamento||10}"></label><label>Vencimento<input name="vencimento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.vencimento||17}"></label></div><label class="block">Modelo de cores<select name="modelo" class="w-full border rounded-lg p-2"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${n}</option>`).join('')}</select></label><div class="grid grid-cols-2 gap-2"><label>Cor inicial <input name="cor" type="color" value="${coresCartaoMG(c).cor}"></label><label>Cor final <input name="cor2" type="color" value="${coresCartaoMG(c).cor2}"></label></div><label class="block">Ângulo (graus)<input name="angulo" type="number" min="0" max="360" required value="${coresCartaoMG(c).angulo}" class="w-full border rounded-lg p-2 bg-transparent"></label><button type="button" data-inverter class="border rounded-lg p-2">Inverter cores</button><div data-preview class="rounded-xl p-4 text-white font-bold"></div><div class="flex justify-end gap-2"><button type="button" data-cancel class="border rounded-lg p-2">Cancelar</button><button class="bg-amber-400 text-black rounded-lg p-2">Salvar</button></div></form>`;document.body.append(dlg);const form=dlg.querySelector('form'),v=()=>Object.fromEntries(new FormData(form));const preview=()=>{const a=v(),el=dlg.querySelector('[data-preview]');el.style.background=gradienteCartaoMG(a);el.textContent=a.nome+' · Limite '+brl(Number(a.limite)||0)+' · Fechamento '+a.fechamento+' · Vencimento '+a.vencimento;};form.addEventListener('input',preview);form.elements.modelo.addEventListener('change',()=>{const m=modelosCartaoMG[form.elements.modelo.value];if(m){[form.elements.cor.value,form.elements.cor2.value]=m;preview();}});dlg.querySelector('[data-inverter]').onclick=()=>{[form.elements.cor.value,form.elements.cor2.value]=[form.elements.cor2.value,form.elements.cor.value];preview();};preview();dlg.querySelector('[data-cancel]').onclick=()=>dlg.close();dlg.addEventListener('close',()=>dlg.remove());form.onsubmit=e=>{e.preventDefault();const a=v(),nome=a.nome.trim();if(!nome||contasLista.some(x=>x!==c&&x.nome.toLowerCase()===nome.toLowerCase()&&!(x.tipo==='cartao'&&x.cancelado)))return avisarMG('Nome inválido ou duplicado.');vincularCartoesLegados();prepararDesfazer();const antigo=c.nome;for(const g of gastos){if(cartaoDe(g)===c){g.cartaoId=c.id;g.nomeCartaoHistorico ||= g.conta||antigo;}}Object.assign(c,{nome,limite:Number(a.limite)||0,fechamento:Number(a.fechamento),vencimento:Number(a.vencimento),...coresCartaoMG(a)});if(salvar()){dlg.close();popularSelectsContas();renderTudo();}};dlg.showModal();}
+function editarCartao(id){const c=contasLista.find(x=>String(x.id)===id);if(!c)return;const dlg=document.createElement('dialog');dlg.className='mg-bank-edit rounded-2xl p-6 w-[min(92vw,540px)] max-h-[90vh] overflow-auto bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white shadow-xl';dlg.innerHTML=`<form class="space-y-3"><h2 class="text-xl font-bold">Editar cartão</h2><label class="block">Nome<input name="nome" required class="w-full border rounded-lg p-2 bg-transparent" value="${esc(c.nome)}"></label><label class="block">Limite (R$)<input name="limite" type="number" min="0" step="0.01" class="w-full border rounded-lg p-2 bg-transparent" value="${Number(c.limite)||0}"></label><div class="grid grid-cols-2 gap-2"><label>Fechamento<input name="fechamento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.fechamento||10}"></label><label>Vencimento<input name="vencimento" type="number" min="1" max="31" required class="w-full border rounded-lg p-2 bg-transparent" value="${c.vencimento||17}"></label></div><label class="block">Modelo de cores<select name="modelo" class="w-full border rounded-lg p-2"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${n}</option>`).join('')}</select></label><div class="grid grid-cols-2 gap-2"><label>Cor inicial <input name="cor" type="color" value="${coresCartaoMG(c).cor}"></label><label>Cor final <input name="cor2" type="color" value="${coresCartaoMG(c).cor2}"></label></div><label class="block">Ângulo (graus)<input name="angulo" type="number" min="0" max="360" required value="${coresCartaoMG(c).angulo}" class="w-full border rounded-lg p-2 bg-transparent"></label><button type="button" data-inverter class="border rounded-lg p-2">Inverter cores</button>${camposBancoMG(c)}<div data-preview class="rounded-xl p-4 text-white font-bold"></div><div class="flex justify-end gap-2"><button type="button" data-cancel class="border rounded-lg p-2">Cancelar</button><button class="bg-amber-400 text-black rounded-lg p-2">Salvar</button></div></form>`;document.body.append(dlg);const form=dlg.querySelector('form'),v=()=>Object.fromEntries(new FormData(form));const preview=()=>{const a=v(),el=dlg.querySelector('[data-preview]');previaBancoMG(el,a);};form.addEventListener('input',preview);form.elements.modelo.addEventListener('change',()=>{const m=modelosCartaoMG[form.elements.modelo.value];if(m){[form.elements.cor.value,form.elements.cor2.value]=m;preview();}});dlg.querySelector('[data-inverter]').onclick=()=>{[form.elements.cor.value,form.elements.cor2.value]=[form.elements.cor2.value,form.elements.cor.value];preview();};preview();dlg.querySelector('[data-cancel]').onclick=()=>dlg.close();dlg.addEventListener('close',()=>dlg.remove());form.onsubmit=e=>{e.preventDefault();const a=v(),nome=a.nome.trim();if(!nome||contasLista.some(x=>x!==c&&x.nome.toLowerCase()===nome.toLowerCase()&&!(x.tipo==='cartao'&&x.cancelado)))return avisarMG('Nome inválido ou duplicado.');vincularCartoesLegados();prepararDesfazer();const antigo=c.nome;for(const g of gastos){if(cartaoDe(g)===c){g.cartaoId=c.id;g.nomeCartaoHistorico ||= g.conta||antigo;}}Object.assign(c,{nome,limite:Number(a.limite)||0,fechamento:Number(a.fechamento),vencimento:Number(a.vencimento),...coresCartaoMG(a),...estiloBancoMG(a)});if(salvar()){dlg.close();popularSelectsContas();renderTudo();}};dlg.showModal();}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-editar-card],[data-bloquear-card],[data-excluir-card]');if(!b)return;const id=b.dataset.editarCard||b.dataset.bloquearCard||b.dataset.excluirCard,c=contasLista.find(x=>String(x.id)===id);if(!c)return;if(b.dataset.editarCard)return editarCartao(id);if(c.cancelado&&!b.dataset.excluirCard)return;if(b.dataset.excluirCard){if([...gastos,...ganhosFuturos].some(g=>cartaoDe(g)===c||String(g.cartaoId)===id))return avisarMG('Cartão com histórico: mantenha o registro para preservar os dados.');if(!c.cancelado)return avisarMG('Cancele o cartão antes de excluir.');if((await perguntarMG('Digite EXCLUIR para confirmar'))!=='EXCLUIR')return;prepararDesfazer();contasLista=contasLista.filter(x=>x!==c);}else{if(!c.arquivado&&!await confirmarMG('Bloquear cartão? Novas compras serão impedidas. Faturas e histórico serão preservados.'))return;prepararDesfazer();const anterior=c.arquivado;c.arquivado=!c.arquivado;if(!salvar()){c.arquivado=anterior;return;}popularSelectsContas();renderTudo();return;}if(salvar()){popularSelectsContas();renderTudo();}});
 
 function registrarFatura(id,mes){
@@ -5842,12 +6142,12 @@ renderTudo();
 function abrirCadastroCartaoMG(existing){
  if(document.querySelector('#cadastroCartaoMG'))return;
  const d=document.createElement('dialog');d.id='cadastroCartaoMG';d.className='rounded-2xl p-5 w-[min(95vw,760px)] max-h-[90vh] overflow-auto bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white';
- d.innerHTML=`<form class="space-y-3"><h2 class="font-bold text-xl">${existing?'Importar fatura':'Novo cartão'}</h2><div ${existing?'hidden':''}><label>Nome <input name="nome" required value="${esc(existing?.nome||'')}" class="border rounded p-2 w-full"></label><div class="mg-grid"><label>Limite (R$) <input name="limite" type="number" min="0" step="0.01" required value="${existing?.limite||0}"></label><label> Fechamento <input name="fechamento" type="number" min="1" max="31" required value="${existing?.fechamento||10}"></label><label> Vencimento <input name="vencimento" type="number" min="1" max="31" required value="${existing?.vencimento||17}"></label></div><label>Modelo de cores<select name="modelo"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${esc(n)}</option>`).join('')}</select></label><div class="mg-grid"><label>Cor inicial<input name="cor" type="color" value="#6528a0"></label><label>Cor final<input name="cor2" type="color" value="#18181b"></label><label>Ângulo (graus)<input name="angulo" type="number" min="0" max="360" value="135"></label></div><div><button type="button" data-inverter>Inverter</button></div><div data-previa class="rounded-xl p-5 text-white"></div></div><label>Mês da fatura <input name="mes" type="month" required value="${$('mes').value||mesAtual()}"></label><label class="block">Fatura opcional (PDF, OFX, CSV, XLSX)<input name="arquivo" type="file" accept=".pdf,.ofx,.csv,.xlsx" class="block"></label><p class="text-xs">Revise os valores e datas. Marque somente compras; pagamentos, créditos e estornos não são importados como compras. Para parcelas, informe a parcela atual e o total; serão incluídas a atual e as futuras.</p><div data-erro role="alert"></div><div data-linhas></div><div class="mg-actions"><button type="button" data-cancelar>Cancelar</button><button type="submit">Confirmar</button></div></form>`;
+ d.innerHTML=`<form class="space-y-3"><h2 class="font-bold text-xl">${existing?'Importar fatura':'Novo cartão'}</h2><div ${existing?'hidden':''}><label>Nome <input name="nome" required value="${esc(existing?.nome||'')}" class="border rounded p-2 w-full"></label><div class="mg-grid"><label>Limite (R$) <input name="limite" type="number" min="0" step="0.01" required value="${existing?.limite||0}"></label><label> Fechamento <input name="fechamento" type="number" min="1" max="31" required value="${existing?.fechamento||10}"></label><label> Vencimento <input name="vencimento" type="number" min="1" max="31" required value="${existing?.vencimento||17}"></label></div><label>Modelo de cores<select name="modelo"><option value="">Escolher modelo</option>${Object.keys(modelosCartaoMG).map(n=>`<option>${esc(n)}</option>`).join('')}</select></label><div class="mg-grid"><label>Cor inicial<input name="cor" type="color" value="#6528a0"></label><label>Cor final<input name="cor2" type="color" value="#18181b"></label><label>Ângulo (graus)<input name="angulo" type="number" min="0" max="360" value="135"></label></div><div><button type="button" data-inverter>Inverter</button></div>${camposBancoMG(existing||{})}<div data-previa class="rounded-xl p-5 text-white"></div></div><label>Mês da fatura <input name="mes" type="month" required value="${$('mes').value||mesAtual()}"></label><label class="block">Fatura opcional (PDF, OFX, CSV, XLSX)<input name="arquivo" type="file" accept=".pdf,.ofx,.csv,.xlsx" class="block"></label><p class="text-xs">Revise os valores e datas. Marque somente compras; pagamentos, créditos e estornos não são importados como compras. Para parcelas, informe a parcela atual e o total; serão incluídas a atual e as futuras.</p><div data-erro role="alert"></div><div data-linhas></div><div class="mg-actions"><button type="button" data-cancelar>Cancelar</button><button type="submit">Confirmar</button></div></form>`;
  document.body.append(d);const f=d.querySelector('form'),e=f.elements,err=d.querySelector('[data-erro]'),list=d.querySelector('[data-linhas]'),submit=f.querySelector('[type=submit]');let rows=[],seq=0,failed=false;
- const preview=()=>{const p=d.querySelector('[data-previa]');p.style.background=gradienteCartaoMG({cor:e.cor.value,cor2:e.cor2.value,angulo:e.angulo.value});p.textContent=(e.nome.value||'Novo cartão')+' · Limite '+brl(Number(e.limite.value)||0);};f.addEventListener('input',preview);e.modelo.onchange=()=>{const a=modelosCartaoMG[e.modelo.value];if(a){e.cor.value=a[0];e.cor2.value=a[1];preview();}};d.querySelector('[data-inverter]').onclick=()=>{[e.cor.value,e.cor2.value]=[e.cor2.value,e.cor.value];preview();};preview();
+ const preview=()=>{const p=d.querySelector('[data-previa]');previaBancoMG(p,Object.fromEntries(new FormData(f)));};f.addEventListener('input',preview);e.modelo.onchange=()=>{const a=modelosCartaoMG[e.modelo.value];if(a){e.cor.value=a[0];e.cor2.value=a[1];preview();}};d.querySelector('[data-inverter]').onclick=()=>{[e.cor.value,e.cor2.value]=[e.cor2.value,e.cor.value];preview();};preview();
  e.arquivo.onchange=async()=>{const token=++seq;rows=[];list.innerHTML='';err.textContent='';failed=false;const file=e.arquivo.files[0];if(!file){submit.disabled=false;return;}submit.disabled=true;try{const buf=await file.arrayBuffer(),n=file.name.toLowerCase(),year=Number(e.mes.value.slice(0,4));let a;if(n.endsWith('.xlsx'))a=await parseXLSXBuffer(buf,year);else if(n.endsWith('.ofx'))a=parseOFXTexto(decodificarTexto(buf));else if(n.endsWith('.pdf')){const p=await lerPDFExtrato(buf);a=p.linhas?extrairItensDePDFPosicional(p.linhas,year):[];if(!a.length)a=extrairItensDeTextoExtrato(p.texto,year);}else if(n.endsWith('.csv'))a=parseCSVTexto(decodificarTexto(buf),year);else throw Error('Formato inválido');if(token!==seq||!d.open)return;if(!a.length)throw Error('Nenhuma linha reconhecida');rows=a;list.innerHTML=a.map((r,i)=>{const m=String(r.desc).match(/\b(\d{1,2})\s*\/\s*(\d{1,2})\b/);return `<div data-row="${i}" class="border rounded p-2"><label><input type="checkbox" data-use ${r.tipo==='gasto'&&!/pagamento|estorno|crédito|saldo/i.test(r.desc)?'checked':''}> Importar compra</label> <input data-date type="date" value="${esc(r.data)}"> <input data-desc value="${esc(r.desc)}" class="border rounded"> <input data-value type="number" min="0.01" step="0.01" value="${Number(r.valor)}"> <label>Parcela <input data-part type="number" min="1" max="120" value="${m?Number(m[1]):1}"></label><label> de <input data-total type="number" min="1" max="120" value="${m?Number(m[2]):1}"></label></div>`;}).join('');}catch(x){if(token===seq){failed=true;err.textContent=x.message;}}finally{if(token===seq)submit.disabled=failed;}};
  d.querySelector('[data-cancelar]').onclick=()=>d.close();d.addEventListener('close',()=>{seq++;d.remove();});
- f.onsubmit=ev=>{ev.preventDefault();err.textContent='';if(failed||submit.disabled)return;const nome=e.nome.value.trim(),m=e.mes.value;const c=existing||{id:'acc-'+crypto.randomUUID(),nome,tipo:'cartao',saldoInicial:0,limite:Number(e.limite.value),fechamento:Number(e.fechamento.value),vencimento:Number(e.vencimento.value),cor:e.cor.value,cor2:e.cor2.value,angulo:Number(e.angulo.value)};if(!nome||(!existing&&contasLista.some(x=>!x.cancelado&&x.nome.toLowerCase()===nome.toLowerCase()))){err.textContent='Nome inválido ou já cadastrado';return;}if(existing&&(existing.cancelado||existing.arquivado)){err.textContent='Cartão indisponível';return;}const novos=[],key=g=>[g.cartaoId,g.faturaMesCompra||mesFatura(g,c),g.compraEm||g.data,String(g.desc).replace(/ \(\d+\/\d+\)$/,'').trim().toLowerCase(),Math.round(g.valor*100)].join('|');const seen=new Set(gastos.filter(g=>cartaoDe(g)===c&&!g.quitaçãoCartao).map(key));let dup=0;for(const row of list.querySelectorAll('[data-row]')){if(!row.querySelector('[data-use]').checked)continue;const val=s=>row.querySelector(s).value,dt=val('[data-date]'),desc=val('[data-desc]').trim().replace(/\s*\(?\d{1,2}\s*\/\s*\d{1,2}\)?\s*$/,''),v=Number(val('[data-value]')),p=Number(val('[data-part]')),t=Number(val('[data-total]'));if(!/^\d{4}-\d{2}-\d{2}$/.test(dt)||!desc||!Number.isFinite(v)||v<=0||!Number.isInteger(p)||!Number.isInteger(t)||p<1||t<p||t>120){err.textContent='Revise os campos das compras';return;}const grupo=crypto.randomUUID();for(let j=p;j<=t;j++){const fm=deslocarMes(m,j-p),data=diaCiclo(fm,Number(dt.slice(8)));const g={id:'imp-'+crypto.randomUUID(),desc:desc+(t>1?` (${j}/${t})`:''),valor:Math.round(v*100)/100,tipo:'gasto',cat:'Outros',conta:c.nome,cartaoId:c.id,nomeCartaoHistorico:c.nome,data,compraEm:dt,grupoCompra:grupo,parcelaTotal:t,parcelaAtual:j,faturaMesCompra:fm,cicloNovo:true,statusNovo:true,fixo:false};const k=key(g);if(seen.has(k)){dup++;continue;}seen.add(k);novos.push(g);}}if(existing&&!novos.length){err.textContent='Nenhuma compra nova; duplicidades: '+dup;return;}if((existing?compromissoCartao(c):0)+novos.reduce((s,g)=>s+g.valor,0)>c.limite){err.textContent='Compras excedem o limite informado';return;}if(novos.length&&!criarBackupPreventivo("Antes da importação")){err.textContent="Importação bloqueada: falha no backup preventivo.";return;}prepararDesfazer();const oldG=gastos.slice(),oldC=contasLista.slice();if(!existing)contasLista.push(c);gastos.push(...novos);if(!salvar()){gastos=oldG;contasLista=oldC;cacheSaldo.clear();err.textContent='Falha ao salvar';return;}d.close();popularSelectsContas();renderTudo();mostrarDesfazer('Cartão salvo. Compras: '+novos.length+'; duplicidades: '+dup);};d.showModal();
+ f.onsubmit=ev=>{ev.preventDefault();err.textContent='';if(failed||submit.disabled)return;const nome=e.nome.value.trim(),m=e.mes.value;const c=existing||{id:'acc-'+crypto.randomUUID(),nome,tipo:'cartao',saldoInicial:0,limite:Number(e.limite.value),fechamento:Number(e.fechamento.value),vencimento:Number(e.vencimento.value),cor:e.cor.value,cor2:e.cor2.value,angulo:Number(e.angulo.value),...estiloBancoMG(Object.fromEntries(new FormData(f)))};if(!nome||(!existing&&contasLista.some(x=>!x.cancelado&&x.nome.toLowerCase()===nome.toLowerCase()))){err.textContent='Nome inválido ou já cadastrado';return;}if(existing&&(existing.cancelado||existing.arquivado)){err.textContent='Cartão indisponível';return;}const novos=[],key=g=>[g.cartaoId,g.faturaMesCompra||mesFatura(g,c),g.compraEm||g.data,String(g.desc).replace(/ \(\d+\/\d+\)$/,'').trim().toLowerCase(),Math.round(g.valor*100)].join('|');const seen=new Set(gastos.filter(g=>cartaoDe(g)===c&&!g.quitaçãoCartao).map(key));let dup=0;for(const row of list.querySelectorAll('[data-row]')){if(!row.querySelector('[data-use]').checked)continue;const val=s=>row.querySelector(s).value,dt=val('[data-date]'),desc=val('[data-desc]').trim().replace(/\s*\(?\d{1,2}\s*\/\s*\d{1,2}\)?\s*$/,''),v=Number(val('[data-value]')),p=Number(val('[data-part]')),t=Number(val('[data-total]'));if(!/^\d{4}-\d{2}-\d{2}$/.test(dt)||!desc||!Number.isFinite(v)||v<=0||!Number.isInteger(p)||!Number.isInteger(t)||p<1||t<p||t>120){err.textContent='Revise os campos das compras';return;}const grupo=crypto.randomUUID();for(let j=p;j<=t;j++){const fm=deslocarMes(m,j-p),data=diaCiclo(fm,Number(dt.slice(8)));const g={id:'imp-'+crypto.randomUUID(),desc:desc+(t>1?` (${j}/${t})`:''),valor:Math.round(v*100)/100,tipo:'gasto',cat:'Outros',conta:c.nome,cartaoId:c.id,nomeCartaoHistorico:c.nome,data,compraEm:dt,grupoCompra:grupo,parcelaTotal:t,parcelaAtual:j,faturaMesCompra:fm,cicloNovo:true,statusNovo:true,fixo:false};const k=key(g);if(seen.has(k)){dup++;continue;}seen.add(k);novos.push(g);}}if(existing&&!novos.length){err.textContent='Nenhuma compra nova; duplicidades: '+dup;return;}if((existing?compromissoCartao(c):0)+novos.reduce((s,g)=>s+g.valor,0)>c.limite){err.textContent='Compras excedem o limite informado';return;}if(novos.length&&!criarBackupPreventivo("Antes da importação")){err.textContent="Importação bloqueada: falha no backup preventivo.";return;}prepararDesfazer();const oldG=gastos.slice(),oldC=contasLista.slice();if(!existing)contasLista.push(c);gastos.push(...novos);if(!salvar()){gastos=oldG;contasLista=oldC;cacheSaldo.clear();err.textContent='Falha ao salvar';return;}d.close();popularSelectsContas();renderTudo();mostrarDesfazer('Cartão salvo. Compras: '+novos.length+'; duplicidades: '+dup);};d.showModal();
 }
 $('novoCartaoDireto').onclick=()=>abrirCadastroCartaoMG();
 document.addEventListener('click',ev=>{const b=ev.target.closest('[data-importar-fatura-mg]');if(b){const c=contasLista.find(x=>x.id===b.dataset.importarFaturaMg);if(c&&!c.cancelado&&!c.arquivado)abrirCadastroCartaoMG(c);}});
@@ -5892,6 +6192,22 @@ document.getElementById('mgMotionMode').addEventListener('change',e=>{const v=e.
  document.getElementById('mgMotionMode')?.addEventListener('change',()=>reset(active));
  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',()=>reset(active));
  window.addEventListener('blur',()=>reset(active));
+})();
+</script>
+<nav id="mgMobileNav" aria-label="Navegação inferior">
+<button type="button" data-mg-mobile-nav="inicio" aria-current="page"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10h-6v-6H9v6H3z"/></svg><span>Início</span></button>
+<button type="button" data-mg-mobile-nav="transacoes"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h17m-4-4 4 4-4 4M21 17H4m4-4-4 4 4 4"/></svg><span>Transações</span></button>
+<button type="button" data-mg-mobile-nav="novo"><span class="mg-nav-plus"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span><span>Novo</span></button>
+<button type="button" data-mg-mobile-nav="contas"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3zM3 10h18"/></svg><span>Cartões</span></button>
+<button type="button" data-mg-mobile-nav="anual"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10m8 10V4m8 16v-7"/></svg><span>Relatórios</span></button>
+</nav>
+<script id="mgMobileNavJS">
+(()=>{
+ const nav=document.getElementById('mgMobileNav');
+ const buttons=[...nav.querySelectorAll('button')];
+ const sync=()=>{for(const b of buttons){const key=b.dataset.mgMobileNav;const section=document.getElementById('view-'+key);if(section&&!section.classList.contains('hidden'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}};
+ for(const b of buttons)b.addEventListener('click',()=>{const key=b.dataset.mgMobileNav;if(key==='novo'){document.getElementById('btnOpenModal').click();return;}document.querySelector('#sidebar [data-nav="'+key+'"]').click();window.scrollTo(0,0);sync();});
+ const observer=new MutationObserver(sync);document.querySelectorAll('.view-section').forEach(s=>observer.observe(s,{attributes:true,attributeFilter:['class']}));sync();
 })();
 </script>
 </body>
